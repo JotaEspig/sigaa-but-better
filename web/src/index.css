@@ -1,0 +1,302 @@
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+/* Dark variant follows the resolved theme: explicit data-theme or the OS preference. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Design tokens. Colors are defined once here and mapped into Tailwind via
+ * @theme inline, so `bg-surface`, `text-muted`, `border-line`… follow the theme.
+ */
+:root {
+  --bg: #f5f7f5;
+  --surface: #ffffff;
+  --surface-2: #f0f3f0;
+  --surface-3: #e6ebe6;
+  --line: #e1e6e1;
+  --line-strong: #cbd3cb;
+  --fg: #142018;
+  --muted: #5b675e;
+  --subtle: #8a958c;
+
+  --brand: #2f9e41;
+  --brand-strong: #23803a;
+  --brand-soft: #e5f4e7;
+  --brand-fg: #ffffff;
+
+  --danger: #cd191e;
+  --danger-soft: #fde8e8;
+  --warning: #b86e00;
+  --warning-soft: #fff3dc;
+  --info: #2563c9;
+  --info-soft: #e5eefc;
+  --success: #23803a;
+  --success-soft: #e5f4e7;
+
+  --ring: #2f9e41;
+  --bar: #1f7a33;
+  --bar-fg: #ffffff;
+  --shadow-sm: 0 1px 2px rgb(16 24 18 / 0.05);
+  --shadow: 0 1px 3px rgb(16 24 18 / 0.06), 0 8px 24px -12px rgb(16 24 18 / 0.12);
+  --shadow-lg: 0 20px 60px -20px rgb(16 24 18 / 0.35);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c120e;
+  --surface: #131b16;
+  --surface-2: #19231d;
+  --surface-3: #212d25;
+  --line: #243029;
+  --line-strong: #33413a;
+  --fg: #e7efe9;
+  --muted: #9aa89e;
+  --subtle: #6d7b71;
+
+  --brand: #45c05a;
+  --brand-strong: #5fd273;
+  --brand-soft: #173a20;
+  --brand-fg: #06120a;
+
+  --danger: #ff6b6b;
+  --danger-soft: #3a1617;
+  --warning: #f5b544;
+  --warning-soft: #352710;
+  --info: #7aa7ff;
+  --info-soft: #172540;
+  --success: #5fd273;
+  --success-soft: #173a20;
+
+  --ring: #5fd273;
+  --bar: #13301a;
+  --bar-fg: #e7efe9;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 20px 60px -20px rgb(0 0 0 / 0.8);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c120e;
+    --surface: #131b16;
+    --surface-2: #19231d;
+    --surface-3: #212d25;
+    --line: #243029;
+    --line-strong: #33413a;
+    --fg: #e7efe9;
+    --muted: #9aa89e;
+    --subtle: #6d7b71;
+
+    --brand: #45c05a;
+    --brand-strong: #5fd273;
+    --brand-soft: #173a20;
+    --brand-fg: #06120a;
+
+    --danger: #ff6b6b;
+    --danger-soft: #3a1617;
+    --warning: #f5b544;
+    --warning-soft: #352710;
+    --info: #7aa7ff;
+    --info-soft: #172540;
+    --success: #5fd273;
+    --success-soft: #173a20;
+
+    --ring: #5fd273;
+  --bar: #13301a;
+  --bar-fg: #e7efe9;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    --shadow-lg: 0 20px 60px -20px rgb(0 0 0 / 0.8);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-fg: var(--brand-fg);
+  --color-bar: var(--bar);
+  --color-bar-fg: var(--bar-fg);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --shadow-card: var(--shadow);
+  --shadow-soft: var(--shadow-sm);
+  --shadow-pop: var(--shadow-lg);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--brand-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes sbb-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sbb-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@layer components {
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .animate-in {
+    animation: sbb-fade-up 0.35s ease-out both;
+  }
+  .skeleton {
+    border-radius: 0.5rem;
+    background: var(--surface-3);
+    animation: sbb-pulse 1.6s ease-in-out infinite;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Teacher-authored HTML (already sanitized by the BFF). Neutralize SIGAA's inline looks. */
+  .prose-sigaa {
+    color: var(--fg);
+    line-height: 1.65;
+    font-size: 0.9375rem;
+    overflow-wrap: anywhere;
+  }
+  .prose-sigaa :where(p, ul, ol, blockquote, pre, table) {
+    margin: 0.5rem 0;
+  }
+  .prose-sigaa :where(ul) {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .prose-sigaa :where(ol) {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+  .prose-sigaa a {
+    color: var(--brand-strong);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+  .prose-sigaa strong,
+  .prose-sigaa b {
+    font-weight: 600;
+  }
+  .prose-sigaa img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+  .prose-sigaa table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+  .prose-sigaa :where(td, th) {
+    border: 1px solid var(--line);
+    padding: 0.25rem 0.5rem;
+  }
+  .prose-sigaa pre,
+  .prose-sigaa code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em;
+    background: var(--surface-2);
+    border-radius: 0.375rem;
+  }
+  .prose-sigaa pre {
+    padding: 0.75rem;
+    overflow-x: auto;
+  }
+  .prose-sigaa > :first-child {
+    margin-top: 0;
+  }
+  .prose-sigaa > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+/*
+ * Per-class colors: elements set `--c-h` (a hue) via classColorVars() and use
+ * these utilities. Lightness flips with the theme so chips stay legible.
+ */
+@layer components {
+  .class-chip {
+    background: hsl(var(--c-h) 70% 94%);
+    color: hsl(var(--c-h) 60% 26%);
+    border: 1px solid hsl(var(--c-h) 55% 84%);
+  }
+  .class-dot {
+    background: hsl(var(--c-h) 62% 46%);
+  }
+  .class-bar {
+    background: hsl(var(--c-h) 62% 46%);
+  }
+  [data-theme="dark"] .class-chip {
+    background: hsl(var(--c-h) 40% 16%);
+    color: hsl(var(--c-h) 70% 80%);
+    border-color: hsl(var(--c-h) 35% 26%);
+  }
+  [data-theme="dark"] .class-dot,
+  [data-theme="dark"] .class-bar {
+    background: hsl(var(--c-h) 60% 58%);
+  }
+}

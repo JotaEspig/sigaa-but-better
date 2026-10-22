@@ -1,0 +1,2581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		
+		<title>SIGAA - Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</title>
+		<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/available.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/script/controlUtils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/modalPanel.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/modalPanelBorders.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/modalPanel.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.ImageCacheScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/panelbar.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/panelbar.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg/ajax4jsf/javascript/scripts/form.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/simpleTogglePanel.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/simpleTogglePanel.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/toolBar.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalscripts/menu.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/dropdownmenu.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/form.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/menu.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/menucomponents.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery.utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.DnDScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/json/json-dom.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/dnd/dnd-common.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/drag-indicator.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/dragIndicator.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/json/json-mini.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/dnd/dnd-dropzone.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/simple-dropzone.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/dnd/dnd-draggable.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/simple-draggable.js.jsf" type="text/javascript"></script><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link rel="shortcut icon" href="/sigaa/img/sigaa.ico" />
+		
+		<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+
+ 		<script type="text/javascript" src="/shared/jsBundles/jawr_loader.js" ></script>
+ 		
+		<script type="text/javascript">
+			JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+			JAWR.loader.script('/bundles/js/turma_virtual_base.js');
+		</script>
+		
+		<script>
+			JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		</script>
+
+		<script src="/shared/javascript/ext-2.0.a.1/ext-base.js"></script>
+		<script src="/shared/javascript/ext-2.0.a.1/ext-all.js"></script>
+		
+		<script src="/sigaa/ava/javascript/turma.jsp"></script>
+		
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/gzip_1592835619/bundles/css/sigaa.css" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/gzip_N1580561989/ava/css/turma.css" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/gzip_N873690690/css/jquery-ui/css/jquery-ui-1.8.4.custom.css" />
+
+		
+ 		<script type="text/javascript" src="/sigaa/jsBundles/gzip_N1904321996/javascript/jquery-ui/js/jquery-1.4.2.min.js" ></script>
+
+	    
+		<script>
+			var J = jQuery.noConflict();
+			var $jq = jQuery.noConflict();
+		</script>
+		
+		<!-- FontAwesome -->
+		<link rel="stylesheet" type="text/css" href="/shared/beta/css/font-awesome.css" media="screen" />
+		
+		
+
+	
+	
+		<!-- INICIO bot&#227;o de informar um problema -->
+		<link rel="stylesheet" type="text/css" href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" />
+		<script type="text/javascript" src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/html2canvas.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/informar-problema.js?ver=1.1"></script>
+		<!-- FIM bot&#227;o de informar um problema -->
+	
+
+
+		<script type="text/javascript" src="/sigaa/jsBundles/gzip_232493814/javascript/jquery-ui/js/jquery-ui-1.8.4.custom.min.js" ></script>
+
+		<script type="text/javascript" src="/sigaa/jsBundles/gzip_N1187073003/javascript/jquery-layout.js" ></script>
+
+		
+		<script type="text/javascript" src="/sigaa/jsBundles/gzip_N1742432189/javascript/jquery-wtooltip.js" ></script>
+
+        
+        
+		
+		
+		<link rel="stylesheet" type="text/css" href="/sigaa/primefaces_resource/1.1/skins/sam/skin.css" /><link rel="stylesheet" type="text/css" href="/sigaa/primefaces_resource/1.1/jquery/plugins/ui/jquery.ui.dialog.css" />
+		<script type="text/javascript" src="/sigaa/primefaces_resource/1.1/primefaces/core/core.js"></script>
+		<script type="text/javascript" src="/sigaa/primefaces_resource/1.1/primefaces/dialog/dialog.js"></script>
+		<script type="text/javascript" src="/sigaa/primefaces_resource/1.1/primefaces/button/button.js"></script>
+        
+		<link rel="stylesheet" type="text/css" href="/sigaa/ava/primefaces/redmond/skin.css" />
+		<link rel="stylesheet" media="print" href="/shared/css/ufrn_print.css"/>
+		
+		<link rel="stylesheet" type="text/css" media="print" href="/sigaa/cssBundles/gzip_N1565557408/ava/css/ava_print.css" />
+
+						
+		<script type="text/javascript">
+
+			// String contendo o nome da turma.
+			var auxNomeTurma = null;
+	
+			/* Configura o layout com JQuery-UI. */
+			var myLayout;
+			
+			J("document").ready(function () {
+				//setTimeout('montaLayout()', 20);
+				montaLayout();
+	
+				Relogio.init(60);
+	
+				esconderLoading();
+
+		    	J( "#infoProblema" ).hover(
+    			  function() {
+    			    J( this ).addClass("ui-state-hover");
+    			  }, function() {
+    				J( this ).removeClass("ui-state-hover");
+    			  }
+    			);				
+			});
+			
+			function esconderLoading () {
+				J("#dialog").css("display","none");
+				J("#mascara").css("display","none");
+			}
+	
+			function exibirLoading () {
+				J("#dialog").css("display","block");
+				J("#mascara").css("display","block");
+			}
+			
+			var urlVideoChat = "";
+			var idVideoChat = ""
+			function exibirJanelaVideoChat (idChat, idUsuario, passKey, nomeChat, nomeUsuario, podeMinistrar, servidor){
+				urlVideoChat = '/shared/EntrarChat?chatagendado=true&idchat=' + idChat
+							+ '&idusuario=' + idUsuario + '&passkey=' + passKey
+							+ '&video=false&chatName=' + nomeChat + '&origem=turmaVirtual&nomeUsuario=' + nomeUsuario
+							+ '&podeMinistrar=' + podeMinistrar + '&servidor=' + servidor;
+				
+				idVideoChat = 'chat_'+idChat;
+				
+				window.open(urlVideoChat, idVideoChat, 'height=600,width=800,location=0,resizable=1');
+				return false;
+			}
+			
+
+			function montaLayout(){
+
+				J('#baseLayout').css('height', ( document.documentElement.clientHeight + 13 ) + "px");
+				
+				myLayout = J("#baseLayout").layout({
+					name : "asd",
+					minWidth: 500,
+					defaults: {
+						size: "auto",
+						spacing_open: 5,
+						togglerLength_open: 0,
+						resizable: false,
+						slidable: false
+					}, north: {
+						size:
+							48
+							
+					}, south: {
+						size: 25
+					}, west: {
+						size: 190
+					}, east: {
+						size: 225,
+						togglerLength_closed: -1,
+						spacing_closed: 30,
+						togglerTip_closed: "Abrir barra lateral",
+						fxName: "drop",
+						fxSpeed: "fast",
+						togglerClass: "botaoDireita"
+					}, center: {
+					}
+				});
+				
+				myLayout.addToggleBtn( "#toggleDireita", "east" );
+
+				J("#conteudo").css("z-index", "1");
+				J("#cabecalho").css("z-index", "999");
+
+				corrigeNomeTurma ();
+				
+				window.onresize = function () {
+					J('#baseLayout').height(document.documentElement.clientHeight);
+					corrigeNomeTurma ();
+				};
+				
+			}
+
+			function corrigeNomeTurma () {
+				var linkNomeTurma = J("#linkNomeTurma");
+				
+				if (linkNomeTurma != null){
+
+					if (auxNomeTurma == null)
+						auxNomeTurma = linkNomeTurma.html();
+
+					var arrayNomeTurma = auxNomeTurma.split(" ");
+					
+					var espacoRestante =
+						J("body").attr("clientWidth") - (
+							J("#menuTurmaVirtual").attr("clientWidth") +
+							J("#painelDadosUsuario").attr("clientWidth") +
+							J("#linkCodigoTurma").attr("clientWidth") +
+							J("#linkPeriodoTurma").attr("clientWidth")
+							+ 30 // Margem
+						);
+				
+					linkNomeTurma.html(arrayNomeTurma.join(" "));
+
+					var adicionarRtc = false;
+					
+					if (espacoRestante > 0 && espacoRestante < linkNomeTurma.attr("clientWidth"))
+						adicionarRtc = true;
+					
+					while (arrayNomeTurma.length > 0 && espacoRestante > 0 && espacoRestante < linkNomeTurma.attr("clientWidth")){
+						arrayNomeTurma.pop();
+						linkNomeTurma.html(arrayNomeTurma.join(" ") + (adicionarRtc ? " ..." : ""));
+					}
+				}
+			}
+
+			var subMenuEscondido = true;
+
+			var podeAlternarSubMenu = true;
+			
+			function toggleSubMenuTurma(){
+				if (podeAlternarSubMenu){ 
+					if (subMenuEscondido)
+						exibeSubMenu ();
+					else
+						escondeSubMenu ();
+				}
+
+				podeAlternarSubMenu = true;
+			}
+			
+			function exibeSubMenu (){
+				jQuery("#painel-usuario").show("fast");
+				subMenuEscondido = false;
+				document.getElementById("auxEsconderSubMenu").focus();
+				document.getElementById("formAcoesTurma:botaoExibirOpcoes").style.background = "#FFF";
+			}
+
+			function escondeSubMenu (){
+				jQuery("#painel-usuario").hide("fast");
+				subMenuEscondido = true;
+				document.getElementById("formAcoesTurma:botaoExibirOpcoes").style.background = 'url("images/ui-bg_glass_85_e8eef3_1x400.png") repeat-x scroll 50% 50% #E8EEF3';
+				setTimeout(function () {podeAlternarSubMenu = true;}, 100)
+			}
+
+			function exibirMenuModulos () {
+				dialogModulos.show();
+				return false;
+			}
+
+			// Exibe o rel&#243;gio da turma virtual.
+            function exibirHora () {
+				hora = "18:51:27";
+				fracoes = hora.split(":");
+				contadorRelogio(fracoes[0],fracoes[1],fracoes[2]);
+            }
+
+            function contadorRelogio (h,m,s) {
+
+            	if ( s == 59 ){
+					s = 0;
+					m++;
+            	} else
+                	s++;
+            	if ( m == 59 ){
+					m = 0;
+					if ( h == 23 )					
+						h = 0;
+					else
+						h++;
+            	} 
+				if (s.toString().length == 1) { s = '0'+s; }
+           	 	if (m.toString().length == 1) { m = '0'+m; }
+           	 	document.getElementById("relogioAva").innerHTML = h + ":" + m + ":" + s;
+           	 	setTimeout("contadorRelogio(" + h + "," + m + "," + s + ")",1000);	         	
+            }
+        	// Evitar que os menus laterais sejam escondidos 
+        	// quando o usu&#225;rio estiver digitando algo
+        	// Isso foi feito para permitir a navega&#231;&#227;o wordwise
+        	// por meio das teclas CTRL + <- e CTRL + ->
+        	var ctrlPressed = false;
+        	document.onkeydown = checkKey;
+        	document.onkeyup = checkKeyRelease;
+        	
+        	function checkKeyRelease(e) {
+        		e = e || window.event;
+        		if (e.keyCode == '17')
+        			ctrlPressed = false;
+        	}
+        	
+			function checkKey(e) { 
+				e = e || window.event; 
+				if (e.keyCode == '17')
+					ctrlPressed = true;
+				if (ctrlPressed && (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '39' || e.keyCode == '40')) { 
+					if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA')
+						e.stopImmediatePropagation(); 
+				} 
+			}
+        	
+			function abrirJanelaVideoconferencia() {
+				videoconfSS = window.open('/sigaa/ava/Videoconferencia/videoconferencia.jsf','Videoconferencia','width='+(screen.availWidth-15)+',height='+(screen.availHeight-63));
+			}
+		</script>
+		<style>
+	    	.ydlg-mask {
+	    		z-index: 889 !important;
+	    	}		
+		</style>
+		
+		<script src="/shared/javascript/STICookieConsent.js"></script>
+		<script>
+		    document.addEventListener("DOMContentLoaded", () => {
+		    	generateCookieConsentModal("SIGAA", "Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Se voc&#234; concorda, clique em %button-text%.", "https://protecaodedados.ifc.edu.br/politica-de-privacidade/", "https://protecaodedados.ifc.edu.br/politica-de-privacidade/");
+		    })
+		</script>
+    </head>
+
+	<body onload="exibirHora()">
+		<div id="baseLayout" style="width:100%;position:relative;">
+		
+		<div id="dialog">
+			<br/><br/>
+			<p>Por favor, aguarde enquanto a p&#225;gina &#233; gerada ...</p><br/><br/>
+			<img src="/sigaa/img/loading.gif" />
+		</div>
+		<div id="mascara" style="width:2000px;height:2000px;"></div>
+		
+		
+	
+		
+			
+		
+	
+		
+		
+			
+		
+		
+		
+		<div id="j_id_jsp_1236623656_4" title="Trocar de Turma"><span class="linkTurma" style="font-weight:bold;text-align:center;margin-top:10px;margin-bottom:10px;font-size:10pt;display:block;">Selecione uma das turmas abaixo para acess&aacute;-la:</span>
+<form id="formTurma" name="formTurma" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formTurma" value="formTurma" />
+
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="var a=function(){return permitirEscolhaTurma();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formTurma'),{'formTurma:j_id_jsp_1236623656_7':'formTurma:j_id_jsp_1236623656_7','frontEndIdTurma':'080070D1573B0B8866AD2CA0D5ABFA393A61BC52'},'');}return false};return (a()==false) ? false : b();" class="linkTurma">
+							
+							<span style="display:inline-block;width:97%;height:16px;overflow:hidden;vertical-align:middle;color:#003390;font-size:9pt;background:url('/sigaa/img/avancar.gif') #F0F0F0 no-repeat right;padding:5px;">
+								CCB0940 - COMPILADORES (60h) (2026.2)
+							</span>
+						</a><a href="#" onclick="var a=function(){return permitirEscolhaTurma();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formTurma'),{'formTurma:j_id_jsp_1236623656_7j_id_1':'formTurma:j_id_jsp_1236623656_7j_id_1','frontEndIdTurma':'78F23D59CACEA7F6A1D30818EC118E818A8B917D'},'');}return false};return (a()==false) ? false : b();" class="linkTurma">
+							
+							<span style="display:inline-block;width:97%;height:16px;overflow:hidden;vertical-align:middle;color:#003390;font-size:9pt;background:url('/sigaa/img/avancar.gif')  no-repeat right;padding:5px;">
+								CCB0941 - COMPUTA&Ccedil;&Atilde;O GR&Aacute;FICA (60h) (2026.2)
+							</span>
+						</a><a href="#" onclick="var a=function(){return permitirEscolhaTurma();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formTurma'),{'formTurma:j_id_jsp_1236623656_7j_id_2':'formTurma:j_id_jsp_1236623656_7j_id_2','frontEndIdTurma':'85DFE8650ADD2C68233863FB1676975A2A4034C9'},'');}return false};return (a()==false) ? false : b();" class="linkTurma">
+							
+							<span style="display:inline-block;width:97%;height:16px;overflow:hidden;vertical-align:middle;color:#003390;font-size:9pt;background:url('/sigaa/img/avancar.gif') #F0F0F0 no-repeat right;padding:5px;">
+								CCB0947 - EMPREENDEDORISMO (60h) (2026.2)
+							</span>
+						</a><a href="#" onclick="var a=function(){return permitirEscolhaTurma();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formTurma'),{'formTurma:j_id_jsp_1236623656_7j_id_3':'formTurma:j_id_jsp_1236623656_7j_id_3','frontEndIdTurma':'A2EB72E05380710ADCFDA7CA67271FDA42673E87'},'');}return false};return (a()==false) ? false : b();" class="linkTurma">
+							
+							<span style="display:inline-block;width:97%;height:16px;overflow:hidden;vertical-align:middle;color:#003390;font-size:9pt;background:url('/sigaa/img/avancar.gif')  no-repeat right;padding:5px;">
+								CCB0949 - TRABALHO DE CONCLUS&Atilde;O DE CURSO (60h) (2026.2)
+							</span>
+						</a>
+					
+					
+						
+						
+						
+						
+					
+					
+						
+						
+						
+						
+					
+					
+						
+						
+						
+						
+					
+					
+						
+						
+						
+						
+					
+					<center>
+						<div id="MensagemCarregamento" >
+							<br/><br/>
+							<p>Por favor, aguarde enquanto carregamos a p&#225;gina ...</p><br/><br/>
+							<img src="/sigaa/img/loading.gif" />
+						</div>
+					</center>	
+				<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form></div><script type="text/javascript">dialogTurmas = new PrimeFaces.widget.Dialog('j_id_jsp_1236623656_4',{autoOpen:false,minHeight:0,width:900,height:300,modal: true});</script>
+		
+	
+		
+		<style>
+	#panelPerfilContentDiv {
+		text-align:left;
+	}
+	
+	#panelPerfilContentDiv h1 {
+		font-size:9pt;
+		font-weight:bold;
+		padding:3px;
+		background:#DFE8F6;
+		margin-top:20px;
+		margin-bottom:10px;
+	}
+</style>
+
+
+<input type="submit" id="bVisualizarPerfil" style="display:none;" onclick="dialogPerfil.show();return false;"/>
+
+
+<div id="j_id_jsp_1236623656_14" title="Perfil do Discente"><span id="basePanelPerfil">O usu&aacute;rio selecionado n&atilde;o &eacute; um discente.</span></div><script type="text/javascript">dialogPerfil = new PrimeFaces.widget.Dialog('j_id_jsp_1236623656_14',{autoOpen:false,minHeight:0,width:530,height:400});</script>
+		
+		
+		<input type="submit" id="bVisualizarPerfil" style="display:none;" onclick=""/>
+
+
+<div id="j_id_jsp_1236623656_36" title="M&oacute;dulos do SIGAA">
+	<div id="menu_principal" class="popup">
+		
+
+<div id="modulos">
+	<h2 alt="O usu&#225;rio tem acesso aos m&#243;dulos que possu&#237; *"> Menu Principal</h2>
+	<ul>
+	
+
+				
+			
+				
+		<li class="encceja on"> <a href="/sigaa/verMenuEncceja.do"> 
+                Encceja  </a> </li>	
+		
+
+			
+ 
+		<li class="tecnico off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+
+				T&#233;cnico e EJA-EPT</span></a>
+
+		</li>
+		<li class="tecnicoIntegrado off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				T&#233;cnico Integrado</span></a>
+		</li>
+		<li class="graduacao off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Gradua&#231;&#227;o   </span></a>
+		</li>
+		<li class="lato_sensu off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+				Lato Sensu </span></a>
+		</li>
+		<li class="stricto_sensu off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Stricto Sensu </span></a>
+		</li>
+		<li class="formacao_complementar off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Forma&#231;&#227;o Complementar</span></a>
+
+		<li class="acoes_associadas off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				A&#231;&#245;es Acad&#234;micas Integradas </span></a>
+		</li>
+		<li class="ead off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Ensino a Dist&#226;ncia </span></a> 
+		<li class="pesquisa off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Pesquisa</span></a>
+		</li>
+		<li class="extensao off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Extens&#227;o  </span></a>
+		</li>
+		<li class="monitoria off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Monitoria </span></a>
+		</li>
+		</li>
+		<li class="sae off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Assist&#234;ncia ao Estudante </span></a> 
+		</li>
+		<li class="ouvidoria off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Ouvidoria </span></a> 
+		</li>
+		<li class="ambiente_virtual off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Ambientes Virtuais </span></a> 
+		</li>
+		<li class="prodocente off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Produ&#231;&#227;o Intelectual</span></a> 
+		</li>
+
+            <li class="biblioteca off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+  
+				Biblioteca</span></a> 
+		</li>
+
+		<li class="diploma off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Diplomas </span></a> 
+		</li>
+		
+		<li class="central_estagios off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Central de Est&#225;gios</span></a> 
+		</li>		
+		
+		<li class="saude off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Resid&#234;ncias em Sa&#250;de</span></a> 
+		</li>
+		<li class="vestibular off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Processo Seletivo </span></a> 
+		</li>
+		
+		<li class="nee off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+				NEE </span></a> 
+		</li>
+		
+		<li class="portal_avaliacao off"> 
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Avalia&#231;&#227;o Institucional</span></a> 
+		</li>
+
+		<li class="administracao off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Administra&#231;&#227;o do Sistema </span></a>
+		</li>
+		<li class="pap off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Prog. de Atual. Pedag&#243;gica
+			</span></a> 
+		 </li>
+		 <li class="relacoes_internacionais off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Rela&#231;&#245;es Internacionais
+			</span></a> 
+		 </li>
+		 <li class="metropole_digital off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Instituto Metr&#243;pole Digital</span></a>
+		</li>
+	
+		<li class="ensino_rede off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Ensino em Rede</span></a>
+		</li>
+			
+		<li class="rtd off">
+    		<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+    			RTD (Gestor)
+    		</span></a>
+		</li>		
+	
+
+            
+        <li class="rtd off">
+            <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+                Relat&#243;rios Gerais
+            </span></a>
+        </li>       
+            
+			
+		 <br clear="all"/>
+	</ul>
+	
+	<h2> Outros Sistemas </h2>
+	<ul class="outros_sistemas">
+		<li class="sipac off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Administrativo	
+				(SIPAC) <br />
+			</span></a>
+    	</li>
+		<li class="sigrh off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Recursos Humanos
+				 (SIGRH) <br />
+			</span></a>
+		 </li>
+		 
+		 
+		 
+		<li class="sigadmin off">
+			<a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+			SIGAdmin 
+			</span></a>
+		 </li>
+	</ul>
+	
+	<br clear="all"/>
+</div>
+
+<div id="portais">
+	<h2> Portais </h2>
+	<ul>
+		<li class="docente off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+			Portal do Docente  </span></a> </li>
+		
+		<li class="discente on"> 
+			<a href="/sigaa/verPortalDiscente.do">
+				Portal do Discente 
+			</a> 
+		</li>
+		
+		<li class="portal_lato off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+			Portal Coord. <br/> Lato Sensu  </span></a></li>
+	
+		<li class="portal_stricto off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+			Portal Coord. <br/> Stricto Sensu</span></a></li>
+	
+		<li class="portal_graduacao off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+			Portal Coord. Gradua&#231;&#227;o </span></a></li>
+
+		<li class="tutor off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+				Portal Coord. Polo  </span></a> </li>
+		<li class="tutor off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+				Portal do Tutor </span></a> </li>
+		
+		<li class="tutor off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+				Portal do Professor Mediador </span></a> </li> 
+		 
+		<li class="portal_reitor off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				CPDI </span></a></li>
+		<li class="portal_reitor off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Portal da Reitoria </span></a> </li>
+		<li class="portal_relatorios off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Relat&#243;rios de Gest&#227;o</span></a> </li>		
+		<li class="portal_concedente_estagio off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Portal do Concedente de Est&#225;gio</span></a> </li>
+		<li class="portal_rede off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" > 
+			Portal Coord. <br/> Ensino Rede</span></a></li>
+				
+		<li class="portal_familiar off"> <a href="#"><span class="tooltip" title="Voc&#234; n&#227;o possui permiss&#227;o para acessar esta op&#231;&#227;o" >
+				Portal do Familiar</span></a> </li>
+	
+
+
+<li class="portal_egresso on">
+    <a href="/sigaa/verPortalEgressos.do">
+    Portal do Egresso
+    </a>
+</li>
+	
+
+
+
+
+
+
+ 
+
+
+
+						
+	</ul>
+</div>
+	</div>
+</div><script type="text/javascript">dialogModulos = new PrimeFaces.widget.Dialog('j_id_jsp_1236623656_36',{autoOpen:false,minHeight:0,width:1000,height:465,modal: true});</script>
+		
+		
+		<style>
+
+	#panelNeeContentDiv {
+		text-align:left;
+	}
+	
+	#panelNeeContentDiv h1 {
+		font-size:9pt;
+		font-weight:bold;
+		padding:3px;
+		background:#DFE8F6;
+		margin-top:20px;
+		margin-bottom:10px;
+	}
+	
+	#panelEmailNeeHeader{
+		color: #15428B;
+	}
+</style>
+
+<script type="text/javascript">
+	function validarDados() {
+		var mensagem = '';
+		if(document.getElementById('form_nee:titulo').value.trim() == '')
+			mensagem += "Informe o T&#237;tulo do E-mail.<br>";
+		if(document.getElementById('form_nee:conteudo').value.trim() == '')
+			mensagem += "Informe o Conte&#250;do do E-mail."
+		
+		if(mensagem != ''){
+			Ext.Msg.show({
+			    title: 'Mensagem n&#227;o enviada',
+			    msg: mensagem,
+			    width: 400,
+			    buttons: Ext.MessageBox.OK,
+			    icon: Ext.MessageBox.ERROR
+			});
+			return false;
+		}else
+			return true;
+	}
+	function enviarMensagem() {
+		document.getElementById("form_nee").reset();
+		document.getElementById('btEmailNee').click();
+	}
+</script>		
+
+
+<input id="bVisualizarParecerNee" type="submit" name="bVisualizarParecerNee" value="" style="display:none;" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#bVisualizarParecerNee','onclick','#panelNee','show')</script><div id="panelNee" style="display: none;"><input autocomplete="off" id="panelNeeOpenedState" name="panelNeeOpenedState" type="hidden" /><div class="rich-modalpanel panelPerfil" id="panelNeeContainer" style="position: absolute; display: none; z-index: 100; background-color: inherit;"><div class="rich-mpnl-mask-div-opaque rich-mpnl-mask-div" id="panelNeeDiv" style="z-index: -1;"><button class="rich-mpnl-button" id="panelNeeFirstHref"></button></div><div class="rich-mpnl-panel"><div class="rich-mp-container" id="panelNeeCDiv" style="position: absolute; left: 0px; top: 0px; z-index: 9;"><div class="rich-mpnl-shadow" id="panelNeeShadowDiv"></div><div class=" rich-mpnl-content" id="panelNeeContentDiv"><div class="rich-mpnl-text rich-mpnl-controls "><img id="hidelink_parecer" src="/sigaa/img/close.png" class="hidelink" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#hidelink_parecer','onclick','#panelNee','hide')</script></div><table border="0" cellpadding="0" cellspacing="0" class="rich-mp-content-table" id="panelNeeContentTable" style="width: 500px;height: 1px;"><tr style="height: 1%;"><td class="rich-mpnl-header-cell"><div class="rich-mpnl-text rich-mpnl-header " id="panelNeeHeader" style="white-space: nowrap;">Parecer sobre as Necessidades Educacionais Espec&iacute;ficas do Discente</div></td></tr><tr style="height: 99%"><td class="rich-mpnl-body" valign="top">
+	
+		
+	
+	
+		
+	
+
+	<div style="width:100%; height: 350px; overflow: auto;">
+		<table width="100%">
+			<tr>
+				
+				<td>
+					<strong style="font-weight:bold;"></strong>
+					<h1>Dados do Discente</h1>
+					<strong style="font-weight:bold;">Curso:</strong> <em> </em><br/>
+					<strong style="font-weight:bold;">Matr&#237;cula:</strong> <em></em> <br/>
+					<strong style="font-weight:bold;">Usu&#225;rio:</strong> <em>Sem cadastro no sistema </em><br/>
+					<strong style="font-weight:bold;">E-mail:</strong> <em>Desconhecido</em>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h1>Tipos de Necessidades Educacionais Espec&#237;ficas </h1>
+		 			
+				</td>
+			</tr>	
+			<tr>
+				<td> 
+					<h1>Parecer da AEE a respeito da Necessidade Educacional do Aluno</h1>
+					<span id="parecerComissao"></span>
+<form id="parecerpdf" name="parecerpdf" method="post" action="/sigaa/ava/index.jsf" enctype="multipart/form-data">
+<input type="hidden" name="parecerpdf" value="parecerpdf" />
+
+				 			<a href="/sigaa/verArquivo?idArquivo=&key=ec90c38b46a0c0fd962ed5d43a03ae04" target="_blank" dir="rtl">
+								
+							</a>
+				 		<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+					
+					<br/><br/>
+				</td>			
+			</tr>
+			<tr>				
+				<td>
+					<a href="#" id="j_id_jsp_1236623656_52" name="j_id_jsp_1236623656_52" onclick="enviarMensagem();;A4J.AJAX.Submit(null,event,{'similarityGroupingId':'j_id_jsp_1236623656_52','parameters':{'j_id_jsp_1236623656_52':'j_id_jsp_1236623656_52'} ,'containerId':'j_id_jsp_1236623656_0','actionUrl':'/sigaa/ava/index.jsf'} );return false;">
+						<img src="/sigaa/img/email_go.png" alt="Enviar Mensagem Para a AEE" title="Enviar Mensagem Para a AEE"/> 
+						Enviar Mensagem para a AEE 
+					</a>
+				</td>
+			</tr>	
+		</table>
+	</div>
+	<div style="width:100%;text-align:center;height:25px;background:#DFE8F6;vertical-align:middle;padding-top:5px;">
+		<input id="bFecharNee" type="submit" name="bFecharNee" value="Fechar" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#bFecharNee','onclick','#panelNee','hide')</script>
+	</div>
+</td></tr></table></div></div></div><div class="rich-mpnl-mask-div rich-mpnl-mask-div-transparent" id="panelNeeCursorDiv" style="z-index: -200;"><button class="rich-mpnl-button" id="panelNeeLastHref"></button></div><script type="text/javascript">new ModalPanel('panelNee',
+				{
+					width: -1,
+					height: -1,
+
+					minWidth: 500,
+					minHeight: -1,
+
+					resizeable: false,
+					moveable: true,
+
+					left: "auto",
+					top: "auto",
+
+					zindex: 100,onresize: '',onmove: '',onshow: '',onhide: '',onbeforeshow: '',onbeforehide: '',
+					domElementAttachment: "",				
+					keepVisualState: false,
+					showWhenRendered: false,
+					selectBehavior: "disable",
+
+					autosized: true,
+					overlapEmbedObjects: false});</script></div><script type="text/javascript"></script></div><input id="btEmailNee" type="submit" name="btEmailNee" value="" style="display:none;" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#btEmailNee','onclick','#panelEmailNee','show')</script><div id="panelEmailNee" style="display: none;"><input autocomplete="off" id="panelEmailNeeOpenedState" name="panelEmailNeeOpenedState" type="hidden" /><div class="rich-modalpanel panelPerfil" id="panelEmailNeeContainer" style="position: absolute; display: none; z-index: 100; background-color: inherit;"><div class="rich-mpnl-mask-div-opaque rich-mpnl-mask-div" id="panelEmailNeeDiv" style="z-index: -1;"><button class="rich-mpnl-button" id="panelEmailNeeFirstHref"></button></div><div class="rich-mpnl-panel"><div class="rich-mp-container" id="panelEmailNeeCDiv" style="position: absolute; left: 0px; top: 0px; z-index: 9;"><div class="rich-mpnl-shadow" id="panelEmailNeeShadowDiv"></div><div class=" rich-mpnl-content" id="panelEmailNeeContentDiv" style="background:#DFE8F6;"><div class="rich-mpnl-text rich-mpnl-controls "><img id="hidelink_email" src="/sigaa/img/close.png" class="hidelink" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#hidelink_email','onclick','#panelEmailNee','hide')</script></div><table border="0" cellpadding="0" cellspacing="0" class="rich-mp-content-table" id="panelEmailNeeContentTable" style="width: 500px;height: 1px;"><tr style="height: 1%;"><td class="rich-mpnl-header-cell"><div class="rich-mpnl-text rich-mpnl-header " id="panelEmailNeeHeader" style="white-space: nowrap;">
+			Enviar mensagem para a AEE</div></td></tr><tr style="height: 99%"><td class="rich-mpnl-body" valign="top">
+<form id="form_nee" name="form_nee" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="form_nee" value="form_nee" />
+
+		<div style="width:100%; height: 175px; overflow: auto; background:#DFE8F6;">
+			<table style="width: 100%">
+				<tbody>
+					<tr>
+						<th rowspan="2"><img style="padding:10px;" src="/sigaa/img/mail_write.gif"></th>
+						<th><strong style="font-weight:bold; vertical-align:top; padding:10px;">Destinat&#225;rio:</strong></th>
+						<td><em style="vertical-align:top;">aluno@example.com</em></td>
+					</tr>
+					<tr>
+						<th style="text-align: left;"><strong style="font-weight:bold; vertical-align:top; padding:10px;">T&#237;tulo:</strong></th>
+						<td><input id="form_nee:titulo" type="text" name="form_nee:titulo" maxlength="260" size="80" /></td>
+					</tr>	
+					<tr>
+						<td colspan="3"><textarea id="form_nee:conteudo" name="form_nee:conteudo" rows="8" style="width:99%; resize: none"></textarea></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<input id="form_nee:btEnviarEmailNee" type="submit" name="form_nee:btEnviarEmailNee" value="Enviar" onclick="return validarDados();" style="display:none;" /><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+	
+		
+	
+	
+		
+	
+	
+	<div style="width:100%;text-align:center;height:10px;vertical-align:middle;">
+		<input id="btEnviarEmailNee2" type="submit" name="btEnviarEmailNee2" value="Enviar" onclick="document.getElementById('form_nee:btEnviarEmailNee').click();" /><input id="btFecharEmailNee" type="submit" name="btFecharEmailNee" value="Fechar" /><script type="text/javascript">Richfaces.componentControl.attachAvailable('#btFecharEmailNee','onclick','#panelEmailNee','hide')</script>
+		
+	</div>
+</td></tr></table></div></div></div><div class="rich-mpnl-mask-div rich-mpnl-mask-div-transparent" id="panelEmailNeeCursorDiv" style="z-index: -200;"><button class="rich-mpnl-button" id="panelEmailNeeLastHref"></button></div><script type="text/javascript">new ModalPanel('panelEmailNee',
+				{
+					width: -1,
+					height: -1,
+
+					minWidth: 500,
+					minHeight: -1,
+
+					resizeable: false,
+					moveable: true,
+
+					left: "auto",
+					top: "auto",
+
+					zindex: 100,onresize: '',onmove: '',onshow: '',onhide: '',onbeforeshow: '',onbeforehide: '',
+					domElementAttachment: "",				
+					keepVisualState: false,
+					showWhenRendered: false,
+					selectBehavior: "disable",
+
+					autosized: true,
+					overlapEmbedObjects: false});</script></div><script type="text/javascript"></script></div>
+<form id="formMenu" name="formMenu" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formMenu" value="formMenu" />
+
+		
+	<div id="barraEsquerda" class="ui-layout-west">
+	
+		<table style="width:100%;border-bottom:1px solid #99BBE8;" cellspacing="0"><tr><td style="color:#15428B;background:url('/sigaa/ava/img/painel_bg.png');height:24px;text-align:center;font-weight:bold;font-size:8pt;">Menu Turma Virtual</td></tr></table>
+		
+		<div class="rich-panelbar rich-panelbar-b " id="formMenu:j_id_jsp_1236623656_71" style="padding: 0px; height: 100%; width: 100%; "><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1236623656_72"><div class="rich-panelbar-header  itemMenuHeaderTurma" style=";">Turma</div><div class="rich-panelbar-header-act  itemMenuHeaderTurma  " style=";;;;display: none;">Turma</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_73':'formMenu:j_id_jsp_1236623656_73'},'');}return false};return (a()==false) ? false : b();">
+					<div class="itemMenu">Principal</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_76':'formMenu:j_id_jsp_1236623656_76'},'');}return false">
+						<div class="itemMenu">Gerenciar Perfil</div>
+					</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_77':'formMenu:j_id_jsp_1236623656_77'},'');}return false">
+                						
+							<div class="itemMenu">Plano de Ensino</div>
+                							
+						</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_83':'formMenu:j_id_jsp_1236623656_83'},'');}return false">
+					<div class="itemMenu">Participantes</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_84':'formMenu:j_id_jsp_1236623656_84'},'');}return false">
+					<div class="itemMenu">Visualizar Programa</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_86':'formMenu:j_id_jsp_1236623656_86'},'');}return false">
+					<div class="itemMenu">F&#243;runs</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_89':'formMenu:j_id_jsp_1236623656_89'},'');}return false">
+					<div class="itemMenu">Not&#237;cias</div>
+				</a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1236623656_97"><div class="rich-panelbar-header  itemMenuHeaderAlunos" style=";">Alunos</div><div class="rich-panelbar-header-act  itemMenuHeaderAlunos  " style=";;;;display: none;">Alunos</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_100':'formMenu:j_id_jsp_1236623656_100'},'');}return false};return (a()==false) ? false : b();">
+					<div class="itemMenu">Frequ&#234;ncia</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_101':'formMenu:j_id_jsp_1236623656_101'},'');}return false">
+					<div class="itemMenu">Ver Grupo</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_102':'formMenu:j_id_jsp_1236623656_102'},'');}return false">
+					<div class="itemMenu">Ver Notas</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_103':'formMenu:j_id_jsp_1236623656_103'},'');}return false">
+                    <div class="itemMenu">Recupera&#231;&#227;o Paralela</div>
+                </a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1236623656_121"><div class="rich-panelbar-header  itemMenuHeaderMateriais" style=";">Materiais</div><div class="rich-panelbar-header-act  itemMenuHeaderMateriais  " style=";;;;display: none;">Materiais</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_122':'formMenu:j_id_jsp_1236623656_122'},'');}return false">
+					<div class="itemMenu">Conte&#250;do/P&#225;gina web</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_126':'formMenu:j_id_jsp_1236623656_126'},'');}return false">
+					<div class="itemMenu">Refer&#234;ncias</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_128':'formMenu:j_id_jsp_1236623656_128'},'');}return false">
+					<div class="itemMenu">V&#237;deos</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_129':'formMenu:j_id_jsp_1236623656_129'},'');}return false">
+					<div class="itemMenu">Arquivos</div>
+				</a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1236623656_130"><div class="rich-panelbar-header  itemMenuHeaderAtividades" style=";">Atividades</div><div class="rich-panelbar-header-act  itemMenuHeaderAtividades  " style=";;;;display: none;">Atividades</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_131':'formMenu:j_id_jsp_1236623656_131'},'');}return false">
+					<div class="itemMenu">Avalia&#231;&#245;es</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_132':'formMenu:j_id_jsp_1236623656_132'},'');}return false">
+					<div class="itemMenu">Enquetes</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_133':'formMenu:j_id_jsp_1236623656_133'},'');}return false">
+					<div class="itemMenu">Tarefas</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_135':'formMenu:j_id_jsp_1236623656_135'},'');}return false">
+					<div class="itemMenu">Question&#225;rios</div>
+				</a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1236623656_146"><div class="rich-panelbar-header  itemMenuHeaderRelatorios" style=";">Estat&iacute;stica</div><div class="rich-panelbar-header-act  itemMenuHeaderRelatorios  " style=";;;;display: none;">Estat&iacute;stica</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_147':'formMenu:j_id_jsp_1236623656_147'},'');}return false">
+					<div class="itemMenu">Situa&#231;&#227;o dos Discentes</div>
+				</a><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_155':'formMenu:j_id_jsp_1236623656_155'},'');}return false">
+					<div class="itemMenu">Linha do Tempo</div>
+				</a></td></tr></tbody></table></div></div><div class="rich-panelbar rich-panelbar-interior " id="formMenu:j_id_jsp_1236623656_156"><div class="rich-panelbar-header  itemMenuHeaderAjuda" style=";">Ajuda</div><div class="rich-panelbar-header-act  itemMenuHeaderAjuda  " style=";;;;display: none;">Ajuda</div><div class="rich-panelbar-content-exterior" style="display: none; width: 100%;"><table cellpadding="0" cellspacing="0" style="height: 100%;" width="100%"><tbody><tr><td class="rich-panelbar-content  " style=";overflow:hidden;"><a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenu'),{'formMenu:j_id_jsp_1236623656_157':'formMenu:j_id_jsp_1236623656_157'},'_BLANK');}return false">
+					<div class="itemMenu">Manual da Turma Virtual</div>
+				</a></td></tr></tbody></table></div></div><input autocomplete="off" id="formMenu:j_id_jsp_1236623656_71_panelBarInput" name="formMenu:j_id_jsp_1236623656_71" type="hidden" value="formMenu:j_id_jsp_1236623656_72" /><script type="text/javascript">new Richfaces.PanelBar('formMenu:j_id_jsp_1236623656_71',{'mousemove':'','items':[{'onleave':'','id':'formMenu:j_id_jsp_1236623656_72','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1236623656_97','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1236623656_121','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1236623656_130','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1236623656_146','onenter':''} ,{'onleave':'','id':'formMenu:j_id_jsp_1236623656_156','onenter':''} ] ,'ajax':false,'mouseout':'','onclick':'','mouseover':'','onitemchange':'','onitemchanged':''} );</script></div>
+	</div>
+
+	
+--<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+
+		
+		
+		
+
+
+<div id="barraDireita" class="ui-layout-east">
+	<table style="width:100%;border-bottom:1px solid #99BBE8;" cellspacing="0"><tr><td style="color:#15428B;background:url('/sigaa/ava/img/painel_bg.png');height:24px;text-align:right;font-weight:bold;font-size:8pt;padding-right:5px;" id="toggleDireita"><img src="/sigaa/ava/img/painel_seta_dir.png" /></td></tr></table>
+	
+	<style>
+	.progress {
+		margin: 5px 0; 
+		background-image: linear-gradient(to bottom,#ebebeb 0,#f5f5f5 100%); 
+		background-repeat: repeat-x; 
+		height: 19px; 
+		border-radius: 4px; 
+		box-sizing: border-box;
+	}
+	
+	.progress-bar {
+		background: silver; 
+		float:left; 
+		height:100%; 
+		font-size:12px; 
+		line-height: 19px; 
+		color:white; 
+		text-align:center; 
+		box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15); 
+		border-radius:4px;
+	}
+</style>
+
+<!-- Caixa sobre andamento de aulas. -->
+<div class="rich-stglpanel blocoDireita" id="j_id_jsp_1236623656_159"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1236623656_159", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1236623656_159:_form" name="j_id_jsp_1236623656_159:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1236623656_159_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1236623656_159');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_159_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_159_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Andamento das Aulas&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1236623656_159_input" name="j_id_jsp_1236623656_159" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1236623656_159_body">
+	
+		
+	
+	
+		
+	
+
+	
+
+	
+		
+		
+
+		
+		
+		
+			<div>
+				Aulas (Ministradas/Total): <i>42 / 72</i>
+			</div>
+			
+
+			<div style="width:100%;">
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 58.333333333333336%;">
+						
+							58%
+						
+					</div>
+				</div>
+				<div style="text-align:center; font-size:10px;">% de Carga Hor&#225;ria Ministrada</div>
+			</div>
+		
+	
+</div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1236623656_162"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1236623656_162", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1236623656_162:_form" name="j_id_jsp_1236623656_162:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1236623656_162_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1236623656_162');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_162_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_162_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Not&iacute;cias&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1236623656_162_input" name="j_id_jsp_1236623656_162" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1236623656_162_body">
+        
+			
+		
+		
+			
+		
+		
+        
+			
+				10/10/2026 17:17<br>
+				<i>Aula de 20/10 cancelada </i> <br>
+				
+<form id="j_id_jsp_1236623656_165" name="j_id_jsp_1236623656_165" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id_jsp_1236623656_165" value="j_id_jsp_1236623656_165" />
+
+				<input type="hidden" name="id" value="35917358"/>
+				<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1236623656_165'),{'j_id_jsp_1236623656_165:j_id_jsp_1236623656_166':'j_id_jsp_1236623656_165:j_id_jsp_1236623656_166'},'');}return false">(Visualizar)</a><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+				<br>
+			
+					
+		
+    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1236623656_167"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1236623656_167", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1236623656_167:_form" name="j_id_jsp_1236623656_167:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1236623656_167_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1236623656_167');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_167_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_167_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Enquete&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1236623656_167_input" name="j_id_jsp_1236623656_167" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1236623656_167_body">
+	   		
+				
+			
+			
+				
+			
+			
+			
+			
+	        
+		
+			
+				<center>Nenhuma enquete encontrada</center>
+			
+	    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1236623656_177"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1236623656_177", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1236623656_177:_form" name="j_id_jsp_1236623656_177:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1236623656_177_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1236623656_177');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_177_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_177_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Atividades&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1236623656_177_input" name="j_id_jsp_1236623656_177" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1236623656_177_body">
+    	
+			
+		
+		
+			
+		
+		
+        
+			<ul class="menu-direita">
+				
+					<li style="list-style:none !important; margin-left:0px !important;">
+						<span class="data">10/10</span>
+						<span class="descricao">Nova Not&#237;cia: Aula de 20/10 cancelada </span>
+					</li>
+				
+					<li style="list-style:none !important; margin-left:0px !important;">
+						<span class="data">06/10</span>
+						<span class="descricao">Tarefa alterada. </span>
+					</li>
+				
+					<li style="list-style:none !important; margin-left:0px !important;">
+						<span class="data">29/09</span>
+						<span class="descricao">Tarefa alterada. </span>
+					</li>
+				
+					<li style="list-style:none !important; margin-left:0px !important;">
+						<span class="data">29/09</span>
+						<span class="descricao">Tarefa alterada. </span>
+					</li>
+				
+					<li style="list-style:none !important; margin-left:0px !important;">
+						<span class="data">29/09</span>
+						<span class="descricao">Tarefa alterada. </span>
+					</li>
+				
+			</ul>
+		
+		
+    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1236623656_180"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1236623656_180", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1236623656_180:_form" name="j_id_jsp_1236623656_180:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1236623656_180_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1236623656_180');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_180_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_180_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Avalia&ccedil;&otilde;es&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1236623656_180_input" name="j_id_jsp_1236623656_180" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1236623656_180_body">
+    	
+			
+		
+		
+			
+		
+		
+		
+		
+		
+			<ul class="menu-direita">
+				
+					<li style="text-align: center; list-style:none !important; margin-left:0px !important"><span class="data">29/09 18:30</span><br/> <span class="descricao">1&#170; Avalia&#231;&#227;o</span> </li>
+				
+			</ul>
+		
+    </div></div><div class="rich-stglpanel blocoDireita" id="j_id_jsp_1236623656_183"><script type="text/javascript">SimpleTogglePanelManager.add(new SimpleTogglePanel("j_id_jsp_1236623656_183", 
+            													"true",{onexpand: '',oncollapse: ''}
+            													
+            							 ));</script><form id="j_id_jsp_1236623656_183:_form" name="j_id_jsp_1236623656_183:_form" method="post" style="margin:0; padding:0; display: inline;" action="/sigaa/ava/index.jsf"><div class="rich-stglpanel-header headerBloco" id="j_id_jsp_1236623656_183_header" onclick="SimpleTogglePanelManager.toggleOnClient(event,'j_id_jsp_1236623656_183');"><div class="rich-stglpanel-marker"><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_183_switch_on"><img src="/sigaa/ava/img/painel_seta_cima.png" /></div><div class="rich-stglpnl-marker" id="j_id_jsp_1236623656_183_switch_off" style="display: none"><img src="/sigaa/ava/img/painel_seta_baixo.png" /></div></div>Mensagens dos F&oacute;runs&#160;</div><div style="display: none;"><input autocomplete="off" id="j_id_jsp_1236623656_183_input" name="j_id_jsp_1236623656_183" type="hidden" value="true" /></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" /></form><div class="rich-stglpanel-body " id="j_id_jsp_1236623656_183_body">
+        
+			
+		
+		
+			
+		
+		
+        			
+		
+			<center>N&#227;o h&#225; mensagens cadastradas</center>
+		
+    </div></div>
+	
+	
+    
+    
+	    
+      
+    
+    
+    
+	
+    
+
+</div>
+
+		
+		
+		
+		<div id="cabecalho" class="ui-layout-north" style="overflow:visible;">
+			<div id="info-sistema">
+				<h1> <span>IFC - SIGAA -</span></h1>
+				<h3>Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</h3>
+				<div class="dir">
+					
+						<span class="ajuda-link" style="padding: 0 5px; margin: 0 5px; padding: 0 5px; position: absolute; right: 0; padding-right: 250px;">
+							<a title="Ajuda" alt="Ajuda" href="http://dti.ifc.edu.br" target="_blank"
+							 	style="font-weight: bolder; border-right: 1px solid #D99C44; padding-right: 8px;">
+								Ajuda?
+							</a>
+						</span>					
+					
+					<span id="relogioAva" class="relogioAva"></span> 
+					
+						
+						<div id="tempoSessao"></div>
+						
+						<span id="sair-sistema" class="sair-sistema">
+							<a href="/sigaa/logar.do?dispatch=logOff">SAIR</a>
+						</span>
+					
+				</div>
+			</div>
+			
+			
+			
+			
+	
+			<div style="position:relative;">
+				
+					<div id="painel-usuario" style="height: 20px;position:absolute;z-index:888;top:23px;right:5px;border:1px solid #99BBE8;display:none;">
+						<div style="position:absolute;top:-4px;right:-1px;height:4px;background:#FFF;width:24px;border-right:1px solid #99BBE8;"></div>
+						<div id="menu-usuario" style="background:#FFF;">
+							<ul>
+								<li class="modulos">
+								
+									<span id="modulos">
+										<a href="#" onclick="return exibirMenuModulos ();"> M&#243;dulos </a>
+									</span>
+								
+								</li>
+								<li class="caixa-postal"><a href="/sigaa/abrirCaixaPostal.jsf?sistema=2" accesskey="C">Caixa Postal</a></li>
+								
+								
+									<li class="chamado">
+									
+										
+										
+											
+																						
+												
+							
+												
+													<a href="#" accesskey="a" onclick="window.open('/sigaa/novoChamadoAdmin.jsf?sistema=2', 'chamado', 'scrollbars=1,width=830,height=600')">Abrir Chamado</a>
+												
+												
+											
+											
+										
+									
+									</li>
+									<li class="ajuda">
+										<a href="/sigaa/manuais/index.jsp" id="show-ajuda" > Ajuda </a>
+									</li>
+								
+								
+								
+									<li class="menus">
+										
+										
+										
+											<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+										
+										
+									</li>
+								
+								
+								
+									
+
+<li class="dados-pessoais">
+	
+		<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+	
+</li>
+								
+							</ul>
+						</div>
+						
+						<div style="position:absolute;bottom:-6px;height:5px;width:100%;background:url('/sigaa/ava/img/sombrasubmenu.png');"></div>
+					</div>
+				
+					<div id="painelDadosUsuario" class="dados-menu" style="position:relative;margin-left:3px;height:23px;vertical-align:middle;padding-right:3px;border-right:1px solid #666666;margin-top:2px;margin-right:3px;">
+						<p style="font-weight:bold;font-size:7pt;">
+							
+								ALUNO EXEMPLO DA SILVA
+								
+					 			
+					 				<a href="/sigaa/escolhaVinculo.do?dispatch=listar" style="font-size:6pt;">
+					 				<img src="/shared/img/group_go.png" alt="Alterar v&#237;nculo" title="Alterar v&#237;nculo" style="width:10px;" />
+					 				Alterar V&#237;nculo
+					 				</a>
+					 			
+							
+						</p>
+						
+						<div style="font-size:6pt;">
+							CAMPUS BLUMENAU
+							 (11.01.09)
+							
+							
+							
+								- Semestre atual: <strong style="font-weight:bold;">2026.2</strong>
+							
+								
+						</div>
+					</div>
+				
+				
+				
+				<div id="nomeTurma" class="dados-menu" style="position:relative;vertical-align:middle;padding-top:3px;">
+					<p id="linkCodigoTurma" style="display:inline;font-weight:bold;" title="3N1234 (03/08/2026 - 11/12/2026)">CCB0940 - </p>
+					<p id="linkNomeTurma" style="display:inline;font-weight:bold;" title="3N1234 (03/08/2026 - 11/12/2026)">COMPILADORES</p>
+					<p id="linkPeriodoTurma" style="display:inline;font-weight:bold;" title="3N1234 (03/08/2026 - 11/12/2026)">
+						 
+							<span title="3N1234 (03/08/2026 - 11/12/2026)">
+							
+					 		- 01
+							
+					 		</span>
+					 												<!-- Isso foi feito para evitar espa&#231;os extras entre os par&#234;nteses -->
+					(2026.2)
+					 </p>
+				</div>
+				
+				<div id="menuTurmaVirtual" class="naoImprimir" style="position:absolute;right:5px;top:4px;">
+				
+				
+					
+						
+					<form id="formAcessarMenu" action="" method="get" style="display:none;">
+						<input id="botaoAcessarMenu" type="submit" style="display:none;" />
+					</form>
+					
+					<script>
+						function voltarPortalDiscente() {
+							if(aguardandoProcessamento) {
+								return false;
+							} else {
+								prevenirDuploClique();
+								return clicarLinkMenu ('verPortalDiscente');
+							}
+						}
+						function clicarLinkMenu (endereco){
+							J("#formAcessarMenu").attr("action", "/sigaa/"+endereco+".do");
+							J("#formAcessarMenu").submit();
+							return false;
+						}
+
+						function exibirPaginados () {
+							J("#formAcoesTurma\\:linkExibirPaginados").click();
+							return false;
+						}
+
+						function exibirEmLista () {
+							J("#formAcoesTurma\\:linkExibirEmLista").click();
+							return false;
+						}
+					</script>
+								
+					
+<form id="formAcoesTurma" name="formAcoesTurma" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded" style="text-align:right;">
+<input type="hidden" name="formAcoesTurma" value="formAcoesTurma" />
+<a id="formAcoesTurma:linkExibirPaginados" href="#" style="display:none;" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formAcoesTurma'),{'formAcoesTurma:linkExibirPaginados':'formAcoesTurma:linkExibirPaginados','paginados':'true'},'');}return false"></a><a id="formAcoesTurma:linkExibirEmLista" href="#" style="display:none;" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formAcoesTurma'),{'formAcoesTurma:linkExibirEmLista':'formAcoesTurma:linkExibirEmLista'},'');}return false"></a><button id="formAcoesTurma:botaoPortalDiscente" name="formAcoesTurma:botaoPortalDiscente" onclick="return voltarPortalDiscente();;null" style="height:20px;margin:0px;border-radius:5px 0px 0px 5px;padding-left:0px;width:25px;border-right:0px;" title="Menu Discente" type="submit">pf-button</button><script type="text/javascript">widget_formAcoesTurma_botaoPortalDiscente = new PrimeFaces.widget.CommandButton('formAcoesTurma:botaoPortalDiscente', {text:false,icons:{primary:'botaoPortal'}});</script><button id="formAcoesTurma:botaoImprimir" name="formAcoesTurma:botaoImprimir" onclick="imprimir();;PrimeFaces.ajax.AjaxRequest('/sigaa/ava/index.jsf',{formId:'formAcoesTurma',global:true},{'formAcoesTurma:botaoImprimir':'formAcoesTurma:botaoImprimir'});return false;" style="height:20px;margin:0px;border-radius:0px;padding-left:0px;width:25px;border-right:0px;" title="Imprimir p&aacute;gina" type="submit">pf-button</button><script type="text/javascript">widget_formAcoesTurma_botaoImprimir = new PrimeFaces.widget.CommandButton('formAcoesTurma:botaoImprimir', {text:false,icons:{primary:'botaoImprimir'}});</script><button id="formAcoesTurma:visualizarPaginadas" name="formAcoesTurma:visualizarPaginadas" onclick="return exibirPaginados();;null" style="height:20px;margin:0px;margin-right:5px;border-radius:0px 5px 5px 0px;padding-left:0px;width:25px;" title="Visualizar aulas paginadas" type="submit">pf-button</button><script type="text/javascript">widget_formAcoesTurma_visualizarPaginadas = new PrimeFaces.widget.CommandButton('formAcoesTurma:visualizarPaginadas', {text:false,icons:{primary:'botaoAulasPaginadas'}});</script><button id="formAcoesTurma:botaoTrocarTurma" name="formAcoesTurma:botaoTrocarTurma" onclick="dialogTurmas.show();;PrimeFaces.ajax.AjaxRequest('/sigaa/ava/index.jsf',{formId:'formAcoesTurma',global:true},{'formAcoesTurma:botaoTrocarTurma':'formAcoesTurma:botaoTrocarTurma'});return false;" style="height:20px;margin:0px;border-radius:5px 0px 0px 5px;border-right:0px;" title="Trocar de turma" type="submit">Trocar de Turma</button><script type="text/javascript">widget_formAcoesTurma_botaoTrocarTurma = new PrimeFaces.widget.CommandButton('formAcoesTurma:botaoTrocarTurma', {text:true,icons:{primary:'botaoTrocarTurma'}});</script><button id="formAcoesTurma:botaoExibirOpcoes" name="formAcoesTurma:botaoExibirOpcoes" onclick="toggleSubMenuTurma();return false;;PrimeFaces.ajax.AjaxRequest('/sigaa/ava/index.jsf',{formId:'formAcoesTurma',global:true},{'formAcoesTurma:botaoExibirOpcoes':'formAcoesTurma:botaoExibirOpcoes'});return false;" style="height:20px;margin:0px;border-radius:0px 5px 5px 0px;padding-left:0px;width:26px;" title="Op&ccedil;&otilde;es" type="submit">pf-button</button><script type="text/javascript">widget_formAcoesTurma_botaoExibirOpcoes = new PrimeFaces.widget.CommandButton('formAcoesTurma:botaoExibirOpcoes', {text:false,icons:{primary:'botaoOpcoesTurma'}});</script><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+					
+					<input id="auxEsconderSubMenu" style="width:1px;height:1px;border:none;background:none;color:none;" onblur="setTimeout(function () {podeAlternarSubMenu=false;escondeSubMenu();}, 100);" />
+				</div>
+			</div>
+			
+			
+			
+			
+		</div>
+		
+		<!-- INICIO bot&#227;o de sinfo-assistente -->
+		
+		<!-- FIM bot&#227;o de sinfo-assistente -->	
+<script type="text/javascript">
+
+function imprimir() {
+
+	var conteudo = jQuery("#conteudo").html();
+	J('#baseLayout').css('display', 'none');
+	J('body').css("background", "#FFF");
+	
+	var cabecalhoImpressao = "<div style='background-color: #404E82;border-bottom: 3px solid #E1B26E;color: white;padding: 2px 4px 0 4px;'><span>IFC - SIGAA -</span> Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</div>";
+	var nomeTurma = "<div style='padding:10px;margin-bottom:10px;border-bottom:1px solid #99BBE8;font-weight:bold;font-size:10pt;background:#DFE8F6;'>Turma: CCB0940 - COMPILADORES (2026.2 - T01)</div>";
+
+	var botaoCancelar = "<div class='naoImprimir' style='width:210px;margin: 0 auto;margin-bottom:30px;'>"+
+							"<label>"+
+								"<span class='botao-pequeno'style='text-align:center' onclick='cancelarPrint();'>"+
+									"<a style='margin-left:-12px;'>Voltar para Turma<a/>"+
+								"</span>"+
+							"</label></div>";						
+	
+	J('body').append("<div id='impressao' style='clear:both;background:#FFF;margin:0px;padding:0px;height:100%;width:100%;'></div>");
+	J('#impressao').css('display', 'block');
+	J('#impressao').html(cabecalhoImpressao + nomeTurma + botaoCancelar + conteudo);
+	window.print();
+	return false;
+} 
+
+function cancelarPrint() {
+	document.location.href = '/sigaa/ava/index.jsf'
+}
+
+
+var aviso = J("#MensagemCarregamento");
+aviso.hide();
+
+function permitirEscolhaTurma() {
+	
+	var turmas = J(".linkTurma");
+	
+	turmas.each(function() {
+		J(this).hide();
+	} );
+
+	aviso.show();
+}
+
+</script>
+		<div id="conteudo" class="ui-layout-center">
+			<div id="scroll-wrapper">		
+			
+			
+			
+
+
+
+					
+			
+				
+			
+		
+
+	
+<form id="formAva" name="formAva" method="post" action="/sigaa/ava/index.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formAva" value="formAva" />
+
+	
+		<link rel="stylesheet" href="/sigaa/css/video-js/video-js-5.20.5.css">
+<script src="/sigaa/javascript/video-js/video-js-5.20.5.min.js"></script>
+
+
+
+<script src='/sigaa/ava/javascript/aulas.js'></script>
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+
+<style type="text/css">
+	.acao-topico {
+		height:20px;
+	}
+
+	.acao-topico .baseAcaoTopico {
+		position:relative;
+		float:right;
+		width:100px;
+	}
+	
+	.acao-topico .baseAcaoTopico span span .yui-module, #auxAcaoTopico .baseAcaoTopico span span .yui-module {
+		width:180px;
+		left:-90px !important;
+		z-index:999!important;
+		text-align:left;
+	}
+	
+	#auxAcaoTopico .baseAcaoTopico span span .yui-module {
+		left:-110px !important;
+	}
+	
+	.edicao-ativa { 		
+ 		padding: 5px 5px 5px 20px;
+ 		border-style: solid; 
+ 		border-width: 1px; 
+ 		border-color: #BED6F8;
+		border-radius: 	5px 5px 5px 5px; 		
+ 		
+ 		position: relative;
+ 		background: url('/sigaa/ava/img/handle_part.jpg') repeat-y;
+ 		background-position: 0px 5px;
+ 	}
+ 	
+	.conteudoNoticia ul li {  list-style: disc; display: list-item; margin-left: 25px}
+	.conteudoNoticia ol li {  list-style: decimal; display: list-item; margin-left: 25px}
+	.conteudoNoticia strong { font-weight:bold!important; font-style:inherit!important;}
+	.conteudoNoticia em { font-style:italic!important; font-weight:inherit!important;}
+
+	.msg-convite {
+		color:#FFF;
+		background-color: #596AAE;
+		padding: 10px 8px;
+		margin-top: 5px;
+		display: -ms-flexbox;
+	    display: flex;
+	    -ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	    min-width: 135px;
+	}
+	.msg-convite > .mensagem {
+		line-height: 16px;
+		width: calc(100% - 145px);
+	}
+	.msg-convite > .mensagem-btn {
+		width: 10%;
+		min-width: 124px;
+		margin-top: auto;
+		margin-left: auto;
+		margin-bottom: auto;
+	}
+	.msg-convite > .mensagem-btn > a {
+		color:#FFF;
+		font-weight: normal;
+		background-color: #78a1eb;
+		padding: 10px 7px;
+		border-radius: 5px;
+		float: right;
+	}
+	.msg-convite > .mensagem-btn > a:hover {
+		text-decoration:none !important;
+		background-color: #6795E9;
+	}
+	
+	@media (max-width: 905px) {
+		.msg-convite > .mensagem {
+			width: 100%;
+		}
+		.msg-convite > .mensagem-btn {
+		    padding-top: 10px;
+		}
+	}
+	@media (max-width: 630px) {
+		.msg-convite > .mensagem-btn {
+			margin: auto;
+		}
+	}
+</style>
+
+
+
+
+				
+
+
+
+	<div class="descricaoOperacao" id="ultimaNoticia">
+		<h4> &#218;ltima Not&#237;cia
+		<br>Aula de 20/10 cancelada - 10/10/2026 17:17 </h4>
+		<span class="conteudoNoticia"><p>N&atilde;o haver&aacute; aula de compiladores no dia 20/10.</p></span>
+		<br>
+		
+		<br>
+		<small> Cadastrado por:  <i> DOCENTE EXEMPLO</i>  </small>
+	</div>
+
+
+
+
+
+
+
+<input id="formAva:idTopicoSelecionado" type="hidden" name="formAva:idTopicoSelecionado" value="0" /><input id="formAva:bExibirTopico" name="formAva:bExibirTopico" onclick="A4J.AJAX.Submit('formAva',event,{'oncomplete':function(request,event,data){completarCarregamentoTopico();},'similarityGroupingId':'formAva:bExibirTopico','parameters':{'formAva:bExibirTopico':'formAva:bExibirTopico'} ,'containerId':'formAva:j_id_jsp_1236623656_319'} );return false;" style="display:none;" type="button" /><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1236623656_323:0:aulas"><div id="formAva:j_id_jsp_1236623656_323:0:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:0:titulo" class="titulo">Apresenta&ccedil;&atilde;o do plano de ensino. Introdu&ccedil;&atilde;o &agrave; compila&ccedil;&atilde;o. (04/08/2026 - 04/08/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:0:conteudo" class="conteudotopico"><p><span style="color: #000000;"><span style="color: #000000;"><strong><span style="color: #0000ff;"><span style="color: #000000;"><a href="https://forms.gle/5EYoP4N4jMdmpDTt6" target="_blank">Exerc&iacute;cios de Revis&atilde;o de Linguagens Formais e Aut&ocirc;matos (abre em nova guia)</a><br /></span></span></strong></span></span><span style="color: #000000;"><span style="color: #000000;"><strong><span style="color: #0000ff;"><span style="color: #000000;"><br />Leituras</span><br /></span></strong></span><a href="https://drive.google.com/file/d/1GiyKI3qylLenDPAGSV_mt7EmBBVAqcsv/view?usp=sharing" target="_blank"><span style="color: #000000;"><strong><span style="color: #0000ff;">Plano de Ensino (abre em nova guia)</span></strong></span></a></span><br /><a href="https://docs.google.com/document/d/1UR2LcLzyeisQW7sqM9Px27Jzv7C-8P7ufnkeGj0MRM8/edit?usp=sharing" target="_blank"><strong>Notas de Aula sobre Introdu&ccedil;&atilde;o (abre em nova guia)</strong></a><br /><br /><a href="https://drive.google.com/drive/folders/1qP2uy-tHJeywHzJGwe7KSS_4qziFIsoT?usp=sharing" target="_blank"><strong>Materiais Complementares (abre em nova guia)</strong></a><br />O reposit&oacute;rio de materiais complementares possui ferramentas, v&iacute;deos, apostilas, cursos e materiais did&aacute;ticos para complementar os estudos sobre os assuntos da disciplina. Informe caso encontre algum recurso indispon&iacute;vel.<br /><br /><strong>Observa&ccedil;&atilde;o</strong><br />Os materiais de aula cont&ecirc;m exerc&iacute;cios. Al&eacute;m dos exerc&iacute;cios descritos textualmente nos t&oacute;picos de aula do SIGAA, sugere-se a realiza&ccedil;&atilde;o de todos os exerc&iacute;cios de aula, de materiais complementares fornecidos e da bibliografia constante no PPC.</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:0:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:0:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:1:aulas"><div id="formAva:j_id_jsp_1236623656_323:1:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:1:titulo" class="titulo">Fases da Compila&ccedil;&atilde;o. (18/08/2026 - 18/08/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:1:conteudo" class="conteudotopico"><p><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_321:0:aulas"><strong>Leitura<br /><a href="https://docs.google.com/document/d/1qkd2_ue0a2I_GA3lzWzvgM3f77slFom8TV3k1eYxGLQ/edit?usp=sharing" target="_blank">Notas de Aula sobre Fases da Compila&ccedil;&atilde;o (abre em nova guia)</a><br /><br />Exerc&iacute;cios<br /></strong>1) Pesquise e responda:<br />1.1) O que s&atilde;o compiladores de passagem &uacute;nica e de duas passagens?<br />1.2) Quais s&atilde;o as vantagens e desvantagens dos compiladores de passagem &uacute;nica e de duas passagens?<br />2) Que otimiza&ccedil;&atilde;o pode ser feita no c&oacute;digo abaixo? Mostre o c&oacute;digo resultante e justifique sua resposta.<br /><br /><span style="font-family: courier new, courier;">while (i &lt; 10*j) {</span><br /><span style="font-family: courier new, courier;">&nbsp;&nbsp; a[i] = i + 2*j;</span><br /><span style="font-family: courier new, courier;">&nbsp;&nbsp; ++i;</span><br /><span style="font-family: courier new, courier;">}</span><br /><br />3) Observe e execute os c&oacute;digos <strong><a href="https://drive.google.com/file/d/17fa7Gmam7l3mtH3FZbPo6oqbF167mEvy/view?usp=drive_link" target="_blank">aula-2-divisao-por-2.c (abre em nova guia)</a></strong> e <a href="https://drive.google.com/file/d/1TVnAPVUWc135IWyUFpLk9_QxZtzDp_ng/view?usp=drive_link" target="_blank"><strong>aula-2-multiplicacao-por-0.5.c (abre em nova guia)</strong></a></span></span><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_321:0:aulas">. Compile e execute cinco vezes:<br />&gt; <span style="font-family: courier new, courier;">gcc aula-2-multiplicacao-por-0.5.c; for i in $(seq 5); do time ./a.out 1000000000; done</span><br />&gt; <span style="font-family: courier new, courier;">gcc aula-2-divisao-por-2.c; for i in $(seq 5); do time ./a.out 1000000000; done</span> <br />3.1) O que fazem os c&oacute;digos?<br />3.2) Existem diferen&ccedil;as entre eles?<br />3.3) Os resultados da execu&ccedil;&atilde;o acima foram diferentes? Por que isso acontece? <br /><br />Mostrar arquivos <a href="https://drive.google.com/file/d/15rS-lm8moDyrFWXTGYzRmhJVL9jGu6ph/view?usp=drive_link" target="_blank"><strong>mul (abre em nova guia)</strong></a> e <a href="https://drive.google.com/file/d/11dFwCYI4EElFauaMUThrgK6AsXlka0ce/view?usp=drive_link" target="_blank"><strong>div (abre em nova guia)</strong></a>, gerados com os seguintes comandos:<br />&gt; <span style="font-family: courier new, courier;">objdump -d a.out &gt; mul # Onde a.out &eacute; o execut&aacute;vel de aula-2-multiplicacao-por-0.5.c</span><br />&gt; <span style="font-family: courier new, courier;">objdump -d a.out &gt; div # Onde a.out &eacute; o execut&aacute;vel de aula-2-divisao-por-2.c</span><strong><br /></strong></span></span></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:1:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:1:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:2:aulas"><div id="formAva:j_id_jsp_1236623656_323:2:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:2:titulo" class="titulo">An&aacute;lise L&eacute;xica. (25/08/2026 - 25/08/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:2:conteudo" class="conteudotopico"><p><strong>V&iacute;deos</strong><br /><a href="https://youtu.be/GZUK_RP137g" target="_blank"><strong>https://youtu.be/GZUK_RP137g (abre em nova guia)</strong></a><br /><a href="https://youtu.be/xE9piuD5rOg" target="_blank"><strong>https://youtu.be/xE9piuD5rOg (abre em nova guia)</strong></a><br /><a href="https://youtu.be/bvlIOVepEhY" target="_blank"><strong>https://youtu.be/bvlIOVepEhY (abre em nova guia)<br /></strong></a><strong><br />Leitura<br /><a href="https://docs.google.com/document/d/1q8AFs9PE1OWJ5zBbpX9rf5dDMV8AoKQnP1zeMlbu1ew/edit?usp=sharing" target="_blank">Notas de Aula sobre An&aacute;lise L&eacute;xica (abre em nova guia)</a></strong></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:2:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:2:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:3:aulas"><div id="formAva:j_id_jsp_1236623656_323:3:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:3:titulo" class="titulo">An&aacute;lise L&eacute;xica. (01/09/2026 - 01/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:3:conteudo" class="conteudotopico"><p><strong>Leitura<br /></strong><a href="https://docs.google.com/document/d/1olIUIaAp2lhgoRJz2IsfRMTQG8LF0icVjFWgwd1CnOQ/edit?usp=sharing" target="_blank"><strong>An&aacute;lise L&eacute;xica (Parte 2) (abre em nova guia)</strong></a><strong><br /><br />Obs.</strong>: o link para as notas de aula cont&eacute;m figuras, textos, exemplos de c&oacute;digos e respostas de exerc&iacute;cios utilizando a ferramenta <span style="font-family: courier new, courier;">flex</span>.<br /><br /></p>
+<p><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_321:7:aulas"><strong>Exerc&iacute;cio</strong><br />Utilizando o <span style="font-family: courier new, courier;">flex</span>, implemente um analisador l&eacute;xico que realize as a&ccedil;&otilde;es abaixo com as tags de um arquivo HTML:<br /><strong>TAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSTRU&Ccedil;&Atilde;O</strong><br />&lt;p&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "\t"<br />&lt;br&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "\n"<br />&lt;title&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !!!<br />&lt;/title&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ???<br />outras tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eliminar<br /><br /><strong>Obs. 1</strong>: Eliminar significa que o c&oacute;digo de marca&ccedil;&atilde;o n&atilde;o deve aparecer, mas seu conte&uacute;do sim. Ou seja, <span style="font-family: courier new, courier;">&lt;tag-diferente&gt;ABC&lt;/tag-diferente&gt;</span> deve exibir <span style="font-family: courier new, courier;">ABC</span>.<br /><strong>Obs. 2</strong>: Voc&ecirc; pode criar mais express&otilde;es para deixar o <em>scanner</em> ainda mais completo.<br /><br /></span></span><strong>Entradas para o Exerc&iacute;cio</strong><br /><a href="https://drive.google.com/file/d/1cqFYM3mSNGW4bdnxacTRdTQKDSCCRxWu/view?usp=sharing" target="_blank"><strong>Boa (abre em nova guia)</strong></a><br /><a href="https://drive.google.com/file/d/172NA5DxC_WnR-XiOEZa7mgspDMbE3ltU/view?usp=sharing" target="_blank"><strong>Ruim (abre em nova guia)</strong></a></p>
+<p>&nbsp;</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:3:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:3:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:4:aulas"><div id="formAva:j_id_jsp_1236623656_323:4:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:4:titulo" class="titulo">An&aacute;lise Sint&aacute;tica. (08/09/2026 - 08/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:4:conteudo" class="conteudotopico"><p><strong>Leituras<br /></strong><a href="https://docs.google.com/document/d/1hoZn63283vEQ3hEmqf6-_RNw6AXiIoO1ycgvPq1eG60/edit?usp=sharing" target="_blank"><strong>Notas de Aula sobre An&aacute;lise Sint&aacute;tica - Parte 1 (abre em nova guia)</strong></a><br /><strong><br />Exerc&iacute;cio</strong><br />Dada a gram&aacute;tica abaixo, identifique os conjuntos <em>FIRST</em> e <em>FOLLOW,</em> crie a tabela <em>M</em> e reconhe&ccedil;a <span style="font-family: courier new, courier;">-(-id(id))$</span>. O s&iacute;mbolo inicial da gram&aacute;tica &eacute; A.<br />A &rarr; -A | (A) | CB<br />B &rarr; -A | &epsilon;<br />C &rarr; idD<br />D &rarr; (A) | &epsilon;</p>
+<p>&nbsp;</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:4:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:4:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:5:aulas"><div id="formAva:j_id_jsp_1236623656_323:5:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:5:titulo" class="titulo">Tabela de S&iacute;mbolos. (08/09/2026 - 08/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:5:conteudo" class="conteudotopico"><p><strong>Leituras<br /><a href="https://docs.google.com/document/d/1irSVOltPBKEjQVJkcjiBChASdg8KKvfoMr_B18wUu-o/edit?usp=sharing" target="_blank">Notas de Aula sobre Tabela de S&iacute;mbolos (abre em nova guia)</a><br /></strong><br /><strong>C&oacute;digos</strong><br /><a href="https://drive.google.com/file/d/1982TqhnpLMRD7xS9YELEIz8NKy_YPdw-/view?usp=drive_link" target="_blank"><strong>scanner-tabela-de-simbolos.l (abre em nova guia)</strong></a><br /><a href="https://drive.google.com/file/d/1v9AO4fyBOWT5DP8DqMv0d4fSv0J-g0xx/view?usp=drive_link" target="_blank"><strong>tabela-de-simbolos.c (abre em nova guia)</strong></a><br /><a href="https://drive.google.com/file/d/1oABbkuBv4wudHLu4-vKnByLtCMuC7YJc/view?usp=drive_link" target="_blank"><strong>entrada-tabela-de-simbolos-exemplo-1.c (abre em nova guia)</strong></a><br /><a href="https://drive.google.com/file/d/1ENbADLDdBmZP7dZ_Fn31h8x8V0n1CWa2/view?usp=drive_link" target="_blank"><strong>entrada-tabela-de-simbolos-exemplo-2.c (abre em nova guia)</strong></a><br /><br />Execute com:<br /><span style="font-family: courier new, courier;">flex&nbsp;scanner-tabela-de-simbolos.l</span><br /><span style="font-family: courier new, courier;">gcc lex.yy.c tabela-de-simbolos.c</span><br /><span style="font-family: courier new, courier;">./a.out NUM_IMPLEMENTA&Ccedil;&Atilde;O ARQUIVO_ENTRADA</span><br /><span style="font-family: courier new, courier;">NUM_IMPLEMENTA&Ccedil;&Atilde;O</span>&nbsp;deve ser 1 ou 2, e&nbsp;<span style="font-family: courier new, courier;">ARQUIVO_ENTRADA</span>&nbsp;deve ser o c&oacute;digo utilizado para o preenchimento da tabela de s&iacute;mbolos.<br /><br /><strong>Exerc&iacute;cios</strong></p>
+<div>1. Implemente a fun&ccedil;&atilde;o <span style="font-family: courier new, courier;">liberar()</span>, respons&aacute;vel por percorrer o vetor global de ponteiros simbolos e desalocar a mem&oacute;ria de cada estrutura <span style="font-family: courier new, courier;">Simbolo</span> criada durante a execu&ccedil;&atilde;o do analisador.</div>
+<div>2. Implemente a fun&ccedil;&atilde;o <span style="font-family: courier new, courier;">buscarSimbolo()</span>, respons&aacute;vel por verificar se um identificador j&aacute; foi declarado no programa. A busca deve respeitar regras de escopo, ou seja, primeiro buscar no escopo atual e, em caso de aus&ecirc;ncia do s&iacute;mbolo procurado, deve consultar o escopo global. A busca deve funcionar para as duas implementa&ccedil;&otilde;es dispon&iacute;veis (tabela hash &uacute;nica e m&uacute;ltiplas tabelas). O retorno da fun&ccedil;&atilde;o deve ser um ponteiro para o s&iacute;mbolo encontrado (ou <span style="font-family: courier new, courier;">NULL</span>, se o s&iacute;mbolo n&atilde;o existir).</div>
+<div><strong>Obs. 1</strong>: para a implementa&ccedil;&atilde;o de tabela &uacute;nica, o escopo 0 cont&eacute;m todos os s&iacute;mbolos. Neste caso, utilize os campos <span style="font-family: courier new, courier;">nivel</span> e <span style="font-family: courier new, courier;">referencia</span>.</div>
+<div><strong>Obs. 2</strong>: a fun&ccedil;&atilde;o <span style="font-family: courier new, courier;">buscarSimbolo()</span> deve ser chamada na <span style="font-family: courier new, courier;">main</span> ap&oacute;s a leitura do arquivo, ou seja, ap&oacute;s a chamada de <span style="font-family: courier new, courier;">yylex()</span>.</div><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:5:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:5:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:6:aulas"><div id="formAva:j_id_jsp_1236623656_323:6:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:6:titulo" class="titulo">An&aacute;lise Sint&aacute;tica. (15/09/2026 - 15/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:6:conteudo" class="conteudotopico"><p><strong>Leituras<br /></strong><a href="https://docs.google.com/document/d/1MtQ4rYHmWBYJy8mnT-iDGOx_h-CTAUsgxP4AYBvlZtI/edit?usp=sharing" target="_blank"><strong>Notas de Aula sobre An&aacute;lise Sint&aacute;tica - Parte 2 (abre em nova guia)</strong></a><br /><a href="http://www2.fct.unesp.br/docentes/dmec/olivete/compiladores/arquivos/Aula9.pdf" target="_blank"><strong>Aula do prof. Celso Olivete J&uacute;nior contendo passo a passo para a resolu&ccedil;&atilde;o do exerc&iacute;cio da tabela de preced&ecirc;ncia de operadores (abre em nova guia)</strong></a></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:6:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:6:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:7:aulas"><div id="formAva:j_id_jsp_1236623656_323:7:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:7:titulo" class="titulo">Exerc&iacute;cio. (15/09/2026 - 15/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:7:conteudo" class="conteudotopico"><p><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_323:10:aulas"><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_321:5:aulas"><strong>Exerc&iacute;cio</strong><br />Existem tipos diferentes de analisadores LR(k), entre eles o SLR (j&aacute; abordado), o LR e o LALR. Conceitue e diferencie os analisadores LR e LALR em um texto de pelo menos uma p&aacute;gina completa de conte&uacute;do. O texto precisa ser autoral (utilize cita&ccedil;&otilde;es e indique refer&ecirc;ncias) e pode conter exemplos, figuras e outros recursos. Estabele&ccedil;a o m&aacute;ximo de rela&ccedil;&otilde;es com o conte&uacute;do j&aacute; visto at&eacute; aqui.</span></span></span></span></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:7:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:7:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:8:aulas"><div id="formAva:j_id_jsp_1236623656_323:8:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:8:titulo" class="titulo">An&aacute;lise Sint&aacute;tica. Detec&ccedil;&atilde;o de Erros. (22/09/2026 - 22/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:8:conteudo" class="conteudotopico"><p><strong>Leitura<br /></strong><a href="https://docs.google.com/document/d/1GvJ9r6P1LJdr32RCqREK7sGs1gvxThwim_wmnQA3wK4/edit?usp=sharing" target="_blank"><strong>Notas de Aula sobre An&aacute;lise Sint&aacute;tica - Parte 3 (abre em nova guia)</strong></a><br /><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_323:10:aulas"><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1375300775_321:5:aulas"><strong><br /></strong></span></span></span></span><strong>V&iacute;deo</strong><br /><a href="https://www.youtube.com/watch?v=YGU0JCcpCvQ" target="_blank"><strong>Uso do javacc (abre em nova guia)</strong></a></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:8:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:8:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:9:aulas"><div id="formAva:j_id_jsp_1236623656_323:9:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:9:titulo" class="titulo">Exerc&iacute;cios. (22/09/2026 - 22/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:9:conteudo" class="conteudotopico"><p><strong>Exerc&iacute;cios</strong><br /><br /><strong>1)</strong> Tomando como base a calculadora simples criada em aula, altere <em>scanner</em> e <em>parser</em> para permitir a opera&ccedil;&atilde;o de raiz quadrada. O s&iacute;mbolo de raiz quadrada deve ser V.<br /><br />Obs.: Alguns testes que podem ajudar na resolu&ccedil;&atilde;o desse exerc&iacute;cio:<br /><span style="font-family: courier new, courier;">V 9</span><br /><span style="font-family: courier new, courier;">V 9.000000</span><br /><span style="font-family: courier new, courier;">Resultado: 3.000000</span><br /><span style="font-family: courier new, courier;">V (3^2)</span><br /><span style="font-family: courier new, courier;">3.000000 ^ 2.000000</span><br /><span style="font-family: courier new, courier;">V 9.000000</span><br /><span style="font-family: courier new, courier;">Resultado: 3.000000</span><br /><span style="font-family: courier new, courier;">V (2^3)+1</span><br /><span style="font-family: courier new, courier;">2.000000 ^ 3.000000</span><br /><span style="font-family: courier new, courier;">V 8.000000</span><br /><span style="font-family: courier new, courier;">2.828427 + 1.000000</span><br /><span style="font-family: courier new, courier;">Resultado: 3.828427</span><br /><span style="font-family: courier new, courier;">V (2^3+1)</span><br /><span style="font-family: courier new, courier;">2.000000 ^ 3.000000</span><br /><span style="font-family: courier new, courier;">8.000000 + 1.000000</span><br /><span style="font-family: courier new, courier;">V 9.000000</span><br /><span style="font-family: courier new, courier;">Resultado: 3.000000</span><br /><br /><strong>2)</strong> Realizar os exerc&iacute;cios presentes nas notas de aula.</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:9:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:9:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:10:aulas"><div id="formAva:j_id_jsp_1236623656_323:10:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:10:titulo" class="titulo">Prova (AV1). (29/09/2026 - 29/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:10:conteudo" class="conteudotopico"><p>A prova (<strong>AV1</strong>) ser&aacute; individual.<br />A consulta &eacute; proibida para a resolu&ccedil;&atilde;o das quest&otilde;es te&oacute;ricas.<br />A consulta &eacute; permitida aos materiais de aula para a resolu&ccedil;&atilde;o da quest&atilde;o pr&aacute;tica.<br />Os(As) estudantes podem realizar a parte pr&aacute;tica em seus computadores, desde que comprovem a desabilita&ccedil;&atilde;o de ferramentas de IA (codex e afins) e utilizem o computador em posi&ccedil;&otilde;es similares aos computadores do laborat&oacute;rio. Explica&ccedil;&otilde;es sobre as respostas poder&atilde;o ser solicitadas.<br />A prova termina &agrave;s 21h50.<br /><br /><a href="https://westes.github.io/flex/manual/" target="_blank"><strong>Documenta&ccedil;&atilde;o do Flex (abre em nova guia)</strong></a><br /><a href="https://www.gnu.org/software/bison/manual/" target="_blank"><strong>Documenta&ccedil;&atilde;o do Bison (abre em nova guia)</strong></a></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:10:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:10:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div><span id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:dndPanel"><div id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_374" style="margin-left: 0px; " class="item"><span id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_375:status"><span id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_375:status.start" style="display: none"><img src="/sigaa/img/indicator.gif" /></span><span id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_375:status.stop"></span></span>&nbsp;<img src="/sigaa/img/porta_arquivos/icones/tarefa.png" />&nbsp;<span id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_425">&nbsp;<a id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:idEnviarMaterialTarefa" href="#" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formAva'),{'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:idEnviarMaterialTarefa':'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:idEnviarMaterialTarefa','id':'35822913'},'');}return false};return (a()==false) ? false : b();"> AV1 - pr&aacute;tica</a>&nbsp;</span>&nbsp;&nbsp;<div id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_582" class="descricao-item"><span id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_589">Inicia em 29/09/2026 &agrave;s 19h 0 e finaliza em 29/09/2026 &agrave;s 22h 10</span></div></div><script id="formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:destinoDragDrop">new DnD.SimpleDropZone('formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:dndPanel',{'acceptedTypes':['material_aula'] ,'dndParams':'{}'} ).drop = function(event,drag){var options = {'status':'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:j_id_jsp_1236623656_375:status','similarityGroupingId':'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:destinoDragDrop','parameters':{'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:destinoDragDrop':'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:destinoDragDrop'} ,'containerId':'formAva:j_id_jsp_1236623656_319'} ;options.parameters['dropTargetId'] = 'formAva:j_id_jsp_1236623656_323:10:listaMateriais:0:destinoDragDrop';Object.extend(options.parameters, drag.getParameters());var dzOptions = this.getDropzoneOptions(); if (dzOptions.ondrop) { if (!dzOptions.ondrop.call(this, event)) return; };A4J.AJAX.Submit('formAva',event,options);};</script></span></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:11:aulas"><div id="formAva:j_id_jsp_1236623656_323:11:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:11:titulo" class="titulo">Prova (AV1) (continua&ccedil;&atilde;o). (29/09/2026 - 29/09/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:11:conteudo" class="conteudotopico"><p>Tempo adicional para a conclus&atilde;o da AV1.</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:11:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:11:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:12:aulas"><div id="formAva:j_id_jsp_1236623656_323:12:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:12:titulo" class="titulo">An&aacute;lise Sint&aacute;tica. (06/10/2026 - 06/10/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:12:conteudo" class="conteudotopico"><p><strong>Leitura<br /></strong><strong><a href="https://docs.google.com/document/d/167_99YgWX73pwvof7C_7QPM8yPdWlhLoG7THAhzuvP8/edit?usp=sharing" target="_blank">Notas de Aula sobre An&aacute;lise Sint&aacute;tica - Parte 4 (abre em nova guia)<br /><br /></a>Exerc&iacute;cio<br /></strong>Esquecemos de algumas situa&ccedil;&otilde;es e vamos ter trabalho extra!<br /><br />Sim, o &uacute;ltimo exerc&iacute;cio da prova est&aacute; bastante incompleto. Em diversas elei&ccedil;&otilde;es, existe um segundo momento de vota&ccedil;&atilde;o que compreende a escolha de um(a) entre os(as) dois(duas) candidatos(as) mais votados no primeiro turno. Na elei&ccedil;&atilde;o deste ano, podem ocorrer as disputas de segundo turno entre os(as) candidatos(as) ao governo do estado e ao governo federal. Al&eacute;m disso, n&atilde;o consideramos a hip&oacute;tese de voto em tr&acirc;nsito, que ocorre quando o(a) eleitor(a) informa a Justi&ccedil;a Eleitoral que n&atilde;o estar&aacute; em seu domic&iacute;lio eleitoral. Neste caso, quando o(a) eleitor(a) se encontra em outra cidade da mesma Unidade Federativa (UF), ele(a) pode votar normalmente; caso esteja em outra UF, pode votar somente para presidente (tanto no primeiro quanto no segundo turno).<br /><br />Precisamos da implementa&ccedil;&atilde;o completa! As mensagens seguem as mesmas: <span style="font-family: courier new, courier;">PIRILILILIM</span>&nbsp;e <span style="font-family: courier new, courier;">ERRO</span>. N&atilde;o esque&ccedil;a que n&atilde;o &eacute; poss&iacute;vel votar duas vezes na mesma pessoa. Isso parece &oacute;bvio, mas n&atilde;o custa lembrar.<br /><br />Atividade individual. +0,5 na AV1 para quem fizer tudo certo, <strong>mostrar a execu&ccedil;&atilde;o</strong>&nbsp;<strong>e souber explicar os c&oacute;digos</strong>. (<strong>EXTRA</strong>&nbsp;<strong>1</strong>) + 1,0 na AV1 para quem realizar tudo isso e mais a possibilidade de voto em legenda para deputados(as) federal e estadual. (<strong>EXTRA</strong>&nbsp;<strong>2</strong>) +0,5 a quem implementar outras valida&ccedil;&otilde;es e possibilidades (ex: votos em branco).<br /><br /><strong>&Eacute; necess&aacute;rio mostrar a execu&ccedil;&atilde;o e explicar os c&oacute;digos.</strong></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:12:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:12:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div><span id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:dndPanel"><div id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_374" style="margin-left: 0px; " class="item"><span id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_375:status"><span id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_375:status.start" style="display: none"><img src="/sigaa/img/indicator.gif" /></span><span id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_375:status.stop"></span></span>&nbsp;<img src="/sigaa/img/porta_arquivos/icones/tarefa.png" />&nbsp;<span id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_425">&nbsp;<a id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:idEnviarMaterialTarefa" href="#" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formAva'),{'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:idEnviarMaterialTarefa':'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:idEnviarMaterialTarefa','id':'35809285'},'');}return false};return (a()==false) ? false : b();"> Exerc&iacute;cio flex + bison</a>&nbsp;</span>&nbsp;&nbsp;<div id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_582" class="descricao-item"><span id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_589">Inicia em 24/09/2026 &agrave;s 0h 0 e finaliza em 06/10/2026 &agrave;s 21h 53</span></div></div><script id="formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:destinoDragDrop">new DnD.SimpleDropZone('formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:dndPanel',{'acceptedTypes':['material_aula'] ,'dndParams':'{}'} ).drop = function(event,drag){var options = {'status':'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:j_id_jsp_1236623656_375:status','similarityGroupingId':'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:destinoDragDrop','parameters':{'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:destinoDragDrop':'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:destinoDragDrop'} ,'containerId':'formAva:j_id_jsp_1236623656_319'} ;options.parameters['dropTargetId'] = 'formAva:j_id_jsp_1236623656_323:12:listaMateriais:0:destinoDragDrop';Object.extend(options.parameters, drag.getParameters());var dzOptions = this.getDropzoneOptions(); if (dzOptions.ondrop) { if (!dzOptions.ondrop.call(this, event)) return; };A4J.AJAX.Submit('formAva',event,options);};</script></span></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:13:aulas"><div id="formAva:j_id_jsp_1236623656_323:13:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:13:titulo" class="titulo">Corre&ccedil;&atilde;o da Prova (AV1). Divulga&ccedil;&atilde;o do Trabalho (AV3). (06/10/2026 - 06/10/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:13:conteudo" class="conteudotopico"><p><strong>Resumo<br /></strong>Corre&ccedil;&atilde;o da prova e gera&ccedil;&atilde;o de m&aacute;quinas de estados com Bison e dot.<strong><br /><br />Trabalho<br /><a href="https://docs.google.com/document/d/1Eag5pNaKH4n_iFQFaY9pEd2k7rPL8oM4aK_a_h4adGA/edit?usp=sharing" target="_blank">AV3 (abre em nova guia)<br /><br /></a>Temas Escolhidos<br /></strong><em>Automa&ccedil;&atilde;o de backups e organiza&ccedil;&atilde;o de diret&oacute;rios</em>&nbsp;- Ana e Beatriz<br /><em>Gera&ccedil;&atilde;o de m&uacute;sicas</em>&nbsp;- Estev&atilde;o<br /><br /></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:13:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:13:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:14:aulas"><div id="formAva:j_id_jsp_1236623656_323:14:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:14:titulo" class="titulo">An&aacute;lise Sem&acirc;ntica. (13/10/2026 - 13/10/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:14:conteudo" class="conteudotopico"><p><strong>Leituras<br /><a href="https://docs.google.com/document/d/1X8H7gKhPxaKx5f0fE4ubIb1fYgFyJAoKOEviiH66a4w/edit?usp=sharing" target="_blank">Notas de Aula sobre An&aacute;lise Sem&acirc;ntica (abre em nova guia)<br /></a></strong><a href="https://docs.google.com/document/d/1C9z6nNVuBAF7dxYg5TOUIfNqyiUI9naUq2vCQcgrU7k/edit?usp=sharing" target="_blank"><strong>Notas de Aula sobre An&aacute;lise Sem&acirc;ntica (parte 2) (abre em nova guia)</strong><br /></a><strong><a href="https://drive.google.com/drive/folders/1E0LYLQEngjWAam9me-inEUNGqvQ89qCZ?usp=drive_link" target="_blank">Arquivos sobre Tradu&ccedil;&atilde;o Dirigida por Sintaxe, de Gabriel Eduardo Lima (abre em nova guia)</a></strong></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:14:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:14:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:15:aulas"><div id="formAva:j_id_jsp_1236623656_323:15:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:15:titulo" class="titulo">Exerc&iacute;cios. (13/10/2026 - 13/10/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:15:conteudo" class="conteudotopico"><p><strong>Exerc&iacute;cios</strong><br /><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1236623656_323:17:aulas">1) Gere a m&aacute;quina de estados finitos para o seu programa da aula passada.<br />2) Analise o trecho de c&oacute;digo-fonte abaixo (em linguagem C), identifique e classifique os erros em: l&eacute;xicos, sint&aacute;ticos e sem&acirc;nticos.<br /><span style="font-family: courier new, courier;">int I4, I3, I@;</span><br /><span style="font-family: courier new, courier;">I4 = 0;</span><br /><span style="font-family: courier new, courier;">while (I4&gt;=0); {</span><br /><span style="font-family: courier new, courier;">&nbsp;&nbsp;&nbsp; I3 = I3 + 1;</span><br /><span style="font-family: courier new, courier;">}</span><br /><span style="font-family: courier new, courier;">I4 = 'a';</span><br /><span style="font-family: courier new, courier;">I3 = I4$5;</span></span></span><br /><br />H&aacute; outros exerc&iacute;cios nos tr&ecirc;s materiais de aula, os quais sugere-se a resolu&ccedil;&atilde;o.</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:15:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:15:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:20:aulas"><div id="formAva:j_id_jsp_1236623656_323:20:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:20:titulo" class="titulo">Prova (AV2). (17/11/2026 - 17/11/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:20:conteudo" class="conteudotopico"><p><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1236623656_323:10:aulas">A prova (<strong>AV2</strong>) ser&aacute; individual e sem consulta.</span></span></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:20:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:20:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:21:aulas"><div id="formAva:j_id_jsp_1236623656_323:21:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:21:titulo" class="titulo">Prova (AV2) (continua&ccedil;&atilde;o). (17/11/2026 - 17/11/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:21:conteudo" class="conteudotopico"><p><span id="formAva:panelTopicosNaoSelecionados"><span id="formAva:j_id_jsp_1236623656_323:11:aulas">Tempo adicional para a conclus&atilde;o da AV2.</span></span></p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:21:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:21:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:22:aulas"><div id="formAva:j_id_jsp_1236623656_323:22:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:22:titulo" class="titulo">Corre&ccedil;&atilde;o das atividades e entrega das notas. (24/11/2026 - 24/11/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:22:conteudo" class="conteudotopico"><p><strong>Resumo</strong><br />Corre&ccedil;&atilde;o e entrega da prova (AV2).</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:22:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:22:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:23:aulas"><div id="formAva:j_id_jsp_1236623656_323:23:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:23:titulo" class="titulo">Apresenta&ccedil;&atilde;o do Trabalho (AV3). (24/11/2026 - 24/11/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:23:conteudo" class="conteudotopico"><p><strong>Resumo</strong><br />Apresenta&ccedil;&atilde;o do Trabalho (AV3).</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:23:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:23:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				<span id="formAva:j_id_jsp_1236623656_323:24:aulas"><div id="formAva:j_id_jsp_1236623656_323:24:topico_aula" style="padding:10px; position: relative; margin-left: 10px; background:rgb()" class="topico-aula"><div id="formAva:j_id_jsp_1236623656_323:24:titulo" class="titulo">Apresenta&ccedil;&atilde;o do Trabalho (AV3). (01/12/2026 - 01/12/2026) 
+			   
+		
+			 
+			
+			
+			
+			
+			
+	
+			<small><i>
+				
+			</i></small>
+		</div><div id="formAva:j_id_jsp_1236623656_323:24:conteudo" class="conteudotopico"><p><strong>Resumo</strong><br />Apresenta&ccedil;&atilde;o do Trabalho (AV3).</p>
+<p>&nbsp;</p><div class="drgind_fly drgind_default drag_indicator " id="formAva:j_id_jsp_1236623656_323:24:dragIndicator" style="display: none; " xmlns:rich="http://richfaces.ajax4jsf.org/rich"><script type="text/javascript">var elt = $("formAva:j_id_jsp_1236623656_323:24:dragIndicator");
+		elt.markers = {};
+		elt.indicatorTemplates = {};elt.markers['accept'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/accept.gif.jsf\" /\x3E";
+elt.markers['default'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/default.gif.jsf\" /\x3E";
+elt.markers['reject'] = "\x3Cimg alt=\"\" border=\"0\" width=\"16\" height=\"16\" src=\"/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/reject.gif.jsf\" /\x3E";
+elt.indicatorTemplates['single'] =  DefaultDragIndicatorView;elt.indicatorTemplates['multi'] =  DefaultDragIndicatorView;createDragIndicator(elt, '', '');</script></div></div></div><div style="clear:both"></div></span>
+					
+ 
+ 
+ 	
+
+
+
+ 
+
+<script type="text/javascript">
+function lancarAcaoTopico(elem) {
+	if (elem.value.split('_')[1] > 0) {
+		if(elem.value.split('_')[1] == 7 && !confirm('Deseja realmente remover o registro de aula?')) {
+			elem.selectedIndex = 0; //Se o usu&#225;rio cancelar a remo&#231;&#227;o, setar o valor selecionado como o primeiro da lista.
+			return null;			
+		}
+		
+		acaoTopico(elem);
+	}
+}
+</script>
+				</span><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+			</div>
+		</div>
+		
+		
+		
+		<div id="rodape" class="ui-layout-south">
+			<p>	SIGAA | Diretoria de Tecnologia da Informa&#231;&#227;o - (47) 3331-7800 | Copyright &copy; 2006-2026 - UFRN - sigaa-03.re.sig.prd.datacenter.ifc.edu.br.sigaa-03.re.sig.prd.datacenter.ifc.edu.br
+			
+			 
+				 - <a href="#" style="color:#FFF;" onclick="javascript:versao();return false;">v4.12.24.56</a>
+					
+			</p>
+		</div>
+		
+		
+		
+		<script>
+			J(document).ready(function (){
+				esconderLoading();
+			});
+	
+			if (YAHOO.util.Event == null)
+				YAHOO.util.Event = YahooEvent;
+		</script>
+		
+		<div id="mensagem">
+			<div class="x-window-header"></div>
+			<div class="x-window-body"></div>
+		</div>
+		</div> 
+		
+		 
+			<script type="text/javascript" charset="UTF-8">
+				function versao(){
+					var msg='';
+					msg+='SIGAA 4.12.24.56,  publicado em: 14/10/2026 09:53\n\n';
+					msg+='Depend\u00eancias:\n';
+					msg+='Arquitetura 4.4.1-IFC\n';
+					msg+='Entidades Comuns 2.3.4.c-IFC\n';
+					msg+='Servicos Integrados 3.1.1-IFC\n';
+					msg+='SharedResources 2.1.2-IFC\n';
+					msg+='Servicos Remoto Biblioteca null\n';
+					msg+='SIGAA Mobile Objects 1.0.0\n\n';
+					msg+='Copyright SINFO/UFRN';
+					alert(msg);
+				}
+			</script>
+		
+		
+
+
+
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-60968808-1', 'auto');
+	  ga('send', 'pageview');
+	
+	</script>	
+
+
+<!-- MYFACES JAVASCRIPT -->
+
+</body>
+</html>
+
+
+
+<script type="application/javascript" src="/sigaa/ava/javascript/iscroll.js"></script>
+<script type="text/javascript">
+var ua = navigator.userAgent.toLowerCase();
+if (ua.indexOf('android') != -1 || ua.indexOf('ipad') != -1 || ua.indexOf('ipod') != -1 || ua.indexOf('iphone') != -1) { // identifica a requisi&#231;&#227;o atrav&#233;s de um dispositivo m&#243;vel (smartphone ou tablet)
+	var myScroll;
+	function loaded() {
+		setTimeout(function () {
+			myScroll = new IScroll('#conteudo', { zoom: true, preventDefault: false, eventPassthrough:false });
+		}, 100);
+	}
+	window.addEventListener('load', loaded, false);
+}
+</script>
+	
+<script>
+</script>
+

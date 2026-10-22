@@ -1,0 +1,17 @@
+# Credentials and private scrub maps — never commit
+credentials.json
+*.private.json
+.env
+.env.*
+
+# Build output
+/server/bin/
+/web/dist/
+/web/node_modules/
+/web/coverage/
+*.tsbuildinfo
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/

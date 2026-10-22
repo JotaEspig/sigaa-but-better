@@ -1,0 +1,11 @@
+# Local production-like run: http://localhost:8080
+# COOKIE_SECURE=false only because there is no TLS here. Behind HTTPS keep it true.
+services:
+  sbb:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      COOKIE_SECURE: "false"
+      TRUST_PROXY: "false"
+    restart: unless-stopped

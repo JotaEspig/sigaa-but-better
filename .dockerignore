@@ -1,0 +1,7 @@
+credentials.json
+*.private.json
+.env*
+.git
+web/node_modules
+web/dist
+server/bin
