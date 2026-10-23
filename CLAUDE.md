@@ -17,9 +17,11 @@ mudanças estruturais e `docs/SIGAA.md` antes de mexer em parsers ou navegação
    rode um grep pelo nome/matrícula reais.
 4. **Documentos oficiais** (histórico, atestados) registram código de autenticação no
    SIGAA: só por clique explícito do usuário, nunca em cache ou prefetch.
-5. HTML de professor (tópicos, notícias) só chega ao front via `sanitize()` (bluemonday).
-   No front, `dangerouslySetInnerHTML` só é permitido para esses campos.
-6. Contrato JSON: `server/internal/sigaa/model.go` ⇄ `web/src/api/types.ts`. Mudou um, mude o outro
+5. HTML de terceiros (tópicos, notícias, plano de ensino, mensagens do fórum) só chega ao front
+   via `sanitize()` (bluemonday). No front, `dangerouslySetInnerHTML` só é permitido para esses campos.
+6. Dados de colegas (participantes, fórum): exponha só o necessário. Nada de e-mail, usuário ou
+   matrícula de outros alunos na API.
+7. Contrato JSON: `server/internal/sigaa/model.go` ⇄ `web/src/api/types.ts`. Mudou um, mude o outro
    e a tabela da API em `ARCHITECTURE.md`.
 
 ## Comandos

@@ -54,5 +54,6 @@ Como as sessões ficam em memória, rode **uma única instância** (ou use stick
 
 - [ARCHITECTURE.md](ARCHITECTURE.md): decisões, componentes, API REST e segurança
 - [docs/SIGAA.md](docs/SIGAA.md): como o SIGAA funciona por dentro (engenharia reversa)
+- [docs/ROADMAP.md](docs/ROADMAP.md): o que já foi feito e candidatos para as próximas rodadas
 - [CLAUDE.md](CLAUDE.md): regras para quem (humano ou IA) for contribuir
 - [CONTRIBUTING.md](CONTRIBUTING.md): padrões de branches, commits (Conventional Commits) e pull requests
