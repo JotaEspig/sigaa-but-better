@@ -144,7 +144,10 @@ rode na origem do app.
 ## Frontend (`web/`)
 
 - React 19 + Vite + TypeScript, React Router, TanStack Query, Tailwind CSS v4, lucide-react.
-- Tema claro/escuro/sistema com tokens CSS em `:root` / `[data-theme=dark]`, persistido em `localStorage`.
+- Tema sistema/claro/escuro com tokens CSS em `:root` / `[data-theme=dark]`, persistido em `localStorage`.
+  Paletas extras (Gruvbox, Catppuccin, Dracula…) ficam em `[data-palette=<id>]` no `index.css` e
+  são listadas em `PALETTES` (`web/src/lib/theme.tsx`); cada uma declara se é clara ou escura, e o
+  `<html>` recebe `data-theme` e `data-palette`.
 - Navegação espelha o SIGAA: faixa superior (semestre, usuário, tema, sair) + "Menu Discente"
   com **Portal do Discente**, **Ensino ▾** (Minhas notas, Horários, Índices e integralização,
   Emitir histórico) e **Turmas virtuais ▾**; trilha "Portal do Discente › …" em cada página.
