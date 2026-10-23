@@ -7,6 +7,13 @@ export type Scheme = "light" | "dark";
  * index.css under `[data-palette="<id>"]`; here is only what the UI needs.
  */
 export const PALETTES = [
+  { id: "lavender-dusk", label: "Lavender Dusk", scheme: "dark", hint: "Lavanda ao entardecer" },
+  { id: "dusk-ember", label: "Dusk Ember", scheme: "dark", hint: "Brasa no crepúsculo" },
+  { id: "everforest", label: "Everforest", scheme: "dark", hint: "Floresta aconchegante" },
+  { id: "kanagawa-wave", label: "Kanagawa Wave", scheme: "dark", hint: "A grande onda em azul e areia" },
+  { id: "neon-vibes", label: "Neon Vibes", scheme: "dark", hint: "Ciano e rosa neon" },
+  { id: "oxo-carbon", label: "Oxo Carbon", scheme: "dark", hint: "Preto e rosa elétrico" },
+  { id: "pixel-dream", label: "Pixel Dream", scheme: "dark", hint: "Dourado e pixels retrô" },
   { id: "gruvbox-dark", label: "Gruvbox Dark", scheme: "dark", hint: "Retrô e quentinho" },
   { id: "catppuccin-mocha", label: "Catppuccin Mocha", scheme: "dark", hint: "Pastel suave" },
   { id: "dracula", label: "Dracula", scheme: "dark", hint: "Roxo clássico" },
