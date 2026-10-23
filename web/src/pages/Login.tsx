@@ -5,7 +5,7 @@ import { OFFICIAL_SIGAA_URL } from "../api/client";
 import { useLogin, useSession } from "../api/hooks";
 import type { ApiErrorCode } from "../api/types";
 import { Logo } from "../components/Logo";
-import { ThemeSwitcher } from "../components/Layout";
+import { ThemeSwitcher } from "../components/ThemeSwitcher";
 import { Button } from "../components/ui";
 
 const loginErrors: Partial<Record<ApiErrorCode, string>> = {

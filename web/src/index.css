@@ -36,26 +36,33 @@
   --ring: #2f9e41;
   --bar: #1f7a33;
   --bar-fg: #ffffff;
+  /* Overlays on the top bar: track/hover and the selected item. */
+  --bar-tint: rgb(0 0 0 / 0.15);
+  --bar-active: rgb(255 255 255 / 0.2);
   --shadow-sm: 0 1px 2px rgb(16 24 18 / 0.05);
   --shadow: 0 1px 3px rgb(16 24 18 / 0.06), 0 8px 24px -12px rgb(16 24 18 / 0.12);
   --shadow-lg: 0 20px 60px -20px rgb(16 24 18 / 0.35);
   color-scheme: light;
 }
 
-:root[data-theme="dark"] {
-  --bg: #0c120e;
-  --surface: #131b16;
-  --surface-2: #19231d;
-  --surface-3: #212d25;
-  --line: #243029;
-  --line-strong: #33413a;
-  --fg: #e7efe9;
-  --muted: #9aa89e;
-  --subtle: #6d7b71;
+/*
+ * Default dark: neutral grays (no green cast) with high contrast; green stays
+ * only as the brand accent. The no-JS fallback below repeats the same values.
+ */
+[data-theme="dark"] {
+  --bg: #0b0b0d;
+  --surface: #141417;
+  --surface-2: #1b1b1f;
+  --surface-3: #26262b;
+  --line: #27272c;
+  --line-strong: #3a3a41;
+  --fg: #f4f4f5;
+  --muted: #a8a8b3;
+  --subtle: #74747e;
 
   --brand: #45c05a;
   --brand-strong: #5fd273;
-  --brand-soft: #173a20;
+  --brand-soft: #14281a;
   --brand-fg: #06120a;
 
   --danger: #ff6b6b;
@@ -65,32 +72,35 @@
   --info: #7aa7ff;
   --info-soft: #172540;
   --success: #5fd273;
-  --success-soft: #173a20;
+  --success-soft: #14281a;
 
   --ring: #5fd273;
-  --bar: #13301a;
-  --bar-fg: #e7efe9;
+  --bar: #1c1c20;
+  --bar-fg: #f4f4f5;
+  --bar-tint: rgb(255 255 255 / 0.06);
+  --bar-active: rgb(255 255 255 / 0.14);
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
   --shadow-lg: 0 20px 60px -20px rgb(0 0 0 / 0.8);
   color-scheme: dark;
 }
 
+/* Only without theme-init.js; otherwise data-theme is always set before paint. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0c120e;
-    --surface: #131b16;
-    --surface-2: #19231d;
-    --surface-3: #212d25;
-    --line: #243029;
-    --line-strong: #33413a;
-    --fg: #e7efe9;
-    --muted: #9aa89e;
-    --subtle: #6d7b71;
+  :root:not([data-theme]) {
+    --bg: #0b0b0d;
+    --surface: #141417;
+    --surface-2: #1b1b1f;
+    --surface-3: #26262b;
+    --line: #27272c;
+    --line-strong: #3a3a41;
+    --fg: #f4f4f5;
+    --muted: #a8a8b3;
+    --subtle: #74747e;
 
     --brand: #45c05a;
     --brand-strong: #5fd273;
-    --brand-soft: #173a20;
+    --brand-soft: #14281a;
     --brand-fg: #06120a;
 
     --danger: #ff6b6b;
@@ -100,16 +110,385 @@
     --info: #7aa7ff;
     --info-soft: #172540;
     --success: #5fd273;
-    --success-soft: #173a20;
+    --success-soft: #14281a;
 
     --ring: #5fd273;
-  --bar: #13301a;
-  --bar-fg: #e7efe9;
+    --bar: #1c1c20;
+    --bar-fg: #f4f4f5;
+    --bar-tint: rgb(255 255 255 / 0.06);
+    --bar-active: rgb(255 255 255 / 0.14);
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
     --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
     --shadow-lg: 0 20px 60px -20px rgb(0 0 0 / 0.8);
     color-scheme: dark;
   }
+}
+
+/*
+ * Extra palettes (picked in the theme dialog). <html> gets both data-palette
+ * and data-theme (light/dark), so shadows, color-scheme and the `dark:`
+ * variant come from the scheme rules above. Same specificity as those rules,
+ * declared later, so palette tokens win. The selector also works on any
+ * element, which the dialog uses for its live previews.
+ *
+ * Palettes set the base colors; soft tints and hover shades are derived here
+ * unless a palette overrides them.
+ */
+[data-palette] {
+  --brand-strong: color-mix(in oklab, var(--brand) 78%, var(--fg));
+  --brand-soft: color-mix(in oklab, var(--brand) 16%, var(--surface));
+  --danger-soft: color-mix(in oklab, var(--danger) 16%, var(--surface));
+  --warning-soft: color-mix(in oklab, var(--warning) 16%, var(--surface));
+  --info-soft: color-mix(in oklab, var(--info) 16%, var(--surface));
+  --success-soft: color-mix(in oklab, var(--success) 16%, var(--surface));
+  --ring: var(--brand);
+  --bar-tint: rgb(255 255 255 / 0.07);
+  --bar-active: rgb(255 255 255 / 0.16);
+}
+
+[data-palette="gruvbox-dark"] {
+  --bg: #282828;
+  --surface: #32302f;
+  --surface-2: #3c3836;
+  --surface-3: #504945;
+  --line: #45403d;
+  --line-strong: #665c54;
+  --fg: #ebdbb2;
+  --muted: #bdae93;
+  --subtle: #928374;
+  --brand: #fe8019;
+  --brand-fg: #1d2021;
+  --danger: #fb4934;
+  --warning: #fabd2f;
+  --info: #83a598;
+  --success: #b8bb26;
+  --bar: #1d2021;
+  --bar-fg: #ebdbb2;
+}
+
+[data-palette="gruvbox-light"] {
+  --bg: #f2e5bc;
+  --surface: #fbf1c7;
+  --surface-2: #f2e5bc;
+  --surface-3: #ebdbb2;
+  --line: #e0d0a6;
+  --line-strong: #bdae93;
+  --fg: #3c3836;
+  --muted: #665c54;
+  --subtle: #928374;
+  --brand: #af3a03;
+  --brand-fg: #fbf1c7;
+  --danger: #9d0006;
+  --warning: #b57614;
+  --info: #076678;
+  --success: #79740e;
+  --bar: #af3a03;
+  --bar-fg: #fbf1c7;
+  --bar-tint: rgb(0 0 0 / 0.15);
+  --bar-active: rgb(255 255 255 / 0.2);
+}
+
+[data-palette="catppuccin-mocha"] {
+  --bg: #181825;
+  --surface: #1e1e2e;
+  --surface-2: #262637;
+  --surface-3: #313244;
+  --line: #313244;
+  --line-strong: #45475a;
+  --fg: #cdd6f4;
+  --muted: #a6adc8;
+  --subtle: #7f849c;
+  --brand: #cba6f7;
+  --brand-fg: #1e1e2e;
+  --danger: #f38ba8;
+  --warning: #f9e2af;
+  --info: #89b4fa;
+  --success: #a6e3a1;
+  --ring: #f5c2e7;
+  --bar: #11111b;
+  --bar-fg: #cdd6f4;
+}
+
+[data-palette="catppuccin-latte"] {
+  --bg: #e6e9ef;
+  --surface: #eff1f5;
+  --surface-2: #e6e9ef;
+  --surface-3: #dce0e8;
+  --line: #ccd0da;
+  --line-strong: #bcc0cc;
+  --fg: #4c4f69;
+  --muted: #6c6f85;
+  --subtle: #8c8fa1;
+  --brand: #8839ef;
+  --brand-fg: #eff1f5;
+  --danger: #d20f39;
+  --warning: #b8700f;
+  --info: #1e66f5;
+  --success: #40a02b;
+  --ring: #ea76cb;
+  --bar: #8839ef;
+  --bar-fg: #eff1f5;
+  --bar-tint: rgb(0 0 0 / 0.15);
+  --bar-active: rgb(255 255 255 / 0.2);
+}
+
+[data-palette="dracula"] {
+  --bg: #21222c;
+  --surface: #282a36;
+  --surface-2: #303341;
+  --surface-3: #44475a;
+  --line: #363948;
+  --line-strong: #4d5066;
+  --fg: #f8f8f2;
+  --muted: #c3c6d8;
+  --subtle: #6272a4;
+  --brand: #bd93f9;
+  --brand-fg: #21222c;
+  --danger: #ff5555;
+  --warning: #ffb86c;
+  --info: #8be9fd;
+  --success: #50fa7b;
+  --ring: #ff79c6;
+  --bar: #191a21;
+  --bar-fg: #f8f8f2;
+}
+
+[data-palette="tokyo-night"] {
+  --bg: #16161e;
+  --surface: #1a1b26;
+  --surface-2: #1f2335;
+  --surface-3: #292e42;
+  --line: #292e42;
+  --line-strong: #3b4261;
+  --fg: #c0caf5;
+  --muted: #a9b1d6;
+  --subtle: #565f89;
+  --brand: #7aa2f7;
+  --brand-fg: #16161e;
+  --danger: #f7768e;
+  --warning: #e0af68;
+  --info: #7dcfff;
+  --success: #9ece6a;
+  --ring: #bb9af7;
+  --bar: #101014;
+  --bar-fg: #c0caf5;
+}
+
+[data-palette="one-dark-pro"] {
+  --bg: #21252b;
+  --surface: #282c34;
+  --surface-2: #2c313a;
+  --surface-3: #3e4451;
+  --line: #3a3f4b;
+  --line-strong: #4b5263;
+  --fg: #d7dae0;
+  --muted: #abb2bf;
+  --subtle: #7f848e;
+  --brand: #61afef;
+  --brand-fg: #21252b;
+  --danger: #e06c75;
+  --warning: #e5c07b;
+  --info: #56b6c2;
+  --success: #98c379;
+  --ring: #c678dd;
+  --bar: #181a1f;
+  --bar-fg: #d7dae0;
+}
+
+[data-palette="synthwave-84"] {
+  --bg: #1e1828;
+  --surface: #262335;
+  --surface-2: #2a2139;
+  --surface-3: #34294f;
+  --line: #34294f;
+  --line-strong: #495495;
+  --fg: #f4eefa;
+  --muted: #c5bfd9;
+  --subtle: #848bbd;
+  --brand: #ff7edb;
+  --brand-fg: #241b2f;
+  --danger: #fe4450;
+  --warning: #fede5d;
+  --info: #36f9f6;
+  --success: #72f1b8;
+  --ring: #36f9f6;
+  --bar: #2b1340;
+  --bar-fg: #fede5d;
+}
+
+[data-palette="cyberpunk-2077"] {
+  --bg: #030d22;
+  --surface: #0a1631;
+  --surface-2: #0f2042;
+  --surface-3: #172b55;
+  --line: #172b55;
+  --line-strong: #24407a;
+  --fg: #e3f6ff;
+  --muted: #8ab4d4;
+  --subtle: #5a7aa0;
+  --brand: #fcee0c;
+  --brand-fg: #030d22;
+  --danger: #ff2a6d;
+  --warning: #ff9f1c;
+  --info: #0ef3ff;
+  --success: #00ff9f;
+  --ring: #0ef3ff;
+  --bar: #fcee0c;
+  --bar-fg: #030d22;
+  --bar-tint: rgb(0 0 0 / 0.1);
+  --bar-active: rgb(0 0 0 / 0.2);
+}
+
+[data-palette="nord"] {
+  --bg: #2e3440;
+  --surface: #3b4252;
+  --surface-2: #434c5e;
+  --surface-3: #4c566a;
+  --line: #434c5e;
+  --line-strong: #566178;
+  --fg: #eceff4;
+  --muted: #d8dee9;
+  --subtle: #8f9bb3;
+  --brand: #88c0d0;
+  --brand-fg: #2e3440;
+  --danger: #bf616a;
+  --warning: #ebcb8b;
+  --info: #81a1c1;
+  --success: #a3be8c;
+  --bar: #242933;
+  --bar-fg: #eceff4;
+}
+
+[data-palette="rose-pine"] {
+  --bg: #191724;
+  --surface: #1f1d2e;
+  --surface-2: #26233a;
+  --surface-3: #403d52;
+  --line: #2a273f;
+  --line-strong: #403d52;
+  --fg: #e0def4;
+  --muted: #908caa;
+  --subtle: #6e6a86;
+  --brand: #ebbcba;
+  --brand-fg: #191724;
+  --danger: #eb6f92;
+  --warning: #f6c177;
+  --info: #c4a7e7;
+  --success: #9ccfd8;
+  --bar: #12101a;
+  --bar-fg: #e0def4;
+}
+
+[data-palette="solarized-dark"] {
+  --bg: #002b36;
+  --surface: #073642;
+  --surface-2: #0a4050;
+  --surface-3: #11495a;
+  --line: #0f4555;
+  --line-strong: #2a5c68;
+  --fg: #eee8d5;
+  --muted: #93a1a1;
+  --subtle: #657b83;
+  --brand: #268bd2;
+  --brand-fg: #fdf6e3;
+  --danger: #dc322f;
+  --warning: #b58900;
+  --info: #2aa198;
+  --success: #859900;
+  --bar: #00212b;
+  --bar-fg: #eee8d5;
+}
+
+[data-palette="solarized-light"] {
+  --bg: #eee8d5;
+  --surface: #fdf6e3;
+  --surface-2: #f5eedb;
+  --surface-3: #e8e1cb;
+  --line: #e0d9c3;
+  --line-strong: #cfc8b0;
+  --fg: #073642;
+  --muted: #586e75;
+  --subtle: #93a1a1;
+  --brand: #268bd2;
+  --brand-fg: #fdf6e3;
+  --danger: #dc322f;
+  --warning: #b58900;
+  --info: #6c71c4;
+  --success: #859900;
+  --bar: #073642;
+  --bar-fg: #fdf6e3;
+}
+
+[data-palette="high-contrast"] {
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-2: #161616;
+  --surface-3: #242424;
+  --line: #5c5c5c;
+  --line-strong: #8a8a8a;
+  --fg: #ffffff;
+  --muted: #dadada;
+  --subtle: #ababab;
+  --brand: #ffd60a;
+  --brand-fg: #000000;
+  --danger: #ff7b7b;
+  --warning: #ffa94d;
+  --info: #74c0fc;
+  --success: #69db7c;
+  --ring: #ffffff;
+  --bar: #161616;
+  --bar-fg: #ffffff;
+  --bar-tint: rgb(255 255 255 / 0.1);
+  --bar-active: rgb(255 255 255 / 0.25);
+}
+
+/* Brazilian flag: green bar, yellow accents, blue as the info color. */
+[data-palette="bolsonaro"] {
+  --bg: #fbfaee;
+  --surface: #ffffff;
+  --surface-2: #f6f5e2;
+  --surface-3: #ecebcf;
+  --line: #e6e4c6;
+  --line-strong: #d2cfa6;
+  --fg: #0f2016;
+  --muted: #4f5d50;
+  --subtle: #858f7f;
+  --brand: #009c3b;
+  --brand-strong: #007a2e;
+  --brand-fg: #ffffff;
+  --danger: #c8102e;
+  --warning: #9a6700;
+  --info: #002776;
+  --success: #007a2e;
+  --ring: #002776;
+  --bar: #006b2b;
+  --bar-fg: #ffdf00;
+  --bar-tint: rgb(0 0 0 / 0.18);
+  --bar-active: rgb(255 223 0 / 0.2);
+}
+
+/* Party red with white; danger shifts to burgundy so it still reads apart. */
+[data-palette="lula"] {
+  --bg: #fdf6f5;
+  --surface: #ffffff;
+  --surface-2: #fbeeec;
+  --surface-3: #f5e0dd;
+  --line: #f0dcd9;
+  --line-strong: #e2c3bf;
+  --fg: #2a1214;
+  --muted: #6b5153;
+  --subtle: #9a8284;
+  --brand: #c4161c;
+  --brand-strong: #a01015;
+  --brand-fg: #ffffff;
+  --danger: #8f1239;
+  --warning: #b45309;
+  --info: #1d4ed8;
+  --success: #15803d;
+  --bar: #c4161c;
+  --bar-fg: #ffffff;
+  --bar-tint: rgb(0 0 0 / 0.15);
+  --bar-active: rgb(255 255 255 / 0.22);
 }
 
 @theme inline {
@@ -129,6 +508,8 @@
   --color-brand-fg: var(--brand-fg);
   --color-bar: var(--bar);
   --color-bar-fg: var(--bar-fg);
+  --color-bar-tint: var(--bar-tint);
+  --color-bar-active: var(--bar-active);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
   --color-warning: var(--warning);

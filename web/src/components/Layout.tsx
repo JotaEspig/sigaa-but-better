@@ -1,13 +1,13 @@
 import clsx from "clsx";
-import { ChevronDown, LogOut, Menu, Monitor, Moon, Sun, X } from "lucide-react";
+import { ChevronDown, LogOut, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router";
 import { IS_MOCK } from "../api/client";
 import { useDashboard, useLogout, useSession } from "../api/hooks";
 import { titleCase } from "../lib/format";
-import { useTheme, type ThemeChoice } from "../lib/theme";
 import { prettyClassName } from "./ClassBits";
 import { LogoMark } from "./Logo";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface MenuItem {
   label: string;
@@ -18,45 +18,6 @@ interface MenuItem {
 interface MenuGroupDef {
   label: string;
   items: MenuItem[];
-}
-
-const THEMES: { key: ThemeChoice; label: string; icon: typeof Sun }[] = [
-  { key: "light", label: "Claro", icon: Sun },
-  { key: "dark", label: "Escuro", icon: Moon },
-  { key: "system", label: "Sistema", icon: Monitor },
-];
-
-export function ThemeSwitcher({ compact, onBar }: { compact?: boolean; onBar?: boolean }) {
-  const { choice, setChoice } = useTheme();
-  return (
-    <div role="radiogroup" aria-label="Tema" className={clsx("flex rounded-lg p-0.5", onBar ? "bg-black/15" : "border border-line bg-surface-2")}>
-      {THEMES.map(({ key, label, icon: Icon }) => (
-        <button
-          key={key}
-          type="button"
-          role="radio"
-          aria-checked={choice === key}
-          aria-label={`Tema ${label.toLowerCase()}`}
-          title={label}
-          onClick={() => setChoice(key)}
-          className={clsx(
-            "flex flex-1 items-center justify-center gap-1.5 rounded-md text-xs font-medium transition-colors",
-            compact ? "size-7" : "h-7 px-2",
-            onBar
-              ? choice === key
-                ? "bg-white/20 text-bar-fg"
-                : "text-bar-fg/70 hover:text-bar-fg"
-              : choice === key
-                ? "bg-surface text-fg shadow-soft"
-                : "text-muted hover:text-fg",
-          )}
-        >
-          <Icon className="size-3.5" />
-          {!compact && <span>{label}</span>}
-        </button>
-      ))}
-    </div>
-  );
 }
 
 /** The "Menu Discente": same paths as SIGAA, fewer clicks. */
@@ -229,7 +190,7 @@ export function Layout() {
                 type="button"
                 onClick={signOut}
                 disabled={logout.isPending}
-                className="flex items-center gap-1.5 rounded-md px-2 py-1 font-medium hover:bg-black/15"
+                className="flex items-center gap-1.5 rounded-md px-2 py-1 font-medium hover:bg-bar-tint"
                 aria-label="Sair"
               >
                 <LogOut className="size-3.5" />
