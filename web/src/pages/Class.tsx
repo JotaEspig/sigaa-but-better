@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import {
+  BookMarked,
   CalendarCheck,
+  Clock,
   CircleCheck,
   CircleDashed,
   CircleX,
@@ -13,8 +15,10 @@ import {
   Layers,
   Link as LinkIcon,
   Newspaper,
+  NotebookText,
   TriangleAlert,
   UserCheck,
+  Users,
 } from "lucide-react";
 import { useState, type ComponentType, type ReactNode } from "react";
 import { Link, useNavigate, useParams } from "react-router";
@@ -27,19 +31,22 @@ import {
   useClassFiles,
   useClassGrades,
   useClassNews,
+  useClassParticipants,
+  useClassPlan,
+  useClassReferences,
   useClassTasks,
   useNewsDetail,
 } from "../api/hooks";
-import type { Assessment, ClassOverview, Material, Task } from "../api/types";
+import type { Assessment, ClassOverview, Material, PlanReference, Task } from "../api/types";
 import { prettyClassName } from "../components/ClassBits";
 import { Dialog } from "../components/Dialog";
 import { Badge, Breadcrumbs, EmptyState, ErrorState, Freshness, ProgressBar, Skeleton, SkeletonCard, type Crumb } from "../components/ui";
 import { LOW_GRADE, classColorVars, situationTone } from "../lib/colors";
-import { daysUntil, formatDate, formatDateTime, formatGrade, formatPercent, parseLocal, relativeDays } from "../lib/format";
+import { daysUntil, formatDate, formatDateTime, formatGrade, formatPercent, parseLocal, relativeDays, titleCase } from "../lib/format";
 import { toISODay } from "../lib/schedule";
 import { useNow } from "../lib/useNow";
 
-type TabKey = "aulas" | "frequencia" | "notas" | "tarefas" | "arquivos" | "noticias" | "avaliacoes";
+type TabKey = "aulas" | "plano" | "participantes" | "frequencia" | "notas" | "tarefas" | "arquivos" | "referencias" | "noticias" | "avaliacoes";
 
 interface SectionDef {
   key: TabKey;
@@ -54,6 +61,8 @@ const MENU: { group: string; items: SectionDef[] }[] = [
     group: "Turma",
     items: [
       { key: "aulas", label: "Principal", slug: "", icon: Layers },
+      { key: "plano", label: "Plano de ensino", slug: "plano", icon: NotebookText },
+      { key: "participantes", label: "Participantes", slug: "participantes", icon: Users },
       { key: "noticias", label: "Notícias", slug: "noticias", icon: Newspaper },
     ],
   },
@@ -64,7 +73,13 @@ const MENU: { group: string; items: SectionDef[] }[] = [
       { key: "notas", label: "Ver notas", slug: "notas", icon: GraduationCap },
     ],
   },
-  { group: "Materiais", items: [{ key: "arquivos", label: "Arquivos", slug: "arquivos", icon: FolderOpen }] },
+  {
+    group: "Materiais",
+    items: [
+      { key: "arquivos", label: "Arquivos", slug: "arquivos", icon: FolderOpen },
+      { key: "referencias", label: "Referências", slug: "referencias", icon: BookMarked },
+    ],
+  },
   {
     group: "Atividades",
     items: [
@@ -517,6 +532,185 @@ function EvaluationsPanel({ id }: { id: string }) {
   );
 }
 
+// ---------------------------------------------------------------- Plano de ensino
+
+function ReferenceList({ title, refs }: { title: string; refs: PlanReference[] }) {
+  if (!refs.length) return null;
+  return (
+    <div>
+      <h4 className="mb-2 text-xs font-semibold tracking-wide text-subtle uppercase">{title}</h4>
+      <ul className="space-y-2 text-sm">
+        {refs.map((r, i) => (
+          <li key={i} className="flex gap-2">
+            <Badge className="mt-0.5 shrink-0">{r.type}</Badge>
+            <span>{r.description}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function PlanPanel({ id }: { id: string }) {
+  const q = useClassPlan(id);
+  const today = toISODay(new Date());
+  return (
+    <Panel q={q} lines={8}>
+      {(p) => {
+        const empty = !p.methodologyHtml && !p.assessmentHtml && !p.officeHours && !p.lessons.length;
+        if (empty) return <EmptyState icon={NotebookText} title="Plano de ensino não publicado" description="O docente ainda não cadastrou o plano desta turma." className="card" />;
+        const nextIdx = p.lessons.findIndex((l) => l.end >= today);
+        return (
+          <div className="space-y-5">
+            {p.officeHours && (
+              <section className="flex items-center gap-3 rounded-2xl border border-brand/30 bg-brand-soft/50 p-4">
+                <Clock className="size-5 shrink-0 text-brand-strong" />
+                <p className="text-sm">
+                  <span className="block text-xs font-semibold text-brand-strong">Horário de atendimento</span>
+                  {p.officeHours}
+                </p>
+              </section>
+            )}
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+              {p.methodologyHtml && (
+                <section className="card p-5">
+                  <h3 className="mb-2 text-sm font-semibold">Metodologia</h3>
+                  <div className="prose-sigaa text-sm" dangerouslySetInnerHTML={{ __html: p.methodologyHtml }} />
+                </section>
+              )}
+              {p.assessmentHtml && (
+                <section className="card p-5">
+                  <h3 className="mb-2 text-sm font-semibold">Avaliação da aprendizagem</h3>
+                  <div className="prose-sigaa text-sm" dangerouslySetInnerHTML={{ __html: p.assessmentHtml }} />
+                  {p.evaluations.length > 0 && (
+                    <ul className="mt-4 space-y-1.5 border-t border-line pt-3 text-sm">
+                      {p.evaluations.map((e, i) => (
+                        <li key={i} className="flex justify-between gap-3">
+                          <span>{e.description}</span>
+                          <span className="text-muted tabular">{formatDate(e.date)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </section>
+              )}
+            </div>
+            {p.lessons.length > 0 && (
+              <section className="card overflow-hidden">
+                <h3 className="border-b border-line px-5 py-3 text-sm font-semibold">Cronograma de aulas</h3>
+                <ol className="divide-y divide-line">
+                  {p.lessons.map((l, i) => (
+                    <li
+                      key={i}
+                      className={clsx("flex items-start gap-4 px-5 py-2.5 text-sm", l.end < today && "text-muted", i === nextIdx && "bg-brand-soft/50")}
+                      aria-current={i === nextIdx ? "date" : undefined}
+                    >
+                      <span className="w-24 shrink-0 tabular">{l.start === l.end ? formatDate(l.start) : `${formatDate(l.start)} – ${formatDate(l.end)}`}</span>
+                      <span className="min-w-0 flex-1">{l.description}</span>
+                      {i === nextIdx && <Badge tone="info">{l.start <= today ? "hoje" : "próxima"}</Badge>}
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
+            {(p.basicReferences.length > 0 || p.complementaryReferences.length > 0) && (
+              <section className="card space-y-4 p-5">
+                <h3 className="text-sm font-semibold">Referências</h3>
+                <ReferenceList title="Básicas" refs={p.basicReferences} />
+                <ReferenceList title="Complementares" refs={p.complementaryReferences} />
+              </section>
+            )}
+          </div>
+        );
+      }}
+    </Panel>
+  );
+}
+
+// ---------------------------------------------------------------- Participantes
+
+function ParticipantsPanel({ id }: { id: string }) {
+  const q = useClassParticipants(id);
+  return (
+    <Panel q={q}>
+      {(p) => (
+        <div className="space-y-5">
+          <section>
+            <h3 className="mb-3 text-sm font-semibold">Docentes</h3>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {p.teachers.map((t) => (
+                <article key={t.name} className="card p-4">
+                  <p className="font-semibold">{titleCase(t.name)}</p>
+                  <p className="text-xs text-muted">{[titleCase(t.degree), titleCase(t.department)].filter(Boolean).join(" · ")}</p>
+                  {t.email && (
+                    <a href={`mailto:${t.email}`} className="mt-2 inline-block text-sm font-medium break-all text-brand-strong underline underline-offset-2">
+                      {t.email}
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+          <section>
+            <h3 className="mb-1 text-sm font-semibold">
+              Discentes <span className="font-normal text-muted">({p.students.length})</span>
+            </h3>
+            <p className="mb-3 text-xs text-muted">Por privacidade, mostramos só os nomes dos colegas.</p>
+            {p.students.length ? (
+              <ul className="card grid grid-cols-1 gap-x-6 p-2 sm:grid-cols-2">
+                {p.students.map((n) => (
+                  <li key={n} className="truncate rounded-lg px-3 py-2 text-sm">
+                    {titleCase(n)}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <EmptyState icon={Users} title="Nenhum discente" className="card" />
+            )}
+          </section>
+        </div>
+      )}
+    </Panel>
+  );
+}
+
+// ---------------------------------------------------------------- Referências
+
+function ReferencesPanel({ id }: { id: string }) {
+  const q = useClassReferences(id);
+  return (
+    <Panel q={q}>
+      {(refs) =>
+        refs.length === 0 ? (
+          <EmptyState icon={BookMarked} title="Nenhuma referência" description="O docente ainda não indicou referências nesta turma." className="card" />
+        ) : (
+          <ul className="card divide-y divide-line">
+            {refs.map((r, i) => (
+              <li key={i} className="flex items-start gap-3 px-5 py-3.5">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-info-soft text-info">
+                  <BookMarked className="size-5" />
+                </span>
+                <div className="min-w-0 flex-1 text-sm">
+                  <p>{r.title}</p>
+                  <p className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
+                    <Badge>{r.type}</Badge>
+                    {r.topic && <span>Tópico: {r.topic}</span>}
+                    {r.url && (
+                      <a href={r.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-medium text-brand-strong underline underline-offset-2">
+                        Abrir link <ExternalLink className="size-3" />
+                      </a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Panel>
+  );
+}
+
 // ---------------------------------------------------------------- Page
 
 function sectionPath(id: string, key: TabKey): string {
@@ -580,7 +774,8 @@ function ClassSwitcher({ id, section }: { id: string; section: TabKey }) {
   const dashboard = useDashboard();
   const navigate = useNavigate();
   const classes = dashboard.data?.data.classes ?? [];
-  if (classes.length < 2) return null;
+  // Old classes (from "turmas anteriores") are not in the current list.
+  if (classes.length < 2 || !classes.some((c) => c.id === id)) return null;
   return (
     <label className="flex items-center gap-2 text-xs whitespace-nowrap text-muted">
       Trocar de turma
@@ -639,7 +834,7 @@ export default function ClassPage() {
           <div className="min-w-0">
             <p className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
               <span className="class-chip rounded-md px-1.5 py-0.5 font-mono font-bold">{c.code}</span>
-              {c.period} · {c.workloadHours}h · {c.schedule}
+              {[c.period, c.workloadHours ? `${c.workloadHours}h` : "", c.schedule].filter(Boolean).join(" · ")}
             </p>
             <h1 className="mt-1.5 text-2xl font-bold tracking-tight">{prettyClassName(c.name)}</h1>
           </div>
@@ -669,6 +864,9 @@ export default function ClassPage() {
           {tab === "arquivos" && <FilesPanel id={id} />}
           {tab === "noticias" && <NewsPanel id={id} />}
           {tab === "avaliacoes" && <EvaluationsPanel id={id} />}
+          {tab === "plano" && <PlanPanel id={id} />}
+          {tab === "participantes" && <ParticipantsPanel id={id} />}
+          {tab === "referencias" && <ReferencesPanel id={id} />}
         </section>
       </div>
     </div>

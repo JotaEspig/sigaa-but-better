@@ -31,6 +31,9 @@ function useMenu(): MenuGroupDef[] {
         { label: "Minhas notas", to: "/notas", hint: "Boletim de todos os semestres" },
         { label: "Horários", to: "/horarios", hint: "Grade da semana" },
         { label: "Índices e integralização", to: "/progresso", hint: "IRA, MC e carga horária" },
+        { label: "Atividades complementares", to: "/progresso#complementares", hint: "Horas registradas e aprovadas" },
+        { label: "Calendário acadêmico", to: "/calendario", hint: "Prazos do semestre" },
+        { label: "Fórum do curso", to: "/forum", hint: "Avisos da coordenação" },
         { label: "Emitir histórico", to: "/progresso#historico", hint: "PDF oficial do SIGAA" },
       ],
     },
@@ -39,6 +42,7 @@ function useMenu(): MenuGroupDef[] {
       items: [
         ...classes.map((c) => ({ label: prettyClassName(c.name), to: `/turmas/${c.id}`, hint: c.location })),
         { label: "Todas as turmas do semestre", to: "/turmas" },
+        { label: "Turmas anteriores", to: "/turmas/anteriores", hint: "Materiais de semestres passados" },
       ],
     },
   ];
@@ -47,7 +51,7 @@ function useMenu(): MenuGroupDef[] {
 function isActiveGroup(group: MenuGroupDef, pathname: string): boolean {
   return group.items.some((i) => {
     const path = i.to.split("#")[0]!;
-    return path === "/turmas" ? pathname.startsWith("/turmas") : pathname === path;
+    return path === "/turmas" ? pathname.startsWith("/turmas") : pathname === path || pathname.startsWith(`${path}/`);
   });
 }
 

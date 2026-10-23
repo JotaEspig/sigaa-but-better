@@ -1,6 +1,8 @@
-import { ArrowRight, BookOpen, Clock, MapPin } from "lucide-react";
-import { Link } from "react-router";
-import { useDashboard } from "../api/hooks";
+import clsx from "clsx";
+import { ArrowRight, BookOpen, ChevronRight, Clock, History, MapPin } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router";
+import { useDashboard, usePastClasses } from "../api/hooks";
 import { prettyClassName } from "../components/ClassBits";
 import { EmptyState, ErrorState, Freshness, PageHeader, SkeletonCard } from "../components/ui";
 import { classColorVars } from "../lib/colors";
@@ -17,6 +19,108 @@ function describeSchedule(c: ClassSummary): string {
     pairs.set(`${day} · ${shift}`, true);
   }
   return [...pairs.keys()].join(", ") || c.schedule;
+}
+
+/** "Este semestre" / "Anteriores": both are routes so the browser back button works. */
+function ClassTabs() {
+  const { pathname } = useLocation();
+  const tabs = [
+    { to: "/turmas", label: "Este semestre", icon: BookOpen },
+    { to: "/turmas/anteriores", label: "Anteriores", icon: History },
+  ];
+  return (
+    <nav aria-label="Turmas" className="mb-5 flex gap-1 border-b border-line">
+      {tabs.map((t) => (
+        <Link
+          key={t.to}
+          to={t.to}
+          aria-current={pathname === t.to ? "page" : undefined}
+          className={clsx(
+            "-mb-px flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors",
+            pathname === t.to ? "border-brand text-fg" : "border-transparent text-muted hover:text-fg",
+          )}
+        >
+          <t.icon className="size-4" />
+          {t.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+export function PastClassesPage() {
+  const q = usePastClasses();
+  const [filter, setFilter] = useState("");
+  const crumbs = [{ label: "Portal do Discente", to: "/" }, { label: "Turmas virtuais", to: "/turmas" }, { label: "Anteriores" }];
+  const header = (
+    <PageHeader
+      title="Turmas virtuais"
+      subtitle="Todas as turmas que você já cursou"
+      crumbs={crumbs}
+      actions={q.data && <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />}
+    />
+  );
+  if (q.isPending)
+    return (
+      <div>
+        {header}
+        <ClassTabs />
+        <SkeletonCard lines={8} />
+      </div>
+    );
+  if (q.isError)
+    return (
+      <div>
+        {header}
+        <ClassTabs />
+        <ErrorState error={q.error} onRetry={() => q.refetch()} />
+      </div>
+    );
+
+  const f = filter.trim().toLocaleLowerCase("pt-BR");
+  const rows = q.data.data.filter((c) => !f || `${c.code} ${c.name}`.toLocaleLowerCase("pt-BR").includes(f));
+  const byPeriod = new Map<string, typeof rows>();
+  for (const c of rows) byPeriod.set(c.period, [...(byPeriod.get(c.period) ?? []), c]);
+
+  return (
+    <div className="animate-in">
+      {header}
+      <ClassTabs />
+      <input
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        placeholder="Filtrar por código ou nome"
+        aria-label="Filtrar turmas"
+        className="mb-5 h-10 w-full rounded-xl border border-line bg-surface px-3 text-sm outline-none focus:border-brand sm:max-w-sm"
+      />
+      {rows.length === 0 && <EmptyState icon={History} title="Nenhuma turma encontrada" className="card" />}
+      <div className="space-y-6">
+        {[...byPeriod.entries()].map(([period, classes]) => (
+          <section key={period} aria-labelledby={`p-${period}`}>
+            <h2 id={`p-${period}`} className="mb-2 text-sm font-semibold text-muted tabular">
+              {period} <span className="font-normal text-subtle">· {classes.length} {classes.length === 1 ? "turma" : "turmas"}</span>
+            </h2>
+            <ul className="card divide-y divide-line">
+              {classes.map((c) => (
+                <li key={c.id}>
+                  <Link to={`/turmas/${c.id}`} style={classColorVars(c.name)} className="group flex items-center gap-3 px-5 py-3 hover:bg-surface-2/50">
+                    <span className="class-chip shrink-0 rounded-md px-1.5 py-0.5 font-mono text-[0.7rem] font-bold">{c.code}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-medium group-hover:text-brand-strong">{prettyClassName(c.name)}</span>
+                      <span className="block text-xs text-muted">
+                        Turma {c.group} · {c.workloadHours}h{c.schedule && ` · ${c.schedule}`}
+                      </span>
+                    </span>
+                    <ChevronRight className="size-4 shrink-0 text-subtle group-hover:text-brand-strong" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function ClassesPage() {
@@ -40,6 +144,7 @@ export default function ClassesPage() {
         crumbs={[{ label: "Portal do Discente", to: "/" }, { label: "Turmas virtuais" }]}
         actions={<Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />}
       />
+      <ClassTabs />
       {classes.length === 0 ? (
         <div className="card">
           <EmptyState icon={BookOpen} title="Nenhuma turma neste semestre" />

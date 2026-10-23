@@ -2,7 +2,16 @@ import { useMutation, useQuery, useQueryClient, type UseQueryResult } from "@tan
 import { useState } from "react";
 import { ApiError, request } from "./client";
 import type {
+  AcademicCalendar,
   Attendance,
+  CalendarRef,
+  ClassReference,
+  ComplementaryActivities,
+  ForumThread,
+  ForumTopic,
+  Participants,
+  PastClass,
+  TeachingPlan,
   ClassGrades,
   ClassOverview,
   Dashboard,
@@ -22,6 +31,12 @@ export const keys = {
   class: (id: string) => ["class", id] as const,
   classPart: (id: string, part: string) => ["class", id, part] as const,
   news: (id: string, newsId: string) => ["class", id, "news", newsId] as const,
+  pastClasses: ["past-classes"] as const,
+  calendars: ["calendars"] as const,
+  calendar: (id: string) => ["calendars", id] as const,
+  complementary: ["complementary-activities"] as const,
+  forum: ["forum"] as const,
+  forumThread: (id: string) => ["forum", id] as const,
 };
 
 /**
@@ -100,3 +115,18 @@ export const useClassEvaluations = (id: string, enabled = true) =>
   useEnvelopeQuery<Evaluation[]>(keys.classPart(id, "evaluations"), classPath(id, "/evaluations"), enabled);
 export const useNewsDetail = (id: string, newsId: string | null) =>
   useEnvelopeQuery<NewsItem>(keys.news(id, newsId ?? ""), classPath(id, `/news/${encodeURIComponent(newsId ?? "")}`), !!newsId);
+export const useClassPlan = (id: string, enabled = true) =>
+  useEnvelopeQuery<TeachingPlan>(keys.classPart(id, "plan"), classPath(id, "/plan"), enabled);
+export const useClassParticipants = (id: string, enabled = true) =>
+  useEnvelopeQuery<Participants>(keys.classPart(id, "participants"), classPath(id, "/participants"), enabled);
+export const useClassReferences = (id: string, enabled = true) =>
+  useEnvelopeQuery<ClassReference[]>(keys.classPart(id, "references"), classPath(id, "/references"), enabled);
+
+export const usePastClasses = () => useEnvelopeQuery<PastClass[]>(keys.pastClasses, "/api/past-classes");
+export const useCalendars = () => useEnvelopeQuery<CalendarRef[]>(keys.calendars, "/api/calendars");
+export const useCalendar = (id: string | undefined) =>
+  useEnvelopeQuery<AcademicCalendar>(keys.calendar(id ?? ""), `/api/calendars/${encodeURIComponent(id ?? "")}`, !!id);
+export const useComplementaryActivities = () => useEnvelopeQuery<ComplementaryActivities>(keys.complementary, "/api/complementary-activities");
+export const useForum = () => useEnvelopeQuery<ForumTopic[]>(keys.forum, "/api/forum");
+export const useForumThread = (id: string) =>
+  useEnvelopeQuery<ForumThread>(keys.forumThread(id), `/api/forum/${encodeURIComponent(id)}`);
