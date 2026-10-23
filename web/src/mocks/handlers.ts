@@ -2,8 +2,16 @@
 // like the real SIGAA pages captured during reverse engineering.
 import { ApiError } from "../api/client";
 import type {
+  AcademicCalendar,
   Attendance,
+  CalendarRef,
   ClassGrades,
+  ClassReference,
+  ComplementaryActivities,
+  ForumThread,
+  Participants,
+  PastClass,
+  TeachingPlan,
   ClassOverview,
   ClassSummary,
   Dashboard,
@@ -116,10 +124,10 @@ const DASHBOARD: Dashboard = {
     { date: day(-19), className: "EMPREENDEDORISMO (2026.2)", description: "Novo Tópico de Aula: Cases de Sucesso. Alternativas de Negócios." },
   ],
   forum: [
-    { title: "Ponto facultativo 28/10", author: "servidor.exemplo", replies: 0, date: at(0, "15:01") },
-    { title: "Enade 2026 - Avaliação para discentes ingressantes e concluintes", author: "servidor.exemplo", replies: 0, date: at(-8, "08:10") },
-    { title: "Exame de Proficiência em Língua Inglesa (EPLI)", author: "servidor.exemplo", replies: 0, date: at(-31, "19:10") },
-    { title: "MEPEC e a Feira de Arte e Cultura", author: "servidor.exemplo", replies: 2, date: at(-37, "09:47") },
+    { id: "35974352", title: "Ponto facultativo 28/10", author: "servidor.exemplo", replies: 0, date: at(0, "15:01") },
+    { id: "35921653", title: "Enade 2026 - Avaliação para discentes ingressantes e concluintes", author: "servidor.exemplo", replies: 0, date: at(-8, "08:10") },
+    { id: "35782632", title: "Exame de Proficiência em Língua Inglesa (EPLI)", author: "servidor.exemplo", replies: 0, date: at(-31, "19:10") },
+    { id: "35740610", title: "MEPEC e a Feira de Arte e Cultura", author: "servidor.exemplo", replies: 2, date: at(-37, "09:47") },
   ],
 };
 
@@ -182,7 +190,7 @@ const GRADES: GradesReport = {
 };
 
 function overview(id: string): ClassOverview {
-  const cls = CLASSES.find((c) => c.id === id);
+  const cls = CLASSES.find((c) => c.id === id) ?? PAST_CLASSES.find((c) => c.id === id);
   if (!cls) throw new ApiError("NOT_FOUND", "Turma não encontrada.", 404);
   return {
     id,
@@ -349,6 +357,129 @@ const EVALUATIONS: Evaluation[] = [
   { id: "35429305", date: day(16), time: "", description: "Trab 1" },
 ];
 
+const PAST_CLASSES: PastClass[] = [
+  ...CLASSES.map((c, i) => ({
+    id: c.id,
+    code: `CCB094${i}`,
+    name: c.name,
+    period: c.period,
+    group: "01",
+    workloadHours: 60,
+    schedule: c.schedule,
+    startDate: c.startDate,
+    endDate: c.endDate,
+  })),
+  { id: "59A65EA8FABC280D5E86E4D90ECEBFF833A04B3D", code: "CCB09108", name: "PROGRAMAÇÃO COMPETITIVA", period: "2026.1", group: "01", workloadHours: 60, schedule: "2N1234", startDate: "2026-02-19", endDate: "2026-06-26" },
+  { id: "1A65EA8FABC280D5E86E4D90ECEBFF833A04B3D0", code: "CCB0992", name: "PROGRAMAÇÃO DE ALTO DESEMPENHO", period: "2026.1", group: "01", workloadHours: 60, schedule: "6N1234", startDate: "2026-02-19", endDate: "2026-06-26" },
+  { id: "2A65EA8FABC280D5E86E4D90ECEBFF833A04B3D0", code: "CCB0939", name: "BANCO DE DADOS", period: "2025.2", group: "01", workloadHours: 60, schedule: "6N1234", startDate: "2025-08-04", endDate: "2025-12-12" },
+  { id: "3A65EA8FABC280D5E86E4D90ECEBFF833A04B3D0", code: "EEB0910", name: "FÍSICA I", period: "2025.2", group: "01", workloadHours: 60, schedule: "", startDate: "", endDate: "" },
+];
+
+const CALENDARS: CalendarRef[] = [
+  { id: "35148029", period: "2026.2", name: "CALENDÁRIO GERAL" },
+  { id: "33138264", period: "2026.1", name: "CALENDÁRIO GERAL" },
+  { id: "32162746", period: "2025.2", name: "CALENDÁRIO GERAL" },
+];
+
+const calendar = (period: string, current: boolean): AcademicCalendar => ({
+  period,
+  current,
+  start: day(-80),
+  end: day(57),
+  sections: [
+    {
+      title: "Geral",
+      events: [
+        { label: "Período Letivo", start: day(-80), end: day(57) },
+        { label: "Período de Férias", start: day(75), end: day(100) },
+      ],
+    },
+    {
+      title: "Datas para Turmas Regulares",
+      events: [
+        { label: "Consolidação de Turmas", start: day(39), end: day(58) },
+        { label: "Cadastro de Turmas", start: day(25), end: day(39) },
+        { label: "Trancamento de Turmas", start: day(-80), end: day(-62) },
+      ],
+    },
+    {
+      title: "Datas para Períodos de Matrículas, Rematrícula e Processamentos",
+      events: [
+        { label: "Matrícula OnLine", start: day(-93), end: day(-90) },
+        { label: "Rematrícula", start: day(-86), end: day(-84) },
+        { label: "Ajustes das Matrículas/Turmas", start: day(-80), end: day(-62) },
+      ],
+    },
+  ],
+});
+
+const COMPLEMENTARY: ComplementaryActivities = {
+  groups: [
+    {
+      category: "ENSINO",
+      approvedHours: 52,
+      activities: [
+        { date: "2024-04-15", type: "Participação em cursos/minicursos relacionados à área afim do curso", description: "2 horas", hours: 2, status: "ACEITO" },
+        { date: "2024-04-15", type: "Participação em cursos/minicursos relacionados à área afim do curso", description: "20 horas", hours: 20, status: "ACEITO" },
+        { date: "2024-04-15", type: "Participação em cursos/minicursos relacionados à área afim do curso", description: "30 horas", hours: 30, status: "ACEITO" },
+      ],
+    },
+    {
+      category: "PESQUISA E INOVAÇÃO",
+      approvedHours: 624,
+      activities: [
+        { date: "2025-02-07", type: "Participação em Projeto ou Programa de pesquisa e inovação", description: "Certificado de bolsista de projeto de pesquisa. 624 horas", hours: 624, status: "ACEITO" },
+      ],
+    },
+  ],
+};
+
+const forumThread = (id: string): ForumThread => ({
+  id,
+  title: DASHBOARD.forum.find((t) => t.id === id)?.title ?? "Solicitação de ajuste de matrícula",
+  posts: [
+    {
+      date: at(-12, "13:37"),
+      author: "COORDENADOR EXEMPLO",
+      html: "Prezados, boa tarde.<br/><br/>As solicitações devem ser encaminhadas para o e-mail da Coordenação.<br/><br/>At.te, Coordenação",
+    },
+    { date: at(-8, "19:14"), author: "DISCENTE EXEMPLO", html: "Obrigado pelo aviso!" },
+  ],
+});
+
+const PLAN: TeachingPlan = {
+  methodologyHtml:
+    "<p>1. Metodologia:<br/>Aulas teóricas com exposição dialogada e aulas práticas em laboratório.<br/>2. Objetivo geral:<br/>Capacitar o aluno a compreender, projetar e implementar compiladores.</p>",
+  assessmentHtml: "<p>Três avaliações com peso de 1/3 da nota:<br/>- prova teórico-prática (AV1);<br/>- prova teórica (AV2); e<br/>- trabalho (AV3).</p>",
+  officeHours: "Quinta-feira, 13:30-17:30",
+  lessons: [
+    { start: day(-77), end: day(-77), description: "Apresentação do plano de ensino. Introdução à compilação." },
+    { start: day(-63), end: day(-63), description: "Fases da Compilação." },
+    { start: day(-56), end: day(-56), description: "Análise Léxica." },
+    { start: day(-21), end: day(-21), description: "Prova (AV1)." },
+    { start: day(-7), end: day(-7), description: "Análise Semântica." },
+    { start: day(0), end: day(0), description: "Geração de Código Intermediário. Otimização de Código." },
+    { start: day(7), end: day(7), description: "Alocação de registradores." },
+    { start: day(28), end: day(28), description: "Prova (AV2)." },
+  ],
+  evaluations: [{ date: day(-21), description: "1ª Avaliação" }],
+  basicReferences: [],
+  complementaryReferences: [
+    { type: "Outros", description: "AHO, Alfred V., et al. Compiladores: princípios, técnicas e ferramentas. 2. ed. São Paulo: Pearson Addison Wesley, 2008." },
+    { type: "Outros", description: "LOUDEN, K.C. Compiladores: Princípios e Práticas. Editora Thompson Learning, 2004." },
+  ],
+};
+
+const PARTICIPANTS: Participants = {
+  teachers: [{ name: "DOCENTE EXEMPLO", department: "CAMPUS BLUMENAU", degree: "MESTRADO", email: "docente@example.com" }],
+  students: ["ALUNO EXEMPLO DA SILVA", "DISCENTE EXEMPLO B", "DISCENTE EXEMPLO C", "DISCENTE EXEMPLO D", "DISCENTE EXEMPLO E"],
+};
+
+const REFERENCES: ClassReference[] = [
+  { title: "AHO, Alfred V., et al. Compiladores: princípios, técnicas e ferramentas. 2. ed.", type: "Outros" },
+  { title: "Documentação do ANTLR", type: "Site", url: "https://www.antlr.org/", topic: "Análise Sintática" },
+];
+
 let loggedIn = true;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -376,6 +507,18 @@ export async function mockRequest<T>(method: string, path: string, body?: unknow
   if (p === "/api/session") return ok(SESSION);
   if (p === "/api/dashboard") return ok(DASHBOARD);
   if (p === "/api/grades") return ok(GRADES);
+  if (p === "/api/past-classes") return ok(PAST_CLASSES);
+  if (p === "/api/calendars") return ok(CALENDARS);
+  if (p === "/api/complementary-activities") return ok(COMPLEMENTARY);
+  if (p === "/api/forum") return ok(DASHBOARD.forum);
+  const cal = /^\/api\/calendars\/([^/]+)$/.exec(p);
+  if (cal) {
+    const ref = CALENDARS.find((c) => c.id === cal[1]);
+    if (!ref) throw new ApiError("NOT_FOUND", "Calendário não encontrado.", 404);
+    return ok(calendar(ref.period, ref === CALENDARS[0]));
+  }
+  const topic = /^\/api\/forum\/([^/]+)$/.exec(p);
+  if (topic) return ok(forumThread(topic[1]!));
 
   const m = /^\/api\/classes\/([^/]+)(?:\/([^/]+)(?:\/([^/]+))?)?$/.exec(p);
   if (m) {
@@ -400,6 +543,12 @@ export async function mockRequest<T>(method: string, path: string, body?: unknow
         return ok(FILES);
       case "evaluations":
         return ok(EVALUATIONS);
+      case "plan":
+        return ok(PLAN);
+      case "participants":
+        return ok(PARTICIPANTS);
+      case "references":
+        return ok(REFERENCES);
       case "news":
         if (sub) {
           const item = NEWS.find((x) => x.id === sub);

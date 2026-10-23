@@ -1,0 +1,592 @@
+
+
+
+
+
+
+
+
+	
+	
+		<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="background" xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+
+
+<title>SIGAA - Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</title>
+
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css" /><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><script type="text/javascript" src="/shared/javascript/jquery/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/sigaa/javascript/block-multitabs/block-multitabs.2.min.js"></script>
+
+<link rel="shortcut icon" href="/sigaa/img/sigaa.ico" />
+
+<script type="text/javascript" src="/shared/jsBundles/jawr_loader.js"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/gzip_1592835619/bundles/css/sigaa.css" />
+
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="mono" href="/sigaa/css/mono.css" />
+<link rel="alternate stylesheet" type="text/css" media="screen" title="contraste" href="/sigaa/css/contraste.css" />
+
+<!-- FontAwesome -->
+<link rel="stylesheet" type="text/css" href="/shared/beta/css/font-awesome.css" media="screen" />
+
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script type="text/javascript" src="/shared/javascript/paineis/painel_generico.js"></script>
+
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript" ></script>
+
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+
+
+	
+	
+		<!-- Bot&#227;o de informar um problema -->
+		<link rel="stylesheet" type="text/css" href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" />
+		<script type="text/javascript" src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/html2canvas.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/informar-problema.js?ver=1.1"></script>
+		<!-- FIM bot&#227;o de informar um problema -->
+	
+	
+
+
+
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+
+<script type="text/javascript" src="/sigaa/javascript/jsCookMenuHack.js"></script>
+<!-- Fim dos imports para abrir chamado -->
+
+	<script src="/shared/javascript/STICookieConsent.js"></script>
+	<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Se voc&#234; concorda, clique em %button-text%.", "https://protecaodedados.ifc.edu.br/politica-de-privacidade/", "https://protecaodedados.ifc.edu.br/politica-de-privacidade/");
+	    })
+	</script>
+	
+</head>
+
+<body>
+
+<input type="hidden" value="2" id="sistema"/>
+
+
+
+
+
+
+	<div id="container">
+	<div id="cabecalho">
+		<div id="info-sistema">
+			<h1><span>IFC - SIGAA -</span></h1>
+			<h3>Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</h3>
+			<div class="dir">
+				
+					
+					<style>
+#info-sistema span.sair-sistema,
+	#info-sistema #tempoSessao{
+	display: inline;
+	right: inherit;
+	position: relative;
+	top: 0;
+	padding-right: inherit;
+}
+
+#info-sistema div.dir{
+	top:0;
+	right:0;
+	text-align: right;
+	width: auto;
+	position: absolute;
+	margin:0;
+	padding: 0;
+	height:16px;
+	display: inline;
+	padding-right:5px;
+	color: #FFF;
+}
+#info-sistema span.acessibilidade{
+	padding: 0 5px;
+	border: solid #D99C44;
+	border-width: 0 1px 0 0;
+	margin: 0 5px;
+	padding: 0 5px;
+}
+	#info-sistema span.acessibilidade a{
+		font-size: 1.1em;
+		font-weight: bolder;
+		color: #FFF;
+		margin-left: 2px;
+		letter-spacing: 0.1px;
+		word-spacing: 0.1px;
+	}
+	#info-sistema span.acessibilidade a.fonteMenor strong{
+		font-size: 0.9em;
+	}
+	.rich-tabpanel-content {
+		font-size: inherit;
+	}	
+</style>
+<span class="acessibilidade">
+	<a class="fonteMaior" title="Aumentar a texto" alt="Aumentar a texto" href="#">
+		<strong>A</strong>+
+	</a>
+	<a class="fonteMenor" title="Diminuir o texto" alt="Diminuir o texto" href="#">
+		<strong>A</strong>-
+	</a>
+</span>
+
+	<span class="acessibilidade">
+		<a title="Ajuda" alt="Ajuda" href="http://dti.ifc.edu.br" target="_blank">
+			Ajuda?
+		</a>
+	</span>
+
+<script type="text/javascript" src="/shared/javascript/jquery/jquery-1.4.4.min.js"></script>
+<script src="/sigaa/javascript/jquery.fontsize.js" type="text/javascript" ></script>
+<script type="text/javascript" >
+	redimensionarFonte('.acessibilidade', '#conteudo', 11, 11, 14);
+</script>
+<script>var $jq = jQuery.noConflict();</script>
+					<span id="tempoSessao"></span>
+					<span class="sair-sistema"> <a href="/sigaa/logar.do?dispatch=logOff">SAIR</a> </span>
+				
+			</div>
+		</div>
+	 
+
+	<div id="painel-usuario"  >
+	
+		<div id="menu-usuario">
+		<ul>
+			<li class="modulos">
+			
+				<span id="modulos"> <a href="#" id="show-modulos"> M&#243;dulos </a> </span>
+			
+			</li>
+                
+                
+			
+			
+				<li class="chamado">
+				
+					
+					
+						
+						
+							
+								<a href="#" onclick="window.open('/sigaa/novoChamadoAdmin.jsf?sistema=2', 'chamado', 'scrollbars=1,width=830,height=600')">Abrir Chamado</a>
+													
+						
+						
+					
+				
+				</li>
+			 
+			
+			
+			
+				 
+					<li class="menus">
+						<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+					</li>
+				 
+			
+			
+			
+				
+
+<li class="dados-pessoais">
+	
+		<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+	
+</li>
+			
+
+			
+				<!-- INICIO bot&#227;o Informar problema -->
+					
+				<!-- FIM bot&#227;o Informar problema -->
+			
+			
+		</ul>
+		
+		
+		
+		
+		</div>
+
+		<div id="info-usuario">
+
+		<p class="periodo-atual">
+			
+				Semestre atual: <strong>2026.2</strong>			
+			
+			</br>
+			
+		</p>		
+		<p class="usuario">
+		
+			<span title="ALUNO EXEMPLO DA SILVA">
+				ALUNO EXEMPLO DA SILVA
+			</span>
+			
+			
+				<i>
+					<small>
+						<a href="/sigaa/escolhaVinculo.do?dispatch=listar">Alterar v&#237;nculo</a>
+					</small>
+				</i>
+			
+		
+		</p>
+
+		<p class="unidade">
+			CAMPUS BLUMENAU
+			 (11.01.09)
+			
+		</p>
+
+		</div>
+	
+	<div id="menu-principal"></div>
+	</div>
+	</div>
+	
+
+	<div id="conteudo">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+
+
+	
+	
+
+
+
+
+
+
+
+<script>
+function redirectManual(){
+	return window.open("http://ifc.edu.br/manual_nee.pdf","_blank");
+}
+</script>
+
+	
+<form id="j_id_jsp_787297525_175" name="j_id_jsp_787297525_175" method="post" action="/sigaa/graduacao/ForumCurso/mostrar.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id_jsp_787297525_175" value="j_id_jsp_787297525_175" />
+
+	
+	
+		
+		
+			<h2> <a href='/sigaa/verPortalDiscente.do'>Portal do Discente</a> > Discuss&#227;o sobre Solicita&#231;&#227;o de ajuste de matr&#237;cula</h2>
+		
+	
+	
+	
+	
+	
+
+		<div class="infoAltRem">
+			
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a id="j_id_jsp_787297525_175:seguirTopico" href="#" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_787297525_175'),{'j_id_jsp_787297525_175:seguirTopico':'j_id_jsp_787297525_175:seguirTopico'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/flag_green.png" title="Seguir t&oacute;pico" />
+				Seguir t&#243;pico
+			</a><img src="/sigaa/img/delete.gif" style="overflow: visible;" />
+			
+			:Remover Mensagem
+			<img src="/sigaa/img/despublicar.png" style="overflow: visible;" />:Denunciar Mensagem
+			<img src="/sigaa/img/portal_turma/site_add.png" alt="Download" style="overflow: visible;" />: Download
+		</div>
+
+		<!--  <table style="border: 1px solid #C4D2EB; width: 99%" cellpadding="3">-->
+		<table class="formulario" width="100%">
+
+		
+			
+			
+
+				<tr class="bg-claro">	
+					
+					<td align="center" width="20%">03/08/2026 13:37:39</td>
+						
+					<td><strong>Postado por:</strong> 
+				  	COORDENADOR EXEMPLO
+					 -  	
+					
+
+					 
+					
+					</td>
+							
+					<td align="right">
+						
+						&nbsp;
+						
+						<a id="j_id_jsp_787297525_175:denMensagensTopico" href="#" title="Denunciar Mensagem" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_787297525_175'),{'j_id_jsp_787297525_175:denMensagensTopico':'j_id_jsp_787297525_175:denMensagensTopico','idForumMensagem':'35437619','topico':'true'},'');}return false" class="noborder"><img src="/sigaa/img/despublicar.png" /></a>
+
+						
+					</td>
+	
+				</tr>
+
+				
+				<tr>
+					<td class="text-center bg-super-claro">
+						 
+						
+							<img src="/sigaa/img/no_picture.png" width="60" height="80" />
+						
+					</td>
+					<td colspan="2" valign="top" style="background-color: #FCFCFC;">
+						Prezados, boa tarde.<br /><br />As solicita&#231;&#245;es de ajuste de matr&#237;cula devem ser encaminhadas para o e-mail da Coordena&#231;&#227;o (aluno@example.com).<br /><br />Importante: n&#227;o ser&#227;o aceitas solicita&#231;&#245;es de ajuste enviadas por outros meios (SIGAA, papel, etc).<br /><br />O assunto do e-mail deve ser &quot;Ajuste de Matr&#237;cula&quot; e preencha os seguintes dados (copie e cole) no e-mail:<br /><br />N&#250;mero de matr&#237;cula:<br />Nome (conforme SIGAA):<br />C&#243;digo da disciplina:<br />Nome da disciplina:<br />Matricular/cancelar a matr&#237;cula:<br />Justificativa:<br /><br />Pontos importantes:<br />- as solicita&#231;&#245;es que exigem a quebra de pr&#233;-requisitos dependem do deferimento do docente e da homologa&#231;&#227;o pelo Colegiado do Curso (pode demorar);<br />- a justificativa &#233; obrigat&#243;ria para a quebra de pr&#233;-requisitos e/ou aumento de limite de carga hor&#225;ria semestral.<br /><br />Al&#233;m disso, frequentem as aulas desde a primeira semana enquanto aguardam o resultado da solicita&#231;&#227;o.<br /><br />Conversem com o docente da disciplina, explique que solicitou ajuste de matr&#237;cula e que aguarda o resultado. Al&#233;m disso, quando a solicita&#231;&#227;o for deferida, pe&#231;a que o mesmo atualize as frequ&#234;ncias assim que seu nome aparecer no di&#225;rio.<br /><br />As solicita&#231;&#245;es que n&#227;o dependem da delibera&#231;&#227;o do Colegiado ser&#227;o encaminhadas ao Registro Acad&#234;mico conforme forem recebidas.<br /><br />At.te, Coordenador 
+					</td>
+				</tr>
+			
+
+				<tr class="bg-claro">	
+					
+					<td align="center" width="20%">07/08/2026 19:14:34</td>
+						
+					<td><strong>Postado por:</strong> 
+				  	DISCENTE EXEMPLO Z
+					 -  	
+					
+						2020000001
+					
+
+					 
+					
+					</td>
+							
+					<td align="right">
+						
+						&nbsp;
+						
+						<a id="j_id_jsp_787297525_175:denMensagensTopicoj_id_1" href="#" title="Denunciar Mensagem" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_787297525_175'),{'j_id_jsp_787297525_175:denMensagensTopicoj_id_1':'j_id_jsp_787297525_175:denMensagensTopicoj_id_1','idForumMensagem':'35482004','topico':'false'},'');}return false" class="noborder"><img src="/sigaa/img/despublicar.png" /></a>
+
+						
+							
+						
+					</td>
+	
+				</tr>
+
+				
+				<tr>
+					<td class="text-center bg-super-claro">
+						 
+						
+							<img src="/sigaa/img/no_picture.png" width="60" height="80" />
+						
+					</td>
+					<td colspan="2" valign="top" style="background-color: #FCFCFC;">
+						N&#250;mero de matr&#237;cula: 2020000001<br />Nome:Discente Exemplo Z <br />C&#243;digo da disciplina: CCB0902<br />Nome da disciplina: CI&#202;NCIA, SOCIEDADE E TECNOLOGIA<br /><br />C&#243;digo da disciplina: CCB0903<br />Nome da disciplina: &#201;TICA E LEGISLA&#199;&#195;O<br /><br /><br />C&#243;digo da disciplina: CCB0907<br />Nome da disciplina: PR&#201;-C&#193;LCULO<br /><br />Desejo ajustamento ou seja matricular-me nas disciplinas acima citadas.<br /> 
+					</td>
+				</tr>
+			
+			
+		</table>
+			<center>
+				<span id="j_id_jsp_787297525_175:pageFirst" name="j_id_jsp_787297525_175:pageFirst"><img src="/sigaa/img/primeira_des.gif" alt="Primeira" /></span><span id="j_id_jsp_787297525_175:pagePrevious" name="j_id_jsp_787297525_175:pagePrevious"><img src="/sigaa/img/voltar_des.gif" alt="Voltar" /></span><span id="j_id_jsp_787297525_175:pageNext" name="j_id_jsp_787297525_175:pageNext"><img src="/sigaa/img/avancar_des.gif" alt="Avan&ccedil;ar" /></span><span id="j_id_jsp_787297525_175:pageLast" name="j_id_jsp_787297525_175:pageLast"><img src="/sigaa/img/ultima_des.gif" alt="&Uacute;ltima" /></span>
+                    
+                
+                   
+                
+                    
+                
+			</center>
+			
+			<center>
+				P&aacute;gina 1 / 1
+			</center>
+		<br/>
+		
+		<table class="subFormulario" width="100%">
+			<caption>Responder T&#243;pico</caption>
+			<tr>
+				<td align="center">	
+					<input type="hidden" name="idForumMensagem" value="35437619"/>
+					<textarea id="j_id_jsp_787297525_175:mensagem" name="j_id_jsp_787297525_175:mensagem" cols="100" rows="10"></textarea>
+				</td>
+			</tr>
+			<tfoot>
+				<tr>
+					<td>
+						<input id="j_id_jsp_787297525_175:postarmensagens" type="submit" name="j_id_jsp_787297525_175:postarmensagens" value="Postar Mensagem" class="btn-primary" /><input id="j_id_jsp_787297525_175:voltarMsg" type="submit" name="j_id_jsp_787297525_175:voltarMsg" value="&lt;&lt; Voltar" /> 
+						
+					</td>
+				</tr>
+			</tfoot>
+			
+		</table>
+
+	<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id21" />
+</form>
+
+
+	
+	
+		
+
+
+
+<div class="clear"> </div>
+
+</div> 
+	<br />
+
+	
+	
+	<div style="width: 80%; text-align: center; margin: 0 auto;">
+		<a href='/sigaa/verPortalDiscente.do'>Portal do Discente</a>
+	</div>
+	
+	
+
+	<div id="rodape">
+		<p>	SIGAA | Diretoria de Tecnologia da Informa&#231;&#227;o - (47) 3331-7800 | Copyright &copy; 2006-2026 - UFRN - sigaa-02.re.sig.prd.datacenter.ifc.edu.br.sigaa-02.re.sig.prd.datacenter.ifc.edu.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.12.24.56</a>
+				
+		</p>
+	</div>
+
+
+</div>  
+
+<div id="painel-mensagem-envio"> </div>
+
+
+
+
+
+
+
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-60968808-1', 'auto');
+	  ga('send', 'pageview');
+	
+	</script>	
+
+
+
+<!-- MYFACES JAVASCRIPT -->
+
+</body>
+
+</html>
+ 
+	<script type="text/javascript" charset="UTF-8">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.12.24.56,  publicado em: 14/10/2026 09:53\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.1-IFC\n';
+			msg+='Entidades Comuns 2.3.4.c-IFC\n';
+			msg+='Servicos Integrados 3.1.1-IFC\n';
+			msg+='SharedResources 2.1.2-IFC\n';
+			msg+='Servicos Remoto Biblioteca 1.0.3\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+
+
+<script language="javascript">
+Relogio.init(60);
+</script>
+
+	

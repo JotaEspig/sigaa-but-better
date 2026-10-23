@@ -15,6 +15,9 @@ func TestGuardAllowsAppNavigation(t *testing.T) {
 	classFiles := fixture(t, "turma_principal_com_arquivos.html")
 	files := fixture(t, "turma_arquivos.html")
 	news := fixture(t, "turma_noticias.html")
+	calendars := fixture(t, "calendario_lista.html")
+	forum := fixture(t, "forum_curso.html")
+	past := fixture(t, "turmas_anteriores.html")
 
 	var links []struct {
 		name string
@@ -32,7 +35,7 @@ func TestGuardAllowsAppNavigation(t *testing.T) {
 		}{name, p, l})
 	}
 
-	for _, action := range []string{actionGradesReport, actionTranscript} {
+	for action := range allowedPortalActions {
 		l, ok := portalMenuLink(portal, action)
 		add(action, portal, l, ok)
 	}
@@ -48,6 +51,12 @@ func TestGuardAllowsAppNavigation(t *testing.T) {
 	add("listed file", files, l, ok)
 	l, ok = news.FindLinkByParam("id", "35917358")
 	add("news detail", news, l, ok)
+	l, ok = calendars.FindLinkByParam("id", "35148029")
+	add("calendar detail", calendars, l, ok)
+	l, ok = forum.FindLinkByParam("idForumMensagem", "35437619")
+	add("forum topic", forum, l, ok)
+	l, ok = past.FindLinkByParam("frontEndIdTurma", "080070D1573B0B8866AD2CA0D5ABFA393A61BC52")
+	add("past class", past, l, ok)
 
 	for _, x := range links {
 		_, values, ok := x.page.formRequest(x.link)
@@ -93,5 +102,23 @@ func TestGuardRefusesStateChanges(t *testing.T) {
 	}
 	if _, err := c.clickClassMenu(t.Context(), class, "Gerenciar Perfil"); !errors.Is(err, ErrForbiddenAction) {
 		t.Errorf("non-allowlisted class menu not refused: %v", err)
+	}
+
+	// Following or reporting a forum post changes state.
+	topic := fixture(t, "forum_topico.html")
+	refused := 0
+	topic.Doc.Find("[onclick]").Each(func(_ int, el *goquery.Selection) {
+		l, ok := parseJSFLink(el.AttrOr("onclick", ""))
+		if !ok {
+			return
+		}
+		_, values, _ := topic.formRequest(l)
+		if err := checkReadOnly(values); !errors.Is(err, ErrForbiddenAction) {
+			t.Errorf("guard allowed forum action %v: %v", l.Params, err)
+		}
+		refused++
+	})
+	if refused < 3 {
+		t.Errorf("expected follow + report links in fixture, got %d", refused)
 	}
 }

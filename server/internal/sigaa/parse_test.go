@@ -84,7 +84,7 @@ func TestParsePortal(t *testing.T) {
 	if len(d.Updates) != 10 || d.Updates[0] != (ClassUpdate{Date: "2026-10-13", ClassName: "COMPUTAÇÃO GRÁFICA", Description: "Nova Notícia: Trabalho 03 - alteração de data de entrega."}) {
 		t.Errorf("updates[0] = %+v (n=%d)", d.Updates[0], len(d.Updates))
 	}
-	if len(d.Forum) < 5 || d.Forum[0] != (ForumTopic{Title: "Ponto facultativo 28/10", Author: "servidor.exemplo", Replies: 0, Date: "2026-10-21T15:01"}) {
+	if len(d.Forum) < 5 || d.Forum[0] != (ForumTopic{ID: "35974352", Title: "Ponto facultativo 28/10", Author: "servidor.exemplo", Replies: 0, Date: "2026-10-21T15:01"}) {
 		t.Errorf("forum = %+v", d.Forum)
 	}
 }

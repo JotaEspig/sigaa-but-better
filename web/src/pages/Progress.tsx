@@ -1,11 +1,12 @@
-import { FileDown, Info, ShieldAlert, TrendingUp, UserRound } from "lucide-react";
+import { Award, FileDown, Info, ShieldAlert, TrendingUp, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { TRANSCRIPT_URL } from "../api/client";
-import { useDashboard } from "../api/hooks";
+import { useComplementaryActivities, useDashboard } from "../api/hooks";
 import { Dialog } from "../components/Dialog";
-import { Button, Card, CardHeader, ErrorState, Freshness, PageHeader, ProgressBar, ProgressRing, SkeletonCard } from "../components/ui";
-import { formatNumber, titleCase } from "../lib/format";
+import { Badge, Button, Card, CardHeader, EmptyState, ErrorState, Freshness, PageHeader, ProgressBar, ProgressRing, SkeletonCard } from "../components/ui";
+import { situationTone } from "../lib/colors";
+import { formatDate, formatNumber, titleCase } from "../lib/format";
 
 /** Indices that are normalized against the course (hundreds/thousands scale) read better without 4 decimals. */
 const LARGE_SCALE = new Set(["MCN", "IEAN"]);
@@ -102,6 +103,8 @@ export default function ProgressPage() {
         </div>
       </section>
 
+      <ComplementarySection pendingHours={p.complementaryPendingHours} />
+
       <section id="historico" className="card mt-8 flex scroll-mt-6 flex-col items-start gap-4 p-5 sm:flex-row sm:items-center">
         <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand-strong">
           <FileDown className="size-5" />
@@ -146,6 +149,68 @@ export default function ProgressPage() {
         </div>
       </Dialog>
     </div>
+  );
+}
+
+function statusTone(status: string) {
+  const s = status.toUpperCase();
+  if (s.startsWith("ACEIT") || s.startsWith("DEFERID") || s.startsWith("APROVAD")) return "success" as const;
+  if (s.startsWith("NEGAD") || s.startsWith("INDEFERID") || s.startsWith("RECUSAD")) return "danger" as const;
+  if (s.includes("PENDENTE") || s.includes("ANÁLISE") || s.includes("SUBMETID")) return "warning" as const;
+  return situationTone(status);
+}
+
+/** "Atividades autônomas" (horas complementares) registered in SIGAA. */
+function ComplementarySection({ pendingHours }: { pendingHours: number }) {
+  const q = useComplementaryActivities();
+  const total = q.data?.data.groups.reduce((sum, g) => sum + g.approvedHours, 0) ?? 0;
+  return (
+    <Card className="mt-8" as="section">
+      <div id="complementares" className="scroll-mt-6" />
+      <CardHeader
+        title="Atividades complementares"
+        icon={Award}
+        subtitle={
+          q.data
+            ? `${formatNumber(total, 0)} h aprovadas${pendingHours > 0 ? ` · ${pendingHours} h pendentes no currículo` : " · carga complementar integralizada"}`
+            : undefined
+        }
+        action={q.data && <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />}
+      />
+      {q.isPending ? (
+        <SkeletonCard lines={3} className="border-0 shadow-none" />
+      ) : q.isError ? (
+        <ErrorState error={q.error} onRetry={() => q.refetch()} compact />
+      ) : q.data.data.groups.length === 0 ? (
+        <EmptyState icon={Award} title="Nenhuma atividade registrada" description="Os registros são cadastrados pelo SIGAA oficial." />
+      ) : (
+        <div className="space-y-5 px-5 pb-5">
+          {q.data.data.groups.map((g) => (
+            <section key={g.category}>
+              <h3 className="mb-2 flex items-baseline justify-between gap-3 text-sm font-semibold">
+                {titleCase(g.category)}
+                <span className="text-xs font-medium text-muted tabular">{formatNumber(g.approvedHours, 0)} h aprovadas</span>
+              </h3>
+              <ul className="divide-y divide-line rounded-xl border border-line">
+                {g.activities.map((a, i) => (
+                  <li key={i} className="flex flex-col gap-1 px-4 py-3 text-sm sm:flex-row sm:items-center sm:gap-4">
+                    <span className="w-24 shrink-0 text-xs text-muted tabular">{formatDate(a.date)}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block">{a.type}</span>
+                      {a.description && <span className="block text-xs text-muted">{a.description}</span>}
+                    </span>
+                    <span className="flex shrink-0 items-center gap-2">
+                      <span className="font-semibold tabular">{formatNumber(a.hours, 0)} h</span>
+                      <Badge tone={statusTone(a.status)}>{titleCase(a.status)}</Badge>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      )}
+    </Card>
   );
 }
 

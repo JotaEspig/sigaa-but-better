@@ -19,7 +19,11 @@ import (
 	"github.com/jotaespig/sigaa-but-better/server/internal/sigaa"
 )
 
-const compiladores = "080070D1573B0B8866AD2CA0D5ABFA393A61BC52"
+const (
+	compiladores = "080070D1573B0B8866AD2CA0D5ABFA393A61BC52"
+	// A 2026.1 class: only reachable through "turmas anteriores".
+	pastClass = "59A65EA8FABC280D5E86E4D90ECEBFF833A04B3D"
+)
 
 // fakeSIGAA serves the anonymized fixtures, emulating just enough of SIGAA.
 type fakeSIGAA struct {
@@ -62,6 +66,8 @@ func (f *fakeSIGAA) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/sigaa/expirada.jsp", http.StatusFound)
 	case r.Method == http.MethodGet && r.URL.Path == "/sigaa/portais/discente/discente.jsf":
 		f.page(w, "portal.html")
+	case r.Method == http.MethodGet && r.URL.Path == "/sigaa/portais/discente/turmas.jsf":
+		f.page(w, "turmas_anteriores.html")
 	case r.Method == http.MethodPost:
 		f.posts.Add(1)
 		_ = r.ParseForm()
@@ -70,10 +76,28 @@ func (f *fakeSIGAA) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		switch {
 		case strings.Contains(form.Get("jscook_action"), "relatorioNotasAluno"):
 			f.page(w, "notas_relatorio.html")
+		case strings.Contains(form.Get("jscook_action"), "calendario.iniciarBusca"):
+			f.page(w, "calendario_lista.html")
+		case form.Get("form") == "form" && form.Get("id") == "35148029":
+			f.page(w, "calendario.html")
+		case strings.Contains(form.Get("jscook_action"), "solicitacaoRegistroAtividadeAutonomaMBean.listar"):
+			f.page(w, "atividades_autonomas.html")
+		case strings.Contains(form.Get("jscook_action"), "forum.listarForunsCurso"):
+			f.page(w, "forum_curso.html")
+		case form.Get("listagem") != "" && form.Get("idForumMensagem") == "35437619":
+			f.page(w, "forum_topico.html")
 		case form.Get("frontEndIdTurma") == compiladores:
+			f.page(w, "turma_principal.html")
+		case form.Get("frontEndIdTurma") == pastClass && form.Get("inciadoPelaBusca") == "true":
 			f.page(w, "turma_principal.html")
 		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_100"):
 			f.page(w, "turma_frequencia.html")
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_77"):
+			f.page(w, "turma_plano.html")
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_83"):
+			f.page(w, "turma_participantes.html")
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_126"):
+			f.page(w, "turma_referencias.html")
 		default:
 			f.t.Errorf("unexpected POST %s %v", r.URL.Path, form)
 			http.Error(w, "unexpected", http.StatusBadRequest)
@@ -187,6 +211,61 @@ func TestLoginAndReadFlow(t *testing.T) {
 	}
 	if code, body = h.do("GET", "/api/session", ""); code != 401 || errCode(body) != "UNAUTHENTICATED" {
 		t.Fatalf("session after expiry = %d %v", code, body)
+	}
+}
+
+func TestNewPages(t *testing.T) {
+	h := newHarness(t)
+	h.do("POST", "/api/auth/login", `{"username":"aluno","password":"segredo"}`)
+	data := func(path string) any {
+		t.Helper()
+		code, body := h.do("GET", path, "")
+		if code != 200 {
+			t.Fatalf("%s = %d %v", path, code, body)
+		}
+		return body["data"]
+	}
+
+	if cs := data("/api/past-classes").([]any); len(cs) != 48 {
+		t.Errorf("past classes = %d", len(cs))
+	}
+	past := data("/api/classes/" + pastClass).(map[string]any)
+	if past["period"] != "2026.1" || past["workloadHours"].(float64) != 60 {
+		t.Errorf("past class overview = %v", past)
+	}
+
+	if cals := data("/api/calendars").([]any); len(cals) < 30 {
+		t.Errorf("calendars = %d", len(cals))
+	}
+	if cal := data("/api/calendars/35148029").(map[string]any); cal["period"] != "2026.2" {
+		t.Errorf("calendar = %v", cal)
+	}
+	if code, _ := h.do("GET", "/api/calendars/999", ""); code != 404 {
+		t.Errorf("unknown calendar = %d", code)
+	}
+
+	if a := data("/api/complementary-activities").(map[string]any); len(a["groups"].([]any)) != 2 {
+		t.Errorf("complementary = %v", a)
+	}
+	if topics := data("/api/forum").([]any); len(topics) < 20 {
+		t.Errorf("forum = %d", len(topics))
+	}
+	if th := data("/api/forum/35437619").(map[string]any); len(th["posts"].([]any)) != 2 {
+		t.Errorf("forum thread = %v", th)
+	}
+
+	if p := data("/api/classes/" + compiladores + "/plan").(map[string]any); p["officeHours"] != "Quinta-feira, 13:30-17:30" {
+		t.Errorf("plan = %v", p)
+	}
+	if p := data("/api/classes/" + compiladores + "/participants").(map[string]any); len(p["students"].([]any)) != 4 {
+		t.Errorf("participants = %v", p)
+	}
+	if refs := data("/api/classes/" + compiladores + "/references").([]any); len(refs) != 8 {
+		t.Errorf("references = %d", len(refs))
+	}
+	// Every POST above went through the guard; make sure none smuggled a submit button.
+	if last, _ := h.sigaa.lastForm.Load().(string); strings.Contains(last, "postarmensagens") || strings.Contains(last, "buscar") {
+		t.Errorf("submit button sent: %s", last)
 	}
 }
 

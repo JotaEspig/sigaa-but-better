@@ -63,7 +63,11 @@ Defesa em camadas, em `server/internal/sigaa/guard.go`:
    então são emitidos **apenas por clique explícito** do usuário, nunca em prefetch
    ou cache.
 
-Login e logout são os únicos POSTs fora da navegação JSF.
+5. **Fórum**: "Seguir tópico" e "Denunciar mensagem" alteram estado; `seguir|denunc|denmensag`
+   estão na denylist, e o BFF nunca clica neles.
+
+Além do POST de login e do logout, o único GET fora do portal é `/sigaa/portais/discente/turmas.jsf`
+(lista de turmas anteriores). Todo o resto é navegação JSF.
 
 ## Backend (`server/`)
 
@@ -117,9 +121,19 @@ Erros vêm como `{ "error": { "code": "…", "message": "…" } }`.
 | GET | `/api/classes/{id}/news` | `NewsItem[]` | 5 min |
 | GET | `/api/classes/{id}/news/{newsId}` | `NewsItem` (com `html`) | 30 min |
 | GET | `/api/classes/{id}/evaluations` | `Evaluation[]` | 10 min |
+| GET | `/api/classes/{id}/plan` | `TeachingPlan` (plano de ensino) | 30 min |
+| GET | `/api/classes/{id}/participants` | `Participants` (colegas só com nome) | 30 min |
+| GET | `/api/classes/{id}/references` | `ClassReference[]` | 30 min |
+| GET | `/api/past-classes` | `PastClass[]` (todas as turmas, inclusive anteriores) | 30 min |
+| GET | `/api/calendars` | `CalendarRef[]` | 1 h |
+| GET | `/api/calendars/{calendarId}` | `AcademicCalendar` | 1 h |
+| GET | `/api/complementary-activities` | `ComplementaryActivities` | 10 min |
+| GET | `/api/forum` | `ForumTopic[]` (fórum do curso) | 5 min |
+| GET | `/api/forum/{topicId}` | `ForumThread` (1ª página de mensagens) | 5 min |
 | GET | `/api/documents/transcript` | PDF do histórico | nunca |
 
-`{id}` é o `frontEndIdTurma` do SIGAA (hash hex de 40 caracteres, estável).
+`{id}` é o `frontEndIdTurma` do SIGAA (hash hex de 40 caracteres, estável). Turmas de
+semestres anteriores também funcionam: se a turma não está no portal, o BFF entra por `turmas.jsf`.
 POSTs exigem `Content-Type: application/json`, o que, junto com `SameSite=Lax`,
 impede CSRF por formulário.
 
@@ -150,16 +164,21 @@ rode na origem do app.
   `<html>` recebe `data-theme` e `data-palette`.
 - Navegação espelha o SIGAA: faixa superior (semestre, usuário, tema, sair) + "Menu Discente"
   com **Portal do Discente**, **Ensino ▾** (Minhas notas, Horários, Índices e integralização,
-  Emitir histórico) e **Turmas virtuais ▾**; trilha "Portal do Discente › …" em cada página.
+  Atividades complementares, Calendário acadêmico, Fórum do curso, Emitir histórico) e
+  **Turmas virtuais ▾** (turmas do semestre, Turmas anteriores); trilha "Portal do Discente › …"
+  em cada página.
   No mobile, o menu abre num painel.
 - Rotas: `/` Portal (perfil, índices e integralização à esquerda, como no SIGAA; hoje,
   turmas, atividades, atualizações e fórum à direita), `/notas`, `/horarios`, `/progresso`
-  (`#historico`), `/turmas`, `/turmas/:id[/:secao]`. A turma virtual tem o menu lateral do
-  SIGAA (Turma: Principal, Notícias · Alunos: Frequência, Ver notas · Materiais: Arquivos ·
-  Atividades: Avaliações, Tarefas) e "Trocar de turma" mantendo a seção.
+  (`#complementares`, `#historico`), `/calendario` (`?semestre=2026.1`), `/forum[/:id]`,
+  `/turmas`, `/turmas/anteriores`, `/turmas/:id[/:secao]`. A turma virtual tem o menu lateral do
+  SIGAA (Turma: Principal, Plano de ensino, Participantes, Notícias · Alunos: Frequência, Ver notas ·
+  Materiais: Arquivos, Referências · Atividades: Avaliações, Tarefas) e "Trocar de turma"
+  mantendo a seção (escondido em turmas de semestres anteriores).
 - Sem gradientes: cores sólidas (`--bar` para a faixa superior).
 - `401 SESSION_EXPIRED/UNAUTHENTICATED` em qualquer query → limpa o cache e redireciona para `/login`.
-- HTML vindo da API (`topic.html`, `news.html`) já é sanitizado no BFF. O front o
+- HTML vindo da API (`topic.html`, `news.html`, `ForumPost.html`, `TeachingPlan.methodologyHtml`
+  e `assessmentHtml`) já é sanitizado no BFF. O front o
   renderiza dentro de um container `.prose-sigaa`, sem nenhum outro HTML cru.
 
 ## Deploy

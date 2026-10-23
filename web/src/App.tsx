@@ -14,6 +14,9 @@ const GradesPage = lazy(() => import("./pages/Grades"));
 const ClassesPage = lazy(() => import("./pages/Classes"));
 const ClassPage = lazy(() => import("./pages/Class"));
 const ProgressPage = lazy(() => import("./pages/Progress"));
+const PastClassesPage = lazy(() => import("./pages/Classes").then((m) => ({ default: m.PastClassesPage })));
+const CalendarPage = lazy(() => import("./pages/Calendar"));
+const ForumPage = lazy(() => import("./pages/Forum"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
 
 /** Any 401 from the API (expired SIGAA session) drops all cached data and returns to login. */
@@ -80,9 +83,13 @@ export function App() {
               ["horarios", SchedulePage],
               ["notas", GradesPage],
               ["turmas", ClassesPage],
+              ["turmas/anteriores", PastClassesPage],
               ["turmas/:id", ClassPage],
               ["turmas/:id/:secao", ClassPage],
               ["progresso", ProgressPage],
+              ["calendario", CalendarPage],
+              ["forum", ForumPage],
+              ["forum/:id", ForumPage],
               ["*", NotFoundPage],
             ] as const
           ).map(([path, Page]) => (

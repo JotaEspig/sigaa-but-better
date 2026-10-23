@@ -51,9 +51,13 @@ com `jscook_action` = a string `…:A]#{ bean.metodo }`. O BFF localiza pela exp
 | `relatorioNotasAluno.gerarRelatorio` | Relatório de notas (HTML) | sim |
 | `portalDiscente.historico` | Histórico (**PDF direto**, registra código de autenticação) | sim, só por clique |
 | `indiceAcademicoMBean.selecionaDiscente` | Explicação das fórmulas dos índices (os valores já estão no portal) | não |
-| `calendario.iniciarBusca` | Lista de calendários acadêmicos | futuro |
+| `calendario.iniciarBusca` | Lista de calendários acadêmicos | sim |
+| `solicitacaoRegistroAtividadeAutonomaMBean.listar` | Atividades autônomas (complementares), só a listagem | sim |
+| `forum.listarForunsCurso` | Fórum do curso (lista de tópicos) | sim |
 | `portalDiscente.atestadoMatricula` | Atestado (registra código de autenticação) | não |
-| `matriculaGraduacao.*`, `trancamentoPrograma.*`, `solicitacao*`… | **alteram estado** | **proibido** |
+| `planoMatriculaBean.gerar` | Meu plano de matrículas (contém `matricul`, o guard bloqueia) | não |
+| `relatorioAvaliacaoMBean.iniciarObservacoesTurmasDiscente` | "Acesso Negado" para discentes | não |
+| `matriculaGraduacao.*`, `trancamentoPrograma.iniciar*`, `solicitacao*.iniciar*`… | **alteram estado** | **proibido** |
 
 ## Portal do discente (`/sigaa/portais/discente/discente.jsf`)
 
@@ -111,6 +115,33 @@ Os valores usam vírgula decimal, e `--` ou vazio significa sem nota.
 
 Downloads respondem com `Content-Disposition: attachment; filename="…"` (nome em ISO-8859-1).
 Se a turma atual estiver errada, o SIGAA devolve **HTML** da turma, não um erro.
+
+### Telas da turma virtual adicionadas em 2026-10
+
+| Texto | Conteúdo | Parser |
+|---|---|---|
+| Plano de Ensino | `legend` "Plano de Ensino"; tabelas por `caption`: "Metodologia de Ensino e Avaliação" (`th` Metodologia / Procedimentos… / Horário de atendimento), "Cronograma de Aulas" (Início/Fim/Descrição), "Avaliações", "Referências Básicas/Complementares" | `ParseTeachingPlan` |
+| Participantes | `table.participantes` após `legend` "Docentes (n)" e "Discentes (n)"; nome no `strong`, campos "Label: `<em>`valor`</em>" | `ParseParticipants` (colegas só com nome) |
+| Referências | `table.listing` Nome/Tipo/URL/Tópico; URL vazia vem como `href="http://"` | `ParseClassReferences` |
+
+Sem dados na conta usada em 2026-10 (sem fixture, não implementados): Fóruns da turma, Ver Grupo,
+Recuperação Paralela, Conteúdo/Página web, Vídeos, Enquetes, Questionários, Situação dos Discentes,
+Linha do Tempo.
+
+## Outras telas do portal
+
+| Tela | Como chegar | Estrutura | Parser |
+|---|---|---|---|
+| Turmas anteriores | `GET /sigaa/portais/discente/turmas.jsf` | `table.listagem` com `td.periodo` separando semestres; linhas "COD - NOME", turma, "60h", horário; link com `frontEndIdTurma` + `inciadoPelaBusca` | `ParsePastClasses` |
+| Calendários | menu `calendario.iniciarBusca` | `table.listagem` "Lista de Calendários": `tr.secao` "Calendário 2026.2" + linha com link `id` | `ParseCalendarList` |
+| Calendário | clique no `id` acima | `table.visualizacao`: `th` rótulo, `td` "De dd/mm/aaaa até dd/mm/aaaa" ou "Não Definido"; seções em `td.subFormulario` | `ParseCalendar` |
+| Atividades autônomas | menu `solicitacaoRegistroAtividadeAutonomaMBean.listar` | dados em células **`th`**; `td.subFormulario` = categoria; `tr.caixaCinza` = total aprovado | `ParseComplementaryActivities` |
+| Fórum do curso | menu `forum.listarForunsCurso` (form `listagem`) | tabela com `th` "Respostas"; link com `idForumMensagem` | `ParseForumTopics` |
+| Tópico do fórum | clique no `idForumMensagem` | `h2` "Discussão sobre …"; pares `tr.bg-claro` (data, "Postado por: NOME - matrícula") + linha do corpo. Só a 1ª página. "Seguir tópico" e "Denunciar" **alteram estado** | `ParseForumThread` |
+
+Telas sem conteúdo útil na exploração: "Minhas Bolsas", "Consultar Turmas do Próx. Semestre" e
+"Consultar Processos" voltam ao portal com uma mensagem; "Mural de Vagas" estava vazio; "Caixa
+Postal" (`/sigaa/abrirCaixaPostal.jsf`) respondeu 404.
 
 ## Atualizando fixtures
 

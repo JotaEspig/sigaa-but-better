@@ -85,6 +85,8 @@ export interface ClassUpdate {
 }
 
 export interface ForumTopic {
+  /** SIGAA's idForumMensagem; opens /forum/:id. */
+  id?: string;
   title: string;
   author: string;
   replies: number;
@@ -219,4 +221,125 @@ export interface Evaluation {
   /** Normalized "HH:MM", or "" when SIGAA has no time. */
   time: string;
   description: string;
+}
+
+/** One row of "Ver turmas anteriores" (every turma virtual, current semester included). */
+export interface PastClass {
+  id: string;
+  code: string;
+  name: string;
+  period: string;
+  /** Turma number, e.g. "01". */
+  group: string;
+  workloadHours: number;
+  /** "" when SIGAA has no schedule for the class. */
+  schedule: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface CalendarRef {
+  id: string;
+  period: string;
+  name: string;
+}
+
+/** Dates SIGAA marks as "Não Definido" are omitted. */
+export interface CalendarEvent {
+  label: string;
+  start: string;
+  end: string;
+}
+
+export interface CalendarSection {
+  title: string;
+  events: CalendarEvent[];
+}
+
+export interface AcademicCalendar {
+  period: string;
+  current: boolean;
+  /** Período letivo. */
+  start: string;
+  end: string;
+  sections: CalendarSection[];
+}
+
+export interface ComplementaryActivity {
+  date: string;
+  type: string;
+  description: string;
+  hours: number;
+  status: string;
+}
+
+export interface ComplementaryGroup {
+  category: string;
+  approvedHours: number;
+  activities: ComplementaryActivity[];
+}
+
+export interface ComplementaryActivities {
+  groups: ComplementaryGroup[];
+}
+
+export interface ForumPost {
+  date: string;
+  author: string;
+  /** Sanitized by the BFF. */
+  html: string;
+}
+
+export interface ForumThread {
+  id: string;
+  title: string;
+  posts: ForumPost[];
+}
+
+export interface PlanLesson {
+  start: string;
+  end: string;
+  description: string;
+}
+
+export interface PlanEvaluation {
+  date: string;
+  description: string;
+}
+
+export interface PlanReference {
+  type: string;
+  description: string;
+}
+
+export interface TeachingPlan {
+  /** Sanitized by the BFF. */
+  methodologyHtml: string;
+  /** Sanitized by the BFF. */
+  assessmentHtml: string;
+  officeHours: string;
+  lessons: PlanLesson[];
+  evaluations: PlanEvaluation[];
+  basicReferences: PlanReference[];
+  complementaryReferences: PlanReference[];
+}
+
+export interface Teacher {
+  name: string;
+  department: string;
+  degree: string;
+  email: string;
+}
+
+/** Classmates come as names only (no e-mail, username or matrícula). */
+export interface Participants {
+  teachers: Teacher[];
+  students: string[];
+}
+
+export interface ClassReference {
+  title: string;
+  type: string;
+  url?: string;
+  topic?: string;
 }

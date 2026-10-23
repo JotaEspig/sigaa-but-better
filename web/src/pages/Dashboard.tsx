@@ -283,18 +283,39 @@ function UpdatesCard({ data }: { data: Dashboard }) {
 function ForumCard({ data }: { data: Dashboard }) {
   return (
     <Card>
-      <CardHeader title="Fórum do curso" icon={MessagesSquare} />
+      <CardHeader
+        title="Fórum do curso"
+        icon={MessagesSquare}
+        action={
+          <Link to="/forum" className="text-xs font-medium text-brand-strong hover:underline">
+            Ver todos
+          </Link>
+        }
+      />
       {data.forum.length ? (
         <ul className="divide-y divide-line px-5 pb-3">
-          {data.forum.slice(0, 5).map((t, i) => (
-            <li key={i} className="py-3">
-              <p className="text-sm font-medium">{t.title}</p>
-              <p className="mt-0.5 text-xs text-muted">
-                {t.author} · {formatShortDate(t.date.slice(0, 10))}
-                {t.replies > 0 && ` · ${t.replies} ${t.replies === 1 ? "resposta" : "respostas"}`}
-              </p>
-            </li>
-          ))}
+          {data.forum.slice(0, 5).map((t, i) => {
+            const body = (
+              <>
+                <p className="text-sm font-medium group-hover:text-brand-strong">{t.title}</p>
+                <p className="mt-0.5 text-xs text-muted">
+                  {t.author} · {formatShortDate(t.date.slice(0, 10))}
+                  {t.replies > 0 && ` · ${t.replies} ${t.replies === 1 ? "resposta" : "respostas"}`}
+                </p>
+              </>
+            );
+            return (
+              <li key={t.id ?? i} className="py-3">
+                {t.id ? (
+                  <Link to={`/forum/${t.id}`} className="group block">
+                    {body}
+                  </Link>
+                ) : (
+                  body
+                )}
+              </li>
+            );
+          })}
         </ul>
       ) : (
         <EmptyState title="Nenhum tópico" className="py-6" />

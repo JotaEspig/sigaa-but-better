@@ -196,27 +196,7 @@ func parseUpdates(doc *goquery.Document, d *Dashboard) {
 }
 
 func parseForum(doc *goquery.Document, d *Dashboard) {
-	table := doc.Find("table").FilterFunction(func(_ int, t *goquery.Selection) bool {
-		return t.Find("th").FilterFunction(func(_ int, th *goquery.Selection) bool {
-			return clean(th.Text()) == "Respostas"
-		}).Length() > 0
-	}).First()
-	table.Find("tr.linhaPar, tr.linhaImpar").Each(func(_ int, tr *goquery.Selection) {
-		tds := tr.ChildrenFiltered("td")
-		if tds.Length() < 4 {
-			return
-		}
-		date := isoDate(tds.Eq(3).Text())
-		if dt := isoDateTimes(tds.Eq(3).Text()); len(dt) > 0 {
-			date = dt[0]
-		}
-		d.Forum = append(d.Forum, ForumTopic{
-			Title:   clean(tds.Eq(0).Text()),
-			Author:  clean(tds.Eq(1).Text()),
-			Replies: intOr0(tds.Eq(2).Text()),
-			Date:    date,
-		})
-	})
+	d.Forum, _ = ParseForumTopics(doc)
 }
 
 // textOf extracts text from an HTML fragment.
