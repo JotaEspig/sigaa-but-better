@@ -66,6 +66,8 @@ type ClassUpdate struct {
 }
 
 type ForumTopic struct {
+	// ID is SIGAA's idForumMensagem; used to open the topic.
+	ID      string `json:"id,omitempty"`
 	Title   string `json:"title"`
 	Author  string `json:"author"`
 	Replies int    `json:"replies"`
@@ -200,4 +202,124 @@ type Evaluation struct {
 	// Time is "HH:MM" or "" when the teacher did not set one.
 	Time        string `json:"time"`
 	Description string `json:"description"`
+}
+
+// PastClass is one row of "Ver turmas anteriores" (every turma virtual the
+// student ever had, current semester included).
+type PastClass struct {
+	ID            string `json:"id"`
+	Code          string `json:"code"`
+	Name          string `json:"name"`
+	Period        string `json:"period"`
+	Group         string `json:"group"`
+	WorkloadHours int    `json:"workloadHours"`
+	Schedule      string `json:"schedule"`
+	StartDate     string `json:"startDate"`
+	EndDate       string `json:"endDate"`
+}
+
+type CalendarRef struct {
+	ID     string `json:"id"`
+	Period string `json:"period"`
+	Name   string `json:"name"`
+}
+
+// CalendarEvent is one dated line of the academic calendar. Lines SIGAA marks
+// as "Não Definido" are omitted.
+type CalendarEvent struct {
+	Label string `json:"label"`
+	Start string `json:"start"`
+	End   string `json:"end"`
+}
+
+type CalendarSection struct {
+	Title  string          `json:"title"`
+	Events []CalendarEvent `json:"events"`
+}
+
+type AcademicCalendar struct {
+	Period   string            `json:"period"`
+	Current  bool              `json:"current"`
+	Start    string            `json:"start"`
+	End      string            `json:"end"`
+	Sections []CalendarSection `json:"sections"`
+}
+
+type ComplementaryActivity struct {
+	Date        string  `json:"date"`
+	Type        string  `json:"type"`
+	Description string  `json:"description"`
+	Hours       float64 `json:"hours"`
+	Status      string  `json:"status"`
+}
+
+type ComplementaryGroup struct {
+	Category      string                  `json:"category"`
+	ApprovedHours float64                 `json:"approvedHours"`
+	Activities    []ComplementaryActivity `json:"activities"`
+}
+
+type ComplementaryActivities struct {
+	Groups []ComplementaryGroup `json:"groups"`
+}
+
+type ForumPost struct {
+	Date   string `json:"date"`
+	Author string `json:"author"`
+	HTML   string `json:"html"`
+}
+
+type ForumThread struct {
+	ID    string      `json:"id"`
+	Title string      `json:"title"`
+	Posts []ForumPost `json:"posts"`
+}
+
+type PlanLesson struct {
+	Start       string `json:"start"`
+	End         string `json:"end"`
+	Description string `json:"description"`
+}
+
+type PlanEvaluation struct {
+	Date        string `json:"date"`
+	Description string `json:"description"`
+}
+
+type PlanReference struct {
+	Type        string `json:"type"`
+	Description string `json:"description"`
+}
+
+// TeachingPlan is the turma virtual "Plano de Ensino". HTML fields are
+// teacher-authored and sanitized.
+type TeachingPlan struct {
+	MethodologyHTML         string           `json:"methodologyHtml"`
+	AssessmentHTML          string           `json:"assessmentHtml"`
+	OfficeHours             string           `json:"officeHours"`
+	Lessons                 []PlanLesson     `json:"lessons"`
+	Evaluations             []PlanEvaluation `json:"evaluations"`
+	BasicReferences         []PlanReference  `json:"basicReferences"`
+	ComplementaryReferences []PlanReference  `json:"complementaryReferences"`
+}
+
+type Teacher struct {
+	Name       string `json:"name"`
+	Department string `json:"department"`
+	Degree     string `json:"degree"`
+	Email      string `json:"email"`
+}
+
+// Participants deliberately carries only classmates' names: their e-mails,
+// usernames and matrículas are not ours to redistribute.
+type Participants struct {
+	Teachers []Teacher `json:"teachers"`
+	Students []string  `json:"students"`
+}
+
+type ClassReference struct {
+	Title string `json:"title"`
+	Type  string `json:"type"`
+	URL   string `json:"url,omitempty"`
+	Topic string `json:"topic,omitempty"`
 }

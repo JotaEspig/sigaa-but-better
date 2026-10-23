@@ -361,3 +361,136 @@ func ParseEvaluations(doc *goquery.Document) ([]Evaluation, error) {
 	})
 	return evals, nil
 }
+
+// captioned finds the table whose caption equals caption.
+func captioned(doc *goquery.Document, caption string) *goquery.Selection {
+	return doc.Find("table").FilterFunction(func(_ int, t *goquery.Selection) bool {
+		return clean(t.ChildrenFiltered("caption").Text()) == caption
+	}).First()
+}
+
+// ParseTeachingPlan parses the turma virtual "Plano de Ensino" page
+// (/sigaa/ava/PlanoCurso/visualizar.jsf).
+func ParseTeachingPlan(doc *goquery.Document) (TeachingPlan, error) {
+	p := TeachingPlan{
+		Lessons:                 []PlanLesson{},
+		Evaluations:             []PlanEvaluation{},
+		BasicReferences:         []PlanReference{},
+		ComplementaryReferences: []PlanReference{},
+	}
+	if doc.Find("legend").FilterFunction(func(_ int, l *goquery.Selection) bool {
+		return clean(l.Text()) == "Plano de Ensino"
+	}).Length() == 0 {
+		return p, parseErr("plano", "not the teaching plan page")
+	}
+	captioned(doc, "Metodologia de Ensino e Avaliação").Find("tr").Each(func(_ int, tr *goquery.Selection) {
+		label := clean(tr.ChildrenFiltered("th").Text())
+		td := tr.ChildrenFiltered("td").First()
+		html, _ := td.Html()
+		switch {
+		case strings.HasPrefix(label, "Metodologia"):
+			p.MethodologyHTML = sanitize(html)
+		case strings.HasPrefix(label, "Procedimentos de Avaliação"):
+			p.AssessmentHTML = sanitize(html)
+		case strings.HasPrefix(label, "Horário de atendimento"):
+			p.OfficeHours = clean(td.Text())
+		}
+	})
+	captioned(doc, "Cronograma de Aulas").Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
+		tds := tr.ChildrenFiltered("td")
+		if tds.Length() < 3 {
+			return
+		}
+		p.Lessons = append(p.Lessons, PlanLesson{Start: isoDate(tds.Eq(0).Text()), End: isoDate(tds.Eq(1).Text()), Description: clean(tds.Eq(2).Text())})
+	})
+	captioned(doc, "Avaliações").Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
+		tds := tr.ChildrenFiltered("td")
+		if tds.Length() < 2 {
+			return
+		}
+		p.Evaluations = append(p.Evaluations, PlanEvaluation{Date: isoDate(tds.Eq(0).Text()), Description: clean(tds.Eq(1).Text())})
+	})
+	refs := func(caption string) []PlanReference {
+		out := []PlanReference{}
+		captioned(doc, caption).Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
+			tds := tr.ChildrenFiltered("td")
+			if tds.Length() < 2 {
+				return
+			}
+			out = append(out, PlanReference{Type: clean(tds.Eq(0).Text()), Description: clean(tds.Eq(1).Text())})
+		})
+		return out
+	}
+	p.BasicReferences = refs("Referências Básicas")
+	p.ComplementaryReferences = refs("Referências Complementares")
+	return p, nil
+}
+
+var participantFieldRe = regexp.MustCompile(`^(Departamento|Formação|E-Mail):\s*(.*)$`)
+
+// ParseParticipants parses "Participantes": a table.participantes after the
+// "Docentes (n)" legend and another after "Discentes (n)". Only teachers keep
+// contact data; students are reduced to their names.
+func ParseParticipants(doc *goquery.Document) (Participants, error) {
+	p := Participants{Teachers: []Teacher{}, Students: []string{}}
+	tables := doc.Find("table.participantes")
+	if tables.Length() == 0 {
+		return p, parseErr("participantes", "table.participantes not found")
+	}
+	tables.Each(func(_ int, t *goquery.Selection) {
+		legend := clean(t.PrevAllFiltered("fieldset").First().Find("legend").Text())
+		isTeachers := strings.HasPrefix(legend, "Docentes")
+		t.Find(`td[valign="top"]`).Each(func(_ int, td *goquery.Selection) {
+			strong := td.Find("strong").First().Clone()
+			strong.Find("a.naoImprimir").Remove()
+			name := clean(strong.Text())
+			if name == "" {
+				return
+			}
+			if !isTeachers {
+				p.Students = append(p.Students, name)
+				return
+			}
+			teacher := Teacher{Name: name}
+			// Fields are "Label: <em>value</em> <br/>" pairs.
+			td.Find("em").Each(func(_ int, em *goquery.Selection) {
+				prev := ""
+				if n := em.Nodes[0].PrevSibling; n != nil {
+					prev = clean(n.Data)
+				}
+				m := participantFieldRe.FindStringSubmatch(prev + " " + clean(em.Text()))
+				if m == nil {
+					return
+				}
+				switch m[1] {
+				case "Departamento":
+					teacher.Department = m[2]
+				case "Formação":
+					teacher.Degree = m[2]
+				case "E-Mail":
+					teacher.Email = m[2]
+				}
+			})
+			p.Teachers = append(p.Teachers, teacher)
+		})
+	})
+	return p, nil
+}
+
+// ParseClassReferences parses the turma virtual "Referências" page.
+func ParseClassReferences(doc *goquery.Document) ([]ClassReference, error) {
+	refs := []ClassReference{}
+	listing(doc, "Nome").Find("tbody tr").Each(func(_ int, tr *goquery.Selection) {
+		tds := tr.ChildrenFiltered("td")
+		if tds.Length() < 4 {
+			return
+		}
+		r := ClassReference{Title: clean(tds.Eq(0).Text()), Type: clean(tds.Eq(1).Text()), Topic: clean(tds.Eq(3).Text())}
+		// Empty URLs are rendered as href="http://".
+		if href := tds.Eq(2).Find("a").AttrOr("href", ""); strings.HasPrefix(href, "http") && len(href) > len("https://") {
+			r.URL = href
+		}
+		refs = append(refs, r)
+	})
+	return refs, nil
+}

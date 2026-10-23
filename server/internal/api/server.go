@@ -93,6 +93,40 @@ func (s *Server) Handler() http.Handler {
 		return c.ClassEvaluations(ctx, r.PathValue("id"))
 	}))
 
+	mux.HandleFunc("GET /api/classes/{id}/plan", cached(s, 30*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.TeachingPlan, error) {
+		return c.ClassPlan(ctx, r.PathValue("id"))
+	}))
+	mux.HandleFunc("GET /api/classes/{id}/participants", cached(s, 30*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.Participants, error) {
+		return c.ClassParticipants(ctx, r.PathValue("id"))
+	}))
+	mux.HandleFunc("GET /api/classes/{id}/references", cached(s, 30*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) ([]sigaa.ClassReference, error) {
+		return c.ClassReferences(ctx, r.PathValue("id"))
+	}))
+	mux.HandleFunc("GET /api/past-classes", cached(s, 30*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) ([]sigaa.PastClass, error) {
+		return c.PastClasses(ctx)
+	}))
+	mux.HandleFunc("GET /api/calendars", cached(s, time.Hour, func(ctx context.Context, r *http.Request, c *sigaa.Client) ([]sigaa.CalendarRef, error) {
+		return c.Calendars(ctx)
+	}))
+	mux.HandleFunc("GET /api/calendars/{calendarId}", cached(s, time.Hour, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.AcademicCalendar, error) {
+		if !opaqueIDRe.MatchString(r.PathValue("calendarId")) {
+			return sigaa.AcademicCalendar{}, sigaa.ErrNotFound
+		}
+		return c.Calendar(ctx, r.PathValue("calendarId"))
+	}))
+	mux.HandleFunc("GET /api/complementary-activities", cached(s, 10*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.ComplementaryActivities, error) {
+		return c.ComplementaryActivities(ctx)
+	}))
+	mux.HandleFunc("GET /api/forum", cached(s, 5*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) ([]sigaa.ForumTopic, error) {
+		return c.ForumTopics(ctx)
+	}))
+	mux.HandleFunc("GET /api/forum/{topicId}", cached(s, 5*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.ForumThread, error) {
+		if !opaqueIDRe.MatchString(r.PathValue("topicId")) {
+			return sigaa.ForumThread{}, sigaa.ErrNotFound
+		}
+		return c.ForumThread(ctx, r.PathValue("topicId"))
+	}))
+
 	mux.HandleFunc("GET /api/classes/{id}/files/{fileId}", s.withSession(func(w http.ResponseWriter, r *http.Request, sess *session.Session) {
 		if !opaqueIDRe.MatchString(r.PathValue("fileId")) {
 			writeError(w, r, sigaa.ErrNotFound)

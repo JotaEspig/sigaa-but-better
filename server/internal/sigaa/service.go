@@ -59,11 +59,21 @@ func (c *Client) Transcript(ctx context.Context) (*http.Response, func(), error)
 func (c *Client) ClassOverview(ctx context.Context, classID string) (ClassOverview, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	page, err := c.enterClass(ctx, classID)
+	page, past, err := c.enterClassInfo(ctx, classID)
 	if err != nil {
 		return ClassOverview{}, err
 	}
-	return ParseClassOverview(page.Doc, classID)
+	o, err := ParseClassOverview(page.Doc, classID)
+	// The header only lists current classes, so old ones lack period and CH.
+	if err == nil && past != nil {
+		if o.Period == "" {
+			o.Period = past.Period
+		}
+		if o.WorkloadHours == 0 {
+			o.WorkloadHours = past.WorkloadHours
+		}
+	}
+	return o, err
 }
 
 // ClassPage opens one of the allowlisted turma virtual menu entries and parses it.
@@ -100,6 +110,100 @@ func (c *Client) ClassNews(ctx context.Context, id string) ([]NewsItem, error) {
 
 func (c *Client) ClassEvaluations(ctx context.Context, id string) ([]Evaluation, error) {
 	return ClassPage(ctx, c, id, "Avaliações", ParseEvaluations)
+}
+
+func (c *Client) ClassPlan(ctx context.Context, id string) (TeachingPlan, error) {
+	return ClassPage(ctx, c, id, "Plano de Ensino", ParseTeachingPlan)
+}
+
+func (c *Client) ClassParticipants(ctx context.Context, id string) (Participants, error) {
+	return ClassPage(ctx, c, id, "Participantes", ParseParticipants)
+}
+
+func (c *Client) ClassReferences(ctx context.Context, id string) ([]ClassReference, error) {
+	return ClassPage(ctx, c, id, "Referências", ParseClassReferences)
+}
+
+// PastClasses lists every turma virtual of the student ("Ver turmas anteriores").
+func (c *Client) PastClasses(ctx context.Context) ([]PastClass, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	page, err := c.get(ctx, pastClassesPath)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePastClasses(page.Doc)
+}
+
+// Calendars lists the academic calendars ("Ensino > Calendário Acadêmico").
+func (c *Client) Calendars(ctx context.Context) ([]CalendarRef, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	page, err := c.portalMenu(ctx, actionCalendars)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCalendarList(page.Doc)
+}
+
+// Calendar opens one calendar from the list.
+func (c *Client) Calendar(ctx context.Context, id string) (AcademicCalendar, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	list, err := c.portalMenu(ctx, actionCalendars)
+	if err != nil {
+		return AcademicCalendar{}, err
+	}
+	l, ok := list.FindLinkByParam("id", id)
+	if !ok {
+		return AcademicCalendar{}, ErrNotFound
+	}
+	page, err := c.clickPage(ctx, list, l)
+	if err != nil {
+		return AcademicCalendar{}, err
+	}
+	return ParseCalendar(page.Doc)
+}
+
+// ComplementaryActivities lists the "atividades autônomas" registrations.
+func (c *Client) ComplementaryActivities(ctx context.Context) (ComplementaryActivities, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	page, err := c.portalMenu(ctx, actionComplementary)
+	if err != nil {
+		return ComplementaryActivities{}, err
+	}
+	return ParseComplementaryActivities(page.Doc)
+}
+
+// ForumTopics lists the course forum topics.
+func (c *Client) ForumTopics(ctx context.Context) ([]ForumTopic, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	page, err := c.portalMenu(ctx, actionCourseForum)
+	if err != nil {
+		return nil, err
+	}
+	return ParseForumTopics(page.Doc)
+}
+
+// ForumThread opens one course forum topic (first page of posts).
+func (c *Client) ForumThread(ctx context.Context, id string) (ForumThread, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	list, err := c.portalMenu(ctx, actionCourseForum)
+	if err != nil {
+		return ForumThread{}, err
+	}
+	l, ok := list.FindLinkByParam("idForumMensagem", id)
+	if !ok {
+		return ForumThread{}, ErrNotFound
+	}
+	page, err := c.clickPage(ctx, list, l)
+	if err != nil {
+		return ForumThread{}, err
+	}
+	return ParseForumThread(page.Doc, id)
 }
 
 // ClassNewsDetail opens one news item from the class news list.
@@ -182,27 +286,47 @@ var classIDRe = regexp.MustCompile(`^[0-9A-F]{40}$`)
 // Always starts from the portal: old ViewStates expire and the server-side
 // "current class" may have been changed by a previous operation.
 func (c *Client) enterClass(ctx context.Context, classID string) (*Page, error) {
+	page, _, err := c.enterClassInfo(ctx, classID)
+	return page, err
+}
+
+// enterClassInfo is enterClass that also reports the "turmas anteriores" row
+// when the class is not on the portal (an old semester).
+func (c *Client) enterClassInfo(ctx context.Context, classID string) (*Page, *PastClass, error) {
 	if !classIDRe.MatchString(classID) {
-		return nil, ErrNotFound
+		return nil, nil, ErrNotFound
 	}
-	portal, err := c.get(ctx, portalPath)
+	from, err := c.get(ctx, portalPath)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	l, ok := portal.FindLink(func(_ *goquery.Selection, l Link) bool {
+	l, ok := from.FindLink(func(_ *goquery.Selection, l Link) bool {
 		return strings.HasPrefix(l.FormID, "form_acessarTurmaVirtual") && l.Param("frontEndIdTurma") == classID
 	})
+	var past *PastClass
 	if !ok {
-		return nil, ErrNotFound
+		if from, err = c.get(ctx, pastClassesPath); err != nil {
+			return nil, nil, err
+		}
+		if l, ok = from.FindLinkByParam("frontEndIdTurma", classID); !ok {
+			return nil, nil, ErrNotFound
+		}
+		if all, err := ParsePastClasses(from.Doc); err == nil {
+			for i := range all {
+				if all[i].ID == classID {
+					past = &all[i]
+				}
+			}
+		}
 	}
-	page, err := c.clickPage(ctx, portal, l)
+	page, err := c.clickPage(ctx, from, l)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if page.Doc.Find("#linkNomeTurma").Length() == 0 {
-		return nil, parseErr("turma", "did not land on the turma virtual")
+		return nil, nil, parseErr("turma", "did not land on the turma virtual")
 	}
-	return page, nil
+	return page, past, nil
 }
 
 func (c *Client) classMenu(ctx context.Context, classID, label string) (*Page, error) {
