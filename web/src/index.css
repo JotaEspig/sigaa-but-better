@@ -146,6 +146,195 @@
   --bar-active: rgb(255 255 255 / 0.16);
 }
 
+/* Lavender Dusk: tema autoral — hora azul, lavanda e pôr do sol. Só escuro. */
+[data-palette="lavender-dusk"] {
+  --bg: #1e1e2d;
+  --surface: #29283e;
+  --surface-2: #393947;
+  --surface-3: #454569;
+  --line: #414260;
+  --line-strong: #5a6090;
+  --fg: #e8d9e8;
+  --muted: #b7b4e2;
+  --subtle: #5a6090;
+
+  --brand: #aaa0d8;
+  --brand-fg: #1e1e2d;
+
+  --danger: #c77d9f;
+  --warning: #eba8d0;
+  --info: #8e91d2;
+  --success: #7290d4;
+
+  --ring: #d3a5d2;
+  --bar: #29283e;
+  --bar-fg: #e8d9e8;
+  --bar-tint: rgb(170 160 216 / 0.1);
+  --bar-active: rgb(211 165 210 / 0.22);
+}
+
+/* Dusk Ember: azul profundo com coral e dourado. */
+[data-palette="dusk-ember"] {
+  --bg: #13151a;
+  --surface: #1b1f27;
+  --surface-2: #232834;
+  --surface-3: #2c3240;
+  --line: #262c38;
+  --line-strong: #414868;
+  --fg: #c0caf5;
+  --muted: #adb3bc;
+  --subtle: #7d839f;
+
+  --brand: #f7768e;
+  --brand-fg: #13151a;
+
+  --danger: #db4b4b;
+  --warning: #e0af68;
+  --info: #7aa2f7;
+  --success: #9ece6a;
+
+  --ring: #e0af68;
+  --bar: #0f0f14;
+  --bar-fg: #c0caf5;
+  --bar-tint: rgb(247 118 142 / 0.12);
+  --bar-active: rgb(247 118 142 / 0.22);
+}
+
+/* Everforest: verde-sálvia e tons naturais sobre carvão. */
+[data-palette="everforest"] {
+  --bg: #272e33;
+  --surface: #2e383c;
+  --surface-2: #374145;
+  --surface-3: #414b50;
+  --line: #3c4244;
+  --line-strong: #4b565c;
+  --fg: #d3c6aa;
+  --muted: #9da9a0;
+  --subtle: #859289;
+
+  --brand: #a7c080;
+  --brand-fg: #272e33;
+
+  --danger: #e67e80;
+  --warning: #dbbc7f;
+  --info: #7fbbb3;
+  --success: #a7c080;
+
+  --ring: #dbbc7f;
+  --bar: #1e2326;
+  --bar-fg: #d3c6aa;
+  --bar-tint: rgb(211 198 170 / 0.1);
+  --bar-active: rgb(167 192 128 / 0.24);
+}
+
+/* Kanagawa Wave: azul da grande onda com areia e roxo. */
+[data-palette="kanagawa-wave"] {
+  --bg: #1f1f28;
+  --surface: #2a2a37;
+  --surface-2: #313140;
+  --surface-3: #3e3e52;
+  --line: #363646;
+  --line-strong: #54546d;
+  --fg: #dcd7ba;
+  --muted: #c8c093;
+  --subtle: #727169;
+
+  --brand: #7e9cd8;
+  --brand-fg: #16161d;
+
+  --danger: #e82424;
+  --warning: #e6c384;
+  --info: #7aa89f;
+  --success: #98bb6c;
+
+  --ring: #957fb8;
+  --bar: #16161d;
+  --bar-fg: #dcd7ba;
+  --bar-tint: rgb(220 215 186 / 0.08);
+  --bar-active: rgb(126 156 216 / 0.24);
+}
+
+/* Neon Vibes: ciano elétrico e rosa neon sobre azul quase preto. */
+[data-palette="neon-vibes"] {
+  --bg: #0d1321;
+  --surface: #1a1f35;
+  --surface-2: #232940;
+  --surface-3: #3a4160;
+  --line: #2a3150;
+  --line-strong: #3a4160;
+  --fg: #d8e2f0;
+  --muted: #a8b7cc;
+  --subtle: #6b7a94;
+
+  --brand: #00c6e2;
+  --brand-fg: #070b14;
+
+  --danger: #e9395f;
+  --warning: #ee94ac;
+  --info: #5bb7c0;
+  --success: #2ec2bc;
+
+  --ring: #fb5388;
+  --bar: #070b14;
+  --bar-fg: #d8e2f0;
+  --bar-tint: rgb(0 198 226 / 0.12);
+  --bar-active: rgb(251 83 136 / 0.24);
+}
+
+/* Oxo Carbon: cinzas neutros com rosa elétrico. */
+[data-palette="oxo-carbon"] {
+  --bg: #161616;
+  --surface: #262626;
+  --surface-2: #2d2d2d;
+  --surface-3: #393939;
+  --line: #2d2d2d;
+  --line-strong: #525252;
+  --fg: #f2f4f8;
+  --muted: #dde1e6;
+  --subtle: #8d8d8d;
+
+  --brand: #ee5396;
+  --brand-fg: #161616;
+
+  --danger: #ff6f6f;
+  --warning: #ffe97b;
+  --info: #33b1ff;
+  --success: #42be65;
+
+  --ring: #33b1ff;
+  --bar: #0f0f0f;
+  --bar-fg: #f2f4f8;
+  --bar-tint: rgb(238 83 150 / 0.12);
+  --bar-active: rgb(238 83 150 / 0.24);
+}
+
+/* Pixel Dream: variante "hard" do Gruvbox com dourado e cara de pixel art. */
+[data-palette="pixel-dream"] {
+  --bg: #1d2021;
+  --surface: #282828;
+  --surface-2: #32302f;
+  --surface-3: #3c3836;
+  --line: #3c3836;
+  --line-strong: #665c54;
+  --fg: #d4be98;
+  --muted: #a89984;
+  --subtle: #928374;
+
+  --brand: #d8a657;
+  --brand-fg: #1d2021;
+
+  --danger: #ea6962;
+  --warning: #e78a4e;
+  --info: #7daea3;
+  --success: #a9b665;
+
+  --ring: #a9b665;
+  --bar: #17191a;
+  --bar-fg: #d4be98;
+  --bar-tint: rgb(212 190 152 / 0.1);
+  --bar-active: rgb(216 166 87 / 0.26);
+}
+
 [data-palette="gruvbox-dark"] {
   --bg: #282828;
   --surface: #32302f;
