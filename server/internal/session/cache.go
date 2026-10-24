@@ -60,3 +60,11 @@ func (c *Cache) GetOrLoad(key string, ttl time.Duration, refresh bool, load func
 	close(cl.done)
 	return cl.value, cl.fetchedAt, cl.err
 }
+
+// Set stores a value fetched elsewhere (the portal the login landed on).
+func (c *Cache) Set(key string, value any, ttl time.Duration) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	now := c.now()
+	c.entries[key] = entry{value: value, fetchedAt: now, expires: now.Add(ttl)}
+}

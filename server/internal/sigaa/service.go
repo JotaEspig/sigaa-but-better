@@ -2,6 +2,7 @@ package sigaa
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"regexp"
@@ -85,7 +86,11 @@ func ClassPage[T any](ctx context.Context, c *Client, classID, menu string, pars
 	if err != nil {
 		return zero, err
 	}
-	return parse(page.Doc)
+	v, err := parse(page.Doc)
+	if err != nil {
+		c.turma = nil // don't keep clicking from a page we could not read
+	}
+	return v, err
 }
 
 func (c *Client) ClassAttendance(ctx context.Context, id string) (Attendance, error) {
@@ -120,11 +125,8 @@ func (c *Client) ClassStatus(ctx context.Context, classID string) (ClassStatus, 
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	var out ClassStatus
-	page, err := c.enterClass(ctx, classID)
+	page, err := c.classMenu(ctx, classID, "Frequência")
 	if err != nil {
-		return out, err
-	}
-	if page, err = c.nextClassMenu(ctx, classID, page, "Frequência"); err != nil {
 		return out, err
 	}
 	if out.Attendance, err = ParseAttendance(page.Doc); err != nil {
@@ -147,10 +149,7 @@ func (c *Client) ClassStatus(ctx context.Context, classID string) (ClassStatus, 
 // re-enters the class first if this page has no menu.
 func (c *Client) nextClassMenu(ctx context.Context, classID string, page *Page, label string) (*Page, error) {
 	if _, ok := page.FindLinkByText(classMenuForm, label); !ok {
-		var err error
-		if page, err = c.enterClass(ctx, classID); err != nil {
-			return nil, err
-		}
+		return c.classMenu(ctx, classID, label)
 	}
 	return c.clickClassMenu(ctx, page, label)
 }
@@ -369,15 +368,35 @@ func (c *Client) enterClassInfo(ctx context.Context, classID string) (*Page, *Pa
 	if page.Doc.Find("#linkNomeTurma").Length() == 0 {
 		return nil, nil, parseErr("turma", "did not land on the turma virtual")
 	}
+	c.turma = &turmaPage{id: classID, page: page}
 	return page, past, nil
 }
 
+// classMenu opens a turma menu entry. When the last page this session saw is
+// that same class, it clicks from there (one request instead of three), and
+// starts over from the portal if that page turned out to be stale.
 func (c *Client) classMenu(ctx context.Context, classID, label string) (*Page, error) {
+	if t := c.turma; t != nil && t.id == classID {
+		page, err := c.clickClassMenu(ctx, t.page, label)
+		if err == nil && sameTurma(t.page, page) {
+			return page, nil
+		}
+		if errors.Is(err, ErrSessionExpired) || errors.Is(err, ErrForbiddenAction) || ctx.Err() != nil {
+			return nil, err
+		}
+	}
 	page, err := c.enterClass(ctx, classID)
 	if err != nil {
 		return nil, err
 	}
 	return c.clickClassMenu(ctx, page, label)
+}
+
+// sameTurma reports whether next still shows the class header of prev, i.e.
+// SIGAA did not bounce the click to the portal or an error page.
+func sameTurma(prev, next *Page) bool {
+	name := func(p *Page) string { return strings.TrimSpace(p.Doc.Find("#linkNomeTurma").First().Text()) }
+	return name(next) != "" && name(next) == name(prev)
 }
 
 func (c *Client) clickClassMenu(ctx context.Context, page *Page, label string) (*Page, error) {
@@ -388,7 +407,22 @@ func (c *Client) clickClassMenu(ctx context.Context, page *Page, label string) (
 	if !ok {
 		return nil, parseErr("turma", "menu entry %q not found", label)
 	}
-	return c.clickPage(ctx, page, l)
+	next, err := c.clickPage(ctx, page, l)
+	if err != nil {
+		c.turma = nil
+		return nil, err
+	}
+	// Pages without the side menu (Ver Notas) are a dead end for the next click.
+	if c.turma != nil && next.Doc.Find("#linkNomeTurma").Length() > 0 {
+		if _, ok := next.FindLinkByText(classMenuForm, label); ok {
+			c.turma.page = next
+		} else {
+			c.turma = nil
+		}
+	} else {
+		c.turma = nil
+	}
+	return next, nil
 }
 
 func (c *Client) portalMenu(ctx context.Context, action string) (*Page, error) {

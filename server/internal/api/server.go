@@ -41,6 +41,8 @@ type Server struct {
 	loginLimiter *ipLimiter
 }
 
+const dashboardTTL = 2 * time.Minute
+
 func New(cfg Config, store *session.Store, limiter sigaa.Limiter) *Server {
 	return &Server{
 		cfg:     cfg,
@@ -59,7 +61,7 @@ func (s *Server) Handler() http.Handler {
 		writeData(w, sess.Info, time.Now())
 	}))
 
-	mux.HandleFunc("GET /api/dashboard", cached(s, 2*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.Dashboard, error) {
+	mux.HandleFunc("GET /api/dashboard", cached(s, dashboardTTL, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.Dashboard, error) {
 		return c.Dashboard(ctx)
 	}))
 	mux.HandleFunc("GET /api/grades", cached(s, 5*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.GradesReport, error) {
@@ -191,7 +193,7 @@ func (s *Server) login(w http.ResponseWriter, r *http.Request) {
 		writeError(w, r, err)
 		return
 	}
-	info, err := client.Login(r.Context(), strings.TrimSpace(req.Username), req.Password)
+	info, portal, err := client.Login(r.Context(), strings.TrimSpace(req.Username), req.Password)
 	req.Password = ""
 	if err != nil {
 		writeError(w, r, err)
@@ -201,6 +203,7 @@ func (s *Server) login(w http.ResponseWriter, r *http.Request) {
 		s.dropSession(c.Value)
 	}
 	sess := s.store.Create(info, client)
+	sess.Cache.Set("/api/dashboard", portal, dashboardTTL)
 	http.SetCookie(w, s.cookie(sess.ID, 0))
 	writeData(w, info, time.Now())
 }

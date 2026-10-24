@@ -29,6 +29,7 @@ const (
 type fakeSIGAA struct {
 	t        *testing.T
 	posts    atomic.Int32
+	requests atomic.Int32
 	expired  atomic.Bool
 	lastForm atomic.Value
 }
@@ -43,6 +44,7 @@ func (f *fakeSIGAA) page(w http.ResponseWriter, name string) {
 }
 
 func (f *fakeSIGAA) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	f.requests.Add(1)
 	loggedIn := func() bool {
 		c, err := r.Cookie("JSESSIONID")
 		return err == nil && c.Value == "ok" && !f.expired.Load()
@@ -90,13 +92,13 @@ func (f *fakeSIGAA) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			f.page(w, "turma_principal.html")
 		case form.Get("frontEndIdTurma") == pastClass && form.Get("inciadoPelaBusca") == "true":
 			f.page(w, "turma_principal.html")
-		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_100"):
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "_100"):
 			f.page(w, "turma_frequencia.html")
-		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_77"):
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "_77"):
 			f.page(w, "turma_plano.html")
-		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_83"):
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "_83"):
 			f.page(w, "turma_participantes.html")
-		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_126"):
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "_126"):
 			f.page(w, "turma_referencias.html")
 		case form.Get("formMenu") != "" && hasKeySuffix(form, "_131"):
 			f.page(w, "turma_avaliacoes.html")
@@ -176,9 +178,13 @@ func TestLoginAndReadFlow(t *testing.T) {
 		t.Fatalf("login = %d %v", code, body)
 	}
 
+	reqs := h.sigaa.requests.Load()
 	code, body = h.do("GET", "/api/dashboard", "")
 	if code != 200 {
 		t.Fatalf("dashboard = %d %v", code, body)
+	}
+	if h.sigaa.requests.Load() != reqs {
+		t.Error("the dashboard right after login should come from the portal the login landed on")
 	}
 	classes := body["data"].(map[string]any)["classes"].([]any)
 	if len(classes) != 4 || body["fetchedAt"] == "" {
@@ -213,9 +219,9 @@ func TestLoginAndReadFlow(t *testing.T) {
 	if st["attendance"].(map[string]any)["maxAbsences"].(float64) != 18 || len(st["evaluations"].([]any)) == 0 || st["grades"].(map[string]any)["published"] != true {
 		t.Fatalf("status = %v", st)
 	}
-	// One entry into the turma plus three menu clicks, not three full visits.
-	if n := h.sigaa.posts.Load() - posts; n != 4 {
-		t.Errorf("status used %d POSTs, want 4", n)
+	// Still on this turma after /attendance: three menu clicks, no portal or re-entry.
+	if n := h.sigaa.posts.Load() - posts; n != 3 {
+		t.Errorf("status used %d POSTs, want 3", n)
 	}
 	if code, body = h.do("GET", "/api/classes/NOT-A-CLASS/attendance", ""); code != 404 {
 		t.Fatalf("bad class id = %d %v", code, body)
@@ -274,8 +280,13 @@ func TestNewPages(t *testing.T) {
 	if p := data("/api/classes/" + compiladores + "/plan").(map[string]any); p["officeHours"] != "Quinta-feira, 13:30-17:30" {
 		t.Errorf("plan = %v", p)
 	}
+	reqs := h.sigaa.requests.Load()
 	if p := data("/api/classes/" + compiladores + "/participants").(map[string]any); len(p["students"].([]any)) != 4 {
 		t.Errorf("participants = %v", p)
+	}
+	// Right after /plan of the same class: one menu click from that page.
+	if n := h.sigaa.requests.Load() - reqs; n != 1 {
+		t.Errorf("participants after plan used %d requests, want 1", n)
 	}
 	if refs := data("/api/classes/" + compiladores + "/references").([]any); len(refs) != 8 {
 		t.Errorf("references = %d", len(refs))
