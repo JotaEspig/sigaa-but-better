@@ -25,7 +25,6 @@ import { Link, useNavigate, useParams } from "react-router";
 import { OFFICIAL_SIGAA_URL, fileUrl } from "../api/client";
 import {
   useClass,
-  useDashboard,
   useClassAttendance,
   useClassEvaluations,
   useClassFiles,
@@ -38,9 +37,11 @@ import {
   useNewsDetail,
 } from "../api/hooks";
 import type { Assessment, ClassOverview, Material, PlanReference, Task } from "../api/types";
-import { prettyClassName } from "../components/ClassBits";
+import { classInitials, prettyClassName } from "../components/ClassBits";
 import { Dialog } from "../components/Dialog";
-import { Badge, Breadcrumbs, EmptyState, ErrorState, Freshness, ProgressBar, Skeleton, SkeletonCard, type Crumb } from "../components/ui";
+import { TopBarActions, TopBarTitle } from "../components/topbar";
+import { Badge, Breadcrumbs, EmptyState, ErrorState, Freshness, ProgressBar, Skeleton, SkeletonCard } from "../components/ui";
+import { classAverage } from "../lib/classStats";
 import { LOW_GRADE, classColorVars, situationTone } from "../lib/colors";
 import { daysUntil, formatDate, formatDateTime, formatGrade, formatPercent, parseLocal, relativeDays, titleCase } from "../lib/format";
 import { toISODay } from "../lib/schedule";
@@ -55,40 +56,19 @@ interface SectionDef {
   icon: ComponentType<{ className?: string }>;
 }
 
-/** Same grouping as SIGAA's turma virtual menu (Turma / Alunos / Materiais / Atividades). */
-const MENU: { group: string; items: SectionDef[] }[] = [
-  {
-    group: "Turma",
-    items: [
-      { key: "aulas", label: "Principal", slug: "", icon: Layers },
-      { key: "plano", label: "Plano de ensino", slug: "plano", icon: NotebookText },
-      { key: "participantes", label: "Participantes", slug: "participantes", icon: Users },
-      { key: "noticias", label: "Notícias", slug: "noticias", icon: Newspaper },
-    ],
-  },
-  {
-    group: "Alunos",
-    items: [
-      { key: "frequencia", label: "Frequência", slug: "frequencia", icon: UserCheck },
-      { key: "notas", label: "Ver notas", slug: "notas", icon: GraduationCap },
-    ],
-  },
-  {
-    group: "Materiais",
-    items: [
-      { key: "arquivos", label: "Arquivos", slug: "arquivos", icon: FolderOpen },
-      { key: "referencias", label: "Referências", slug: "referencias", icon: BookMarked },
-    ],
-  },
-  {
-    group: "Atividades",
-    items: [
-      { key: "avaliacoes", label: "Avaliações", slug: "avaliacoes", icon: CalendarCheck },
-      { key: "tarefas", label: "Tarefas", slug: "tarefas", icon: ClipboardList },
-    ],
-  },
+/** SIGAA's turma virtual menu, flattened into tabs. */
+const SECTIONS: SectionDef[] = [
+  { key: "aulas", label: "Principal", slug: "", icon: Layers },
+  { key: "noticias", label: "Notícias", slug: "noticias", icon: Newspaper },
+  { key: "frequencia", label: "Frequência", slug: "frequencia", icon: UserCheck },
+  { key: "notas", label: "Notas", slug: "notas", icon: GraduationCap },
+  { key: "arquivos", label: "Arquivos", slug: "arquivos", icon: FolderOpen },
+  { key: "tarefas", label: "Tarefas", slug: "tarefas", icon: ClipboardList },
+  { key: "avaliacoes", label: "Avaliações", slug: "avaliacoes", icon: CalendarCheck },
+  { key: "plano", label: "Plano de ensino", slug: "plano", icon: NotebookText },
+  { key: "referencias", label: "Referências", slug: "referencias", icon: BookMarked },
+  { key: "participantes", label: "Participantes", slug: "participantes", icon: Users },
 ];
-const SECTIONS = MENU.flatMap((g) => g.items);
 
 /** Shared shell for every tab panel: loading/error/freshness handling. */
 function Panel<T>({
@@ -104,9 +84,9 @@ function Panel<T>({
   if (q.isError || !q.data) return <ErrorState error={q.error} onRetry={() => q.refetch()} />;
   return (
     <div className="animate-in">
-      <div className="-mt-11 mb-4 flex min-h-8 justify-end">
+      <TopBarActions>
         <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />
-      </div>
+      </TopBarActions>
       {children(q.data.data)}
     </div>
   );
@@ -115,7 +95,7 @@ function Panel<T>({
 // ---------------------------------------------------------------- Aulas
 
 function MaterialItem({ m, classId, onTask }: { m: Material; classId: string; onTask: () => void }) {
-  const base = "inline-flex max-w-full items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-sm transition-colors hover:border-line-strong hover:bg-surface-2";
+  const base = "inline-flex max-w-full items-center gap-1.5 rounded-lg bg-surface-2 px-2.5 py-1.5 text-sm transition-shadow hover:shadow-soft";
   if (m.kind === "file" && m.id)
     return (
       <a href={fileUrl(classId, m.id)} className={base} download>
@@ -143,15 +123,18 @@ function MaterialItem({ m, classId, onTask }: { m: Material; classId: string; on
   );
 }
 
+type TopicOrder = "recent" | "chronological";
+
 function TopicsPanel({ overview, onTab }: { overview: ClassOverview; onTab: (t: TabKey) => void }) {
+  const [order, setOrder] = useState<TopicOrder>("recent");
   const today = toISODay(new Date());
-  const topics = [...overview.topics];
-  if (!topics.length) return <EmptyState icon={Layers} title="Nenhum tópico de aula" description="O docente ainda não publicou tópicos nesta turma." className="card" />;
+  // SIGAA lists topics oldest first; most students want this week's at the top.
+  const topics = order === "recent" ? [...overview.topics].reverse() : overview.topics;
 
   return (
     <div className="space-y-6">
       {overview.lastNews && (
-        <article className="rounded-2xl border border-info/25 bg-info-soft/60 p-5">
+        <article className="rounded-[0.625rem] bg-info-soft p-4 sm:p-5">
           <p className="flex items-center gap-1.5 text-xs font-semibold text-info">
             <Newspaper className="size-3.5" /> Última notícia · {formatDateTime(overview.lastNews.date)}
           </p>
@@ -159,37 +142,162 @@ function TopicsPanel({ overview, onTab }: { overview: ClassOverview; onTab: (t: 
           {overview.lastNews.html && <div className="prose-sigaa mt-2 text-sm" dangerouslySetInnerHTML={{ __html: overview.lastNews.html }} />}
         </article>
       )}
-      <ol className="relative space-y-4 border-l-2 border-line pl-5 sm:pl-7">
-        {topics.map((t, i) => {
-          const isFuture = t.startDate > today;
-          return (
-            <li key={i} className="relative">
-              <span
-                aria-hidden
-                className={clsx(
-                  "absolute top-5 -left-[1.69rem] size-3 rounded-full border-2 sm:-left-[2.19rem]",
-                  isFuture ? "border-line-strong bg-surface" : "border-brand bg-brand",
-                )}
-              />
-              <article className={clsx("card p-4 sm:p-5", isFuture && "opacity-75")}>
-                <p className="text-xs font-medium text-muted tabular">
-                  {t.startDate ? (t.startDate === t.endDate || !t.endDate ? formatDate(t.startDate) : `${formatDate(t.startDate)} – ${formatDate(t.endDate)}`) : "Sem data"}
-                </p>
-                <h3 className="mt-1 font-semibold">{t.title}</h3>
-                {t.html && <div className="prose-sigaa mt-2" dangerouslySetInnerHTML={{ __html: t.html }} />}
-                {t.materials.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {t.materials.map((m, j) => (
-                      <MaterialItem key={j} m={m} classId={overview.id} onTask={() => onTab("tarefas")} />
-                    ))}
-                  </div>
-                )}
-              </article>
-            </li>
-          );
-        })}
-      </ol>
+
+      <section className="space-y-3">
+        <div className="flex h-8 items-center justify-between gap-3">
+          <h2 className="text-[0.9375rem] font-semibold tracking-tight">Tópicos de aula</h2>
+          {topics.length > 1 && (
+            <div role="group" aria-label="Ordem dos tópicos" className="flex rounded-lg bg-surface-2 p-0.5 text-xs font-medium">
+              {(
+                [
+                  ["recent", "Mais recentes"],
+                  ["chronological", "Cronológico"],
+                ] as const
+              ).map(([k, label]) => (
+                <button
+                  key={k}
+                  type="button"
+                  aria-pressed={order === k}
+                  onClick={() => setOrder(k)}
+                  className={clsx("rounded-md px-2.5 py-1 transition-colors", order === k ? "bg-surface text-fg shadow-soft" : "text-muted hover:text-fg")}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        {topics.length === 0 ? (
+          <EmptyState icon={Layers} title="Nenhum tópico de aula" description="O docente ainda não publicou tópicos nesta turma." className="card" />
+        ) : (
+          <ol className="card divide-y divide-line-soft">
+            {topics.map((t, i) => {
+              const isFuture = t.startDate > today;
+              return (
+                <li key={`${t.startDate}-${i}`} className={clsx("p-4 sm:p-5", isFuture && "opacity-70")}>
+                  <p className="flex items-center gap-2 text-xs font-medium text-muted tabular">
+                    {t.startDate ? (t.startDate === t.endDate || !t.endDate ? formatDate(t.startDate) : `${formatDate(t.startDate)} – ${formatDate(t.endDate)}`) : "Sem data"}
+                    {isFuture && <Badge>em breve</Badge>}
+                  </p>
+                  <h3 className="mt-1 font-semibold">{t.title}</h3>
+                  {t.html && <div className="prose-sigaa mt-2 text-sm" dangerouslySetInnerHTML={{ __html: t.html }} />}
+                  {t.materials.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {t.materials.map((m, j) => (
+                        <MaterialItem key={j} m={m} classId={overview.id} onTask={() => onTab("tarefas")} />
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        )}
+      </section>
     </div>
+  );
+}
+
+/** Right column of the Principal tab: a glance at grades, attendance and the newest files. */
+function ClassSummary({ overview, onTab }: { overview: ClassOverview; onTab: (t: TabKey) => void }) {
+  const grades = useClassGrades(overview.id);
+  const attendance = useClassAttendance(overview.id);
+  const files = overview.topics
+    .flatMap((t) => t.materials)
+    .filter((m) => m.kind === "file" && m.id)
+    .reverse()
+    .slice(0, 4);
+
+  const more = (t: TabKey, label: string) => (
+    <button type="button" onClick={() => onTab(t)} className="text-xs font-medium text-muted hover:text-fg">
+      {label}
+    </button>
+  );
+
+  const g = grades.data?.data;
+  const units = g?.assessments.filter((a) => a.isUnitTotal) ?? [];
+  const a = attendance.data?.data;
+  const used = a?.maxAbsences ? a.totalAbsences / a.maxAbsences : 0;
+
+  return (
+    <aside className="min-w-0 space-y-3">
+      <section className="card divide-y divide-line-soft">
+        <div className="flex items-center justify-between px-4 pt-3.5 pb-3">
+          <h2 className="text-sm font-semibold">Notas</h2>
+          {more("notas", "Ver notas")}
+        </div>
+        <div className="p-4">
+          {grades.isPending ? (
+            <Skeleton className="h-14" />
+          ) : grades.isError ? (
+            <ErrorState error={grades.error} onRetry={() => grades.refetch()} compact />
+          ) : !g?.published ? (
+            <p className="text-sm text-muted">Ainda não lançadas.</p>
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              {(units.length ? units : [{ label: "Resultado", value: g.result }]).map((u, i) => (
+                <div key={i} className="rounded-lg bg-surface-2 px-3 py-2">
+                  <p className="truncate text-xs text-subtle">{"group" in u ? u.group : u.label}</p>
+                  <p className={clsx("text-xl font-semibold tracking-tight tabular", u.value === null && "text-subtle", u.value !== null && u.value < LOW_GRADE && "text-danger")}>
+                    {formatGrade(u.value)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="card divide-y divide-line-soft">
+        <div className="flex items-center justify-between px-4 pt-3.5 pb-3">
+          <h2 className="text-sm font-semibold">Frequência</h2>
+          {more("frequencia", "Detalhes")}
+        </div>
+        <div className="space-y-3 p-4">
+          {attendance.isPending ? (
+            <Skeleton className="h-14" />
+          ) : attendance.isError || !a ? (
+            <ErrorState error={attendance.error} onRetry={() => attendance.refetch()} compact />
+          ) : (
+            <>
+              <p className="text-sm">
+                <span className={clsx("text-xl font-semibold tracking-tight tabular", used >= 1 && "text-danger")}>{a.totalAbsences}</span>
+                <span className="text-muted tabular"> de {a.maxAbsences} faltas permitidas</span>
+              </p>
+              {a.records.length > 0 && (
+                <ul className="flex flex-wrap gap-1" aria-label="Registro por aula">
+                  {a.records.map((r) => (
+                    <li
+                      key={r.date}
+                      title={`${formatDate(r.date)}: ${r.status === "present" ? "presente" : r.status === "absent" ? `${r.absences} faltas` : "não registrada"}`}
+                      className={clsx("size-3 rounded-[3px]", r.status === "present" ? "bg-brand" : r.status === "absent" ? "bg-danger" : "track")}
+                    />
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
+        </div>
+      </section>
+
+      <section className="card divide-y divide-line-soft">
+        <div className="flex items-center justify-between px-4 pt-3.5 pb-3">
+          <h2 className="text-sm font-semibold">Arquivos recentes</h2>
+          {more("arquivos", "Todos")}
+        </div>
+        {files.length ? (
+          files.map((f) => (
+            <a key={f.id} href={fileUrl(overview.id, f.id ?? "")} download className="flex items-center gap-2.5 px-4 py-2.5 text-sm hover:bg-surface-3/60">
+              <FileText className="size-4 shrink-0 text-info" />
+              <span className="min-w-0 flex-1 truncate">{f.title}</span>
+              <Download className="size-3.5 shrink-0 text-subtle" />
+            </a>
+          ))
+        ) : (
+          <p className="p-4 text-sm text-muted">Nenhum arquivo nos tópicos.</p>
+        )}
+      </section>
+    </aside>
   );
 }
 
@@ -217,7 +325,7 @@ function AttendancePanel({ id }: { id: string }) {
                   {used >= 100 ? "Limite de faltas ultrapassado." : `Você ainda pode faltar ${left} ${left === 1 ? "aula" : "aulas"}.`}
                 </p>
                 {used >= 75 && (
-                  <p role="alert" className={clsx("mt-3 flex gap-2 rounded-xl px-3 py-2.5 text-sm", used >= 100 ? "bg-danger-soft text-danger" : "bg-warning-soft text-warning")}>
+                  <p role="alert" className={clsx("mt-3 flex gap-2 rounded-lg px-3 py-2.5 text-sm", used >= 100 ? "bg-danger-soft text-danger" : "bg-warning-soft text-warning")}>
                     <TriangleAlert className="mt-0.5 size-4 shrink-0" />
                     {used >= 100 ? "Você passou do limite de 25% de faltas e pode ser reprovado por frequência." : "Atenção: você já usou mais de 75% do limite de faltas."}
                   </p>
@@ -234,7 +342,7 @@ function AttendancePanel({ id }: { id: string }) {
             <section className="card overflow-hidden">
               <h3 className="border-b border-line px-5 py-3 text-sm font-semibold">Registro por aula</h3>
               {a.records.length ? (
-                <ul className="divide-y divide-line">
+                <ul className="divide-y divide-line-soft">
                   {[...a.records].reverse().map((r) => (
                     <li key={r.date} className="flex items-center justify-between gap-3 px-5 py-2.5 text-sm">
                       <span className="tabular">{formatDate(r.date)}</span>
@@ -280,6 +388,8 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function GradesPanel({ id }: { id: string }) {
   const q = useClassGrades(id);
+  // SIGAA's Ver Notas page keeps absences at 0 until the class is consolidated; Frequência is the real count.
+  const attendance = useClassAttendance(id);
   return (
     <Panel q={q}>
       {(g) => {
@@ -298,9 +408,13 @@ function GradesPanel({ id }: { id: string }) {
         return (
           <div className="space-y-5">
             <section className="card flex flex-wrap items-center gap-x-8 gap-y-4 p-5">
-              <Stat label="Resultado" value={formatGrade(g.result)} />
+              {g.result === null && classAverage(g) !== null ? (
+                <Stat label="Média parcial" value={formatGrade(classAverage(g))} />
+              ) : (
+                <Stat label="Resultado" value={formatGrade(g.result)} />
+              )}
               <Stat label="Reposição" value={formatGrade(g.makeup)} />
-              <Stat label="Faltas" value={g.absences === null ? "–" : String(g.absences)} />
+              <Stat label="Faltas" value={String(attendance.data?.data.totalAbsences ?? g.absences ?? "–")} />
               <div className="ml-auto">
                 <Badge tone={tone} className="px-3 py-1 text-sm">
                   {!g.situation || g.situation === "--" ? "Em curso" : g.situation === "REC" ? "Recuperação" : g.situation}
@@ -315,7 +429,7 @@ function GradesPanel({ id }: { id: string }) {
                   <h3 className="mb-3 text-sm font-semibold">{group}</h3>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {items.map((a, i) => (
-                      <div key={i} className={clsx("rounded-xl border p-3", a.isUnitTotal ? "border-brand/40 bg-brand-soft/60" : "border-line bg-surface-2/50")}>
+                      <div key={i} className={clsx("rounded-lg p-3", a.isUnitTotal ? "bg-brand-soft" : "bg-surface-2")}>
                         <p className="text-xs font-medium text-muted">
                           {a.label}
                           {a.title && <span className="text-subtle"> · {a.title}</span>}
@@ -373,7 +487,7 @@ function TasksPanel({ id }: { id: string }) {
         const closed = tasks.filter((t) => !isOpen(t)).sort((a, b) => b.end.localeCompare(a.end));
         return (
           <div className="space-y-6">
-            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-muted">
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-[0.625rem] bg-surface-2 px-4 py-3 text-sm text-muted">
               <span>Este app é somente leitura: o envio de tarefas é feito no SIGAA oficial.</span>
               <a href={OFFICIAL_SIGAA_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-medium text-brand-strong underline underline-offset-2">
                 Abrir SIGAA <ExternalLink className="size-3.5" />
@@ -417,11 +531,11 @@ function FilesPanel({ id }: { id: string }) {
         files.length === 0 ? (
           <EmptyState icon={FolderOpen} title="Nenhum arquivo" description="O docente ainda não publicou arquivos nos tópicos de aula." className="card" />
         ) : (
-          <ul className="card divide-y divide-line">
+          <ul className="card divide-y divide-line-soft">
             {files.map((f) => (
               <li key={f.id}>
-                <a href={fileUrl(id, f.id)} download className="group flex items-center gap-3 px-5 py-3.5 hover:bg-surface-2/50">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-info-soft text-info">
+                <a href={fileUrl(id, f.id)} download className="group flex items-center gap-3 px-5 py-3.5 hover:bg-surface-3/60">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface-2 text-info">
                     <FileText className="size-5" />
                   </span>
                   <div className="min-w-0 flex-1">
@@ -454,11 +568,11 @@ function NewsPanel({ id }: { id: string }) {
           news.length === 0 ? (
             <EmptyState icon={Newspaper} title="Nenhuma notícia" className="card" />
           ) : (
-            <ul className="card divide-y divide-line">
+            <ul className="card divide-y divide-line-soft">
               {news.map((n, i) => (
                 <li key={n.id ?? i}>
-                  <button type="button" disabled={!n.id} onClick={() => setOpenId(n.id ?? null)} className="flex w-full items-center gap-3 px-5 py-3.5 text-left hover:bg-surface-2/50">
-                    <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand-strong">
+                  <button type="button" disabled={!n.id} onClick={() => setOpenId(n.id ?? null)} className="flex w-full items-center gap-3 px-5 py-3.5 text-left hover:bg-surface-3/60">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-surface-2 text-brand">
                       <Newspaper className="size-5" />
                     </span>
                     <span className="min-w-0 flex-1">
@@ -502,7 +616,7 @@ function EvaluationsPanel({ id }: { id: string }) {
         evs.length === 0 ? (
           <EmptyState icon={CalendarCheck} title="Nenhuma avaliação agendada" className="card" />
         ) : (
-          <ul className="card divide-y divide-line">
+          <ul className="card divide-y divide-line-soft">
             {[...evs]
               .sort((a, b) => a.date.localeCompare(b.date))
               .map((e, i) => {
@@ -510,7 +624,7 @@ function EvaluationsPanel({ id }: { id: string }) {
                 const n = d ? daysUntil(d) : -1;
                 return (
                   <li key={e.id ?? i} className={clsx("flex items-center gap-4 px-5 py-3.5", n < 0 && "opacity-60")}>
-                    <div className="grid w-12 shrink-0 place-items-center rounded-xl border border-line py-1.5 text-center">
+                    <div className="grid w-12 shrink-0 place-items-center rounded-lg bg-surface-2 py-1.5 text-center">
                       <span className="text-[0.65rem] font-semibold text-muted uppercase">{d?.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "")}</span>
                       <span className="text-lg leading-none font-bold tabular">{d?.getDate()}</span>
                     </div>
@@ -718,79 +832,26 @@ function sectionPath(id: string, key: TabKey): string {
   return `/turmas/${id}${slug ? `/${slug}` : ""}`;
 }
 
-function ClassMenu({ id, active }: { id: string; active: TabKey }) {
+function ClassTabs({ id, active }: { id: string; active: TabKey }) {
   return (
-    <nav aria-label="Menu da turma virtual">
-      {/* Mobile: one scrollable row */}
-      <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] lg:hidden">
+    <nav aria-label="Menu da turma virtual" className="-mx-4 mb-6 overflow-x-auto border-b border-line px-4 [scrollbar-width:none] sm:-mx-6 sm:px-6">
+      <ul className="flex gap-1">
         {SECTIONS.map((s) => (
           <li key={s.key}>
             <Link
               to={sectionPath(id, s.key)}
               aria-current={s.key === active ? "page" : undefined}
               className={clsx(
-                "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap",
-                s.key === active ? "border-brand bg-brand-soft text-brand-strong" : "border-line bg-surface text-muted",
+                "relative -mb-px flex items-center border-b-2 px-3 py-2.5 text-sm font-medium whitespace-nowrap transition-colors",
+                s.key === active ? "border-brand text-fg" : "border-transparent text-muted hover:text-fg",
               )}
             >
-              <s.icon className="size-4" />
               {s.label}
             </Link>
           </li>
         ))}
       </ul>
-
-      {/* Desktop: grouped side menu */}
-      <div className="card hidden p-2 lg:block">
-        {MENU.map((g) => (
-          <div key={g.group} className="mb-2 last:mb-0">
-            <p className="px-3 pt-2 pb-1 text-[0.7rem] font-semibold tracking-wide text-subtle uppercase">{g.group}</p>
-            <ul>
-              {g.items.map((s) => (
-                <li key={s.key}>
-                  <Link
-                    to={sectionPath(id, s.key)}
-                    aria-current={s.key === active ? "page" : undefined}
-                    className={clsx(
-                      "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                      s.key === active ? "bg-brand-soft text-brand-strong" : "text-muted hover:bg-surface-2 hover:text-fg",
-                    )}
-                  >
-                    <s.icon className="size-4" />
-                    {s.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
     </nav>
-  );
-}
-
-/** SIGAA's "Trocar de turma", keeping the current section. */
-function ClassSwitcher({ id, section }: { id: string; section: TabKey }) {
-  const dashboard = useDashboard();
-  const navigate = useNavigate();
-  const classes = dashboard.data?.data.classes ?? [];
-  // Old classes (from "turmas anteriores") are not in the current list.
-  if (classes.length < 2 || !classes.some((c) => c.id === id)) return null;
-  return (
-    <label className="flex items-center gap-2 text-xs whitespace-nowrap text-muted">
-      Trocar de turma
-      <select
-        value={id}
-        onChange={(e) => navigate(sectionPath(e.target.value, section))}
-        className="h-8 w-full min-w-0 rounded-lg border border-line bg-surface px-2 text-sm text-fg sm:w-auto sm:max-w-[14rem]"
-      >
-        {classes.map((c) => (
-          <option key={c.id} value={c.id}>
-            {prettyClassName(c.name)}
-          </option>
-        ))}
-      </select>
-    </label>
   );
 }
 
@@ -800,75 +861,96 @@ export default function ClassPage() {
   const tab = SECTIONS.find((x) => x.slug === secao)?.key ?? "aulas";
   const sectionLabel = SECTIONS.find((x) => x.key === tab)?.label ?? "";
   const q = useClass(id);
+  const onTab = (t: TabKey) => navigate(sectionPath(id, t));
 
-  const crumbs = (name: string): Crumb[] => [
-    { label: "Portal do Discente", to: "/" },
-    { label: "Turmas virtuais", to: "/turmas" },
-    { label: name, to: sectionPath(id, "aulas") },
-    ...(tab === "aulas" ? [] : [{ label: sectionLabel }]),
-  ];
+  const title = (name: string) => (
+    <TopBarTitle>
+      <Breadcrumbs
+        items={[{ label: "Turmas virtuais", to: "/turmas" }, tab === "aulas" ? { label: name } : { label: name, to: sectionPath(id, "aulas") }, ...(tab === "aulas" ? [] : [{ label: sectionLabel }])]}
+      />
+    </TopBarTitle>
+  );
 
   if (q.isPending)
     return (
-      <div className="space-y-4">
-        <SkeletonCard lines={2} />
+      <div className="space-y-5" aria-busy="true" aria-label="Carregando">
+        {title("Turma")}
+        <div className="flex items-center gap-3">
+          <Skeleton className="size-11 rounded-lg" />
+          <div className="space-y-2">
+            <Skeleton className="h-6 w-64" />
+            <Skeleton className="h-4 w-48" />
+          </div>
+        </div>
+        <Skeleton className="h-10" />
         <SkeletonCard lines={6} />
       </div>
     );
   if (q.isError)
     return (
-      <div className="space-y-4">
-        <Breadcrumbs items={crumbs("Turma")} />
+      <>
+        {title("Turma")}
         <ErrorState error={q.error} onRetry={() => q.refetch()} />
-      </div>
+      </>
     );
   const c = q.data.data;
+  const name = prettyClassName(c.name);
   const progress = c.lessonsTotal ? (c.lessonsTaught / c.lessonsTotal) * 100 : 0;
 
   return (
     <div className="animate-in">
-      <Breadcrumbs items={crumbs(prettyClassName(c.name))} />
-      <header className="card relative mb-5 overflow-hidden p-5" style={classColorVars(c.name)}>
-        <span aria-hidden className="class-bar absolute inset-y-0 left-0 w-1.5" />
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      {title(name)}
+      {tab === "aulas" && (
+        <TopBarActions>
+          <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />
+        </TopBarActions>
+      )}
+
+      <header className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" style={classColorVars(c.name)}>
+        <div className="flex min-w-0 items-center gap-3.5">
+          <span aria-hidden className="class-tile grid size-9 shrink-0 place-items-center rounded-lg text-xs font-bold">
+            {classInitials(c.name)}
+          </span>
           <div className="min-w-0">
-            <p className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
-              <span className="class-chip rounded-md px-1.5 py-0.5 font-mono font-bold">{c.code}</span>
-              {[c.period, c.workloadHours ? `${c.workloadHours}h` : "", c.schedule].filter(Boolean).join(" · ")}
+            {/* The name is already the page title (breadcrumb); keep it for screen readers. */}
+            <h1 className="sr-only">{name}</h1>
+            <p className="truncate text-sm text-muted tabular">
+              <span className="font-medium text-fg">{c.code}</span> · {c.period} · {c.workloadHours} h · {c.schedule}
             </p>
-            <h1 className="mt-1.5 text-2xl font-bold tracking-tight">{prettyClassName(c.name)}</h1>
-          </div>
-          <div className="flex flex-col gap-2 sm:items-end">
-            <ClassSwitcher id={id} section={tab} />
-            {tab === "aulas" && <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />}
           </div>
         </div>
         {c.lessonsTotal > 0 && (
-          <div className="mt-4 flex max-w-md items-center gap-3 text-xs text-muted">
-            <ProgressBar value={progress} label="Aulas ministradas" className="h-1.5" />
-            <span className="shrink-0 tabular">
-              {c.lessonsTaught}/{c.lessonsTotal} aulas dadas
-            </span>
+          <div className="w-full shrink-0 sm:w-56">
+            <p className="mb-1.5 flex justify-between text-xs">
+              <span className="text-subtle">Aulas ministradas</span>
+              <span className="font-medium tabular">
+                {c.lessonsTaught} de {c.lessonsTotal}
+              </span>
+            </p>
+            <ProgressBar value={progress} label="Aulas ministradas" />
           </div>
         )}
       </header>
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <ClassMenu id={id} active={tab} />
-        <section aria-label={sectionLabel} className="min-w-0">
-          {tab !== "aulas" && <h2 className="mb-3 flex h-8 items-center text-lg font-semibold">{sectionLabel}</h2>}
-          {tab === "aulas" && <TopicsPanel overview={c} onTab={(t) => navigate(sectionPath(id, t))} />}
-          {tab === "frequencia" && <AttendancePanel id={id} />}
-          {tab === "notas" && <GradesPanel id={id} />}
-          {tab === "tarefas" && <TasksPanel id={id} />}
-          {tab === "arquivos" && <FilesPanel id={id} />}
-          {tab === "noticias" && <NewsPanel id={id} />}
-          {tab === "avaliacoes" && <EvaluationsPanel id={id} />}
-          {tab === "plano" && <PlanPanel id={id} />}
-          {tab === "participantes" && <ParticipantsPanel id={id} />}
-          {tab === "referencias" && <ReferencesPanel id={id} />}
-        </section>
-      </div>
+      <ClassTabs id={id} active={tab} />
+
+      <section aria-label={sectionLabel} className="min-w-0">
+        {tab === "aulas" && (
+          <div className="grid grid-cols-1 gap-x-6 gap-y-8 xl:grid-cols-[minmax(0,1fr)_18rem]">
+            <TopicsPanel overview={c} onTab={onTab} />
+            <ClassSummary overview={c} onTab={onTab} />
+          </div>
+        )}
+        {tab === "frequencia" && <AttendancePanel id={id} />}
+        {tab === "notas" && <GradesPanel id={id} />}
+        {tab === "tarefas" && <TasksPanel id={id} />}
+        {tab === "arquivos" && <FilesPanel id={id} />}
+        {tab === "noticias" && <NewsPanel id={id} />}
+        {tab === "avaliacoes" && <EvaluationsPanel id={id} />}
+        {tab === "plano" && <PlanPanel id={id} />}
+        {tab === "participantes" && <ParticipantsPanel id={id} />}
+        {tab === "referencias" && <ReferencesPanel id={id} />}
+      </section>
     </div>
   );
 }

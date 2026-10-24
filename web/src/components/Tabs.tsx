@@ -8,7 +8,19 @@ export interface TabDef<K extends string> {
 }
 
 /** WAI-ARIA tablist with arrow/Home/End navigation. Panels are rendered by the caller. */
-export function Tabs<K extends string>({ tabs, value, onChange, idPrefix }: { tabs: TabDef<K>[]; value: K; onChange: (k: K) => void; idPrefix: string }) {
+export function Tabs<K extends string>({
+  tabs,
+  value,
+  onChange,
+  idPrefix,
+  label = "Seções da turma",
+}: {
+  tabs: TabDef<K>[];
+  value: K;
+  onChange: (k: K) => void;
+  idPrefix: string;
+  label?: string;
+}) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const onKey = (e: KeyboardEvent, i: number) => {
@@ -27,7 +39,7 @@ export function Tabs<K extends string>({ tabs, value, onChange, idPrefix }: { ta
   };
 
   return (
-    <div role="tablist" aria-label="Seções da turma" className="-mx-4 flex gap-1 overflow-x-auto border-b border-line px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
+    <div role="tablist" aria-label={label} className="-mx-4 flex gap-1 overflow-x-auto border-b border-line px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
       {tabs.map((t, i) => {
         const active = t.key === value;
         const Icon = t.icon;

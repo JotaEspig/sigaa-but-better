@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { firstName, formatDate, formatDateTime, formatGrade, parseLocal, relativeDays, relativeTime, titleCase } from "./format";
+import { firstName, formatDate, formatDateTime, formatGrade, parseLocal, relativeDays, relativeTime, titleCase, initials, updateMessage } from "./format";
 import { blockTimeRange, blocksForDay, sigaaDay } from "./schedule";
 import { situationTone } from "./colors";
 import type { ClassSummary } from "../api/types";
@@ -89,5 +89,21 @@ describe("situationTone", () => {
     ["--", "neutral"],
   ])("%s → %s", (s, tone) => {
     expect(situationTone(s)).toBe(tone);
+  });
+});
+
+describe("updateMessage", () => {
+  it("drops the kind prefix SIGAA adds", () => {
+    expect(updateMessage("Nova Notícia: Aula de 20/10 cancelada")).toBe("Aula de 20/10 cancelada");
+  });
+  it("keeps text without a prefix", () => {
+    expect(updateMessage("Aula cancelada")).toBe("Aula cancelada");
+  });
+});
+
+describe("initials", () => {
+  it("uses first and last name, skipping connectors", () => {
+    expect(initials("ALUNO EXEMPLO DA SILVA")).toBe("AS");
+    expect(initials("ANA")).toBe("A");
   });
 });

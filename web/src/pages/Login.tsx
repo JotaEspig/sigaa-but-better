@@ -4,6 +4,7 @@ import { Navigate, useNavigate, useSearchParams } from "react-router";
 import { OFFICIAL_SIGAA_URL } from "../api/client";
 import { useLogin, useSession } from "../api/hooks";
 import type { ApiErrorCode } from "../api/types";
+import { DitherField } from "../components/DitherField";
 import { Logo } from "../components/Logo";
 import { ThemeSwitcher } from "../components/ThemeSwitcher";
 import { Button } from "../components/ui";
@@ -44,24 +45,7 @@ export function LoginPage() {
   const errorMsg = login.error ? (loginErrors[login.error.code] ?? login.error.message) : null;
 
   return (
-    <div className="grid min-h-dvh lg:grid-cols-[1fr_1fr]">
-      {/* Brand panel: solid color, just the facts. */}
-      <div className="hidden bg-bar text-bar-fg lg:flex lg:flex-col lg:justify-between lg:p-12">
-        <p className="text-sm font-medium text-bar-fg/80">SIGAA · Instituto Federal Catarinense</p>
-        <div className="max-w-md">
-          <h1 className="text-4xl leading-tight font-bold tracking-tight">O SIGAA, mais rápido e fácil de ler.</h1>
-          <ul className="mt-8 space-y-3 text-base text-bar-fg/90">
-            {["Notas, faltas e horários em uma tela", "Turmas virtuais com aulas, arquivos e tarefas", "Tema claro e escuro"].map((f) => (
-              <li key={f} className="flex items-center gap-3">
-                <span className="size-1.5 shrink-0 rounded-full bg-bar-fg/70" />
-                {f}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p className="text-xs text-bar-fg/60">Projeto independente, não afiliado ao IFC nem à UFRN. Somente leitura: não altera nada no SIGAA.</p>
-      </div>
-
+    <div className="grid min-h-dvh lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
       {/* Form */}
       <div className="flex flex-col px-4 py-6 sm:px-8">
         <div className="flex items-center justify-between">
@@ -157,6 +141,10 @@ export function LoginPage() {
             </p>
           </div>
         </div>
+      </div>
+      {/* Visual panel: purely decorative dither animation. */}
+      <div className="relative hidden overflow-hidden bg-[#0c120f] lg:block">
+        <DitherField className="absolute inset-0" />
       </div>
     </div>
   );

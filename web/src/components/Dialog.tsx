@@ -35,7 +35,7 @@ export function Dialog({
         // Clicking the backdrop (the dialog element itself, outside the panel) closes it.
         if (e.target === ref.current) onClose();
       }}
-      className="m-auto w-[min(40rem,calc(100vw-2rem))] max-h-[min(85dvh,48rem)] rounded-2xl border border-line bg-surface p-0 text-fg shadow-pop backdrop:bg-black/50"
+      className="m-auto w-[min(40rem,calc(100vw-2rem))] max-h-[min(85dvh,48rem)] rounded-xl bg-surface p-0 text-fg shadow-pop backdrop:bg-black/50"
     >
       {open && (
         <div className="flex max-h-[inherit] flex-col">

@@ -1,10 +1,11 @@
 import clsx from "clsx";
 import { ChevronDown, GraduationCap } from "lucide-react";
 import { useState } from "react";
-import { useGrades } from "../api/hooks";
+import { useDashboard, useGrades } from "../api/hooks";
 import type { GradeRow, GradeSemester } from "../api/types";
 import { prettyClassName } from "../components/ClassBits";
 import { Badge, EmptyState, ErrorState, Freshness, PageHeader, SkeletonCard } from "../components/ui";
+import { normalizeClassName, useClassStats, type ClassStats } from "../lib/classStats";
 import { LOW_GRADE, situationTone } from "../lib/colors";
 import { formatGrade } from "../lib/format";
 
@@ -70,7 +71,19 @@ function GradeCell({ value, strong }: { value: number | null; strong?: boolean }
   );
 }
 
-function SemesterTable({ s }: { s: GradeSemester }) {
+/** What the class pages know for this semester's open classes, keyed by normalized name. */
+type Live = Map<string, ClassStats>;
+
+function liveFor(live: Live | undefined, r: GradeRow) {
+  const st = live?.get(normalizeClassName(r.name));
+  return {
+    absences: st ? (st.loading ? null : st.absences) : r.absences,
+    // Only while SIGAA has no final result: the partial average from released assessments.
+    partial: r.result === null && st && !st.loading ? st.average : null,
+  };
+}
+
+function SemesterTable({ s, live }: { s: GradeSemester; live?: Live }) {
   return (
     <>
       {/* Desktop table */}
@@ -90,9 +103,9 @@ function SemesterTable({ s }: { s: GradeSemester }) {
               <th className="px-3 py-2 text-right font-medium">Situação</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-line">
+          <tbody className="divide-y divide-line-soft">
             {s.rows.map((r) => (
-              <tr key={r.code} className="hover:bg-surface-2/50">
+              <tr key={r.code} className="hover:bg-surface-2">
                 <td className="px-3 py-3">
                   <p className="font-medium">{prettyClassName(r.name)}</p>
                   <p className="font-mono text-xs text-subtle">{r.code}</p>
@@ -101,8 +114,14 @@ function SemesterTable({ s }: { s: GradeSemester }) {
                   <GradeCell key={l} value={r.units[i] ?? null} />
                 ))}
                 <GradeCell value={r.recovery} />
-                <GradeCell value={r.result} strong />
-                <td className="px-3 py-3 text-right text-muted tabular">{r.absences ?? "–"}</td>
+                {liveFor(live, r).partial != null ? (
+                  <td className="px-3 py-3 text-right text-muted tabular" title="Média parcial das avaliações já lançadas, ainda não é a nota final">
+                    ~{formatGrade(liveFor(live, r).partial)}
+                  </td>
+                ) : (
+                  <GradeCell value={r.result} strong />
+                )}
+                <td className="px-3 py-3 text-right text-muted tabular">{liveFor(live, r).absences ?? "–"}</td>
                 <td className="px-3 py-3 text-right">
                   <Situation row={r} />
                 </td>
@@ -113,7 +132,7 @@ function SemesterTable({ s }: { s: GradeSemester }) {
       </div>
 
       {/* Mobile cards */}
-      <ul className="divide-y divide-line md:hidden">
+      <ul className="divide-y divide-line-soft md:hidden">
         {s.rows.map((r) => (
           <li key={r.code} className="px-4 py-3.5">
             <div className="flex items-start justify-between gap-3">
@@ -136,7 +155,12 @@ function SemesterTable({ s }: { s: GradeSemester }) {
                   Rec.: <span className="font-medium text-fg tabular">{formatGrade(r.recovery)}</span>
                 </span>
               )}
-              <span>{r.absences ?? 0} faltas</span>
+              {liveFor(live, r).partial != null && (
+                <span>
+                  Parcial: <span className="font-medium text-fg tabular">~{formatGrade(liveFor(live, r).partial)}</span>
+                </span>
+              )}
+              <span>{liveFor(live, r).absences ?? "–"} faltas</span>
               <span className="ml-auto">
                 <Situation row={r} />
               </span>
@@ -156,6 +180,16 @@ function Situation({ row }: { row: GradeRow }) {
 
 export default function GradesPage() {
   const q = useGrades();
+  // The report only fills absences and averages once a unit closes; the class pages have them now.
+  const dashboard = useDashboard();
+  const stats = useClassStats(dashboard.data?.data.classes ?? []);
+  const live: Live = new Map(
+    (dashboard.data?.data.classes ?? []).flatMap((c) => {
+      const st = stats.get(c.id);
+      return st ? [[normalizeClassName(c.name), st] as const] : [];
+    }),
+  );
+  const currentPeriod = dashboard.data?.data.profile.currentPeriod;
   const [open, setOpen] = useState<Set<string> | null>(null);
 
   if (q.isPending)
@@ -199,7 +233,7 @@ export default function GradesPage() {
                       onClick={() => toggle(s.period)}
                       aria-expanded={isOpen}
                       aria-controls={panelId}
-                      className="flex w-full items-center gap-3 px-5 py-4 text-left hover:bg-surface-2/50"
+                      className="flex w-full items-center gap-3 px-5 py-4 text-left hover:bg-surface-2"
                     >
                       <span className="text-base font-semibold tabular">{s.period}</span>
                       <span className="text-xs text-muted">
@@ -215,7 +249,7 @@ export default function GradesPage() {
                   </h2>
                   {isOpen && (
                     <div id={panelId} className="border-t border-line">
-                      <SemesterTable s={s} />
+                      <SemesterTable s={s} live={s.period === currentPeriod ? live : undefined} />
                     </div>
                   )}
                 </section>
