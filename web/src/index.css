@@ -9,61 +9,68 @@
  * @theme inline, so `bg-surface`, `text-muted`, `border-line`… follow the theme.
  */
 :root {
-  --bg: #f5f7f5;
+  /* Neutral by default: color comes from the extra palettes, not the base theme. */
+  --bg: #f5f5f4;
   --surface: #ffffff;
-  --surface-2: #f0f3f0;
-  --surface-3: #e6ebe6;
-  --line: #e1e6e1;
-  --line-strong: #cbd3cb;
-  --fg: #142018;
-  --muted: #5b675e;
-  --subtle: #8a958c;
+  --surface-2: #fafaf9;
+  --surface-3: #f0f0ef;
+  --line: #e7e7e6;
+  /* Rules inside a panel (row dividers, section breaks). */
+  --line-soft: #f0f0ef;
+  --line-strong: #d6d6d4;
+  --fg: #171717;
+  --muted: #626262;
+  --subtle: #8f8f8f;
 
-  --brand: #2f9e41;
-  --brand-strong: #23803a;
-  --brand-soft: #e5f4e7;
+  --brand: #171717;
+  --brand-strong: #000000;
+  --brand-soft: #f2f2f1;
   --brand-fg: #ffffff;
 
-  --danger: #cd191e;
-  --danger-soft: #fde8e8;
-  --warning: #b86e00;
-  --warning-soft: #fff3dc;
-  --info: #2563c9;
-  --info-soft: #e5eefc;
-  --success: #23803a;
-  --success-soft: #e5f4e7;
+  --danger: #d92d20;
+  --danger-soft: #fef0ee;
+  --warning: #b54708;
+  --warning-soft: #fef4e6;
+  --info: #2f5fa8;
+  --info-soft: #e5ecf7;
+  --success: #2e9461;
+  --success-soft: #e8f5ee;
 
-  --ring: #2f9e41;
-  --bar: #1f7a33;
+  /* Absence meter ticks: used and still available. */
+  --tick: #171717;
+  --tick-empty: #e7e7e6;
+
+  --ring: #171717;
+  --bar: #171717;
   --bar-fg: #ffffff;
   /* Overlays on the top bar: track/hover and the selected item. */
-  --bar-tint: rgb(0 0 0 / 0.15);
-  --bar-active: rgb(255 255 255 / 0.2);
-  --shadow-sm: 0 1px 2px rgb(16 24 18 / 0.05);
-  --shadow: 0 1px 3px rgb(16 24 18 / 0.06), 0 8px 24px -12px rgb(16 24 18 / 0.12);
-  --shadow-lg: 0 20px 60px -20px rgb(16 24 18 / 0.35);
+  --bar-tint: rgb(255 255 255 / 0.08);
+  --bar-active: rgb(255 255 255 / 0.18);
+  --shadow-sm: 0 0 0 1px rgb(24 24 27 / 0.06), 0 1px 2px rgb(24 24 27 / 0.05);
+  --shadow: 0 0 0 1px rgb(24 24 27 / 0.05), 0 1px 2px rgb(24 24 27 / 0.04), 0 4px 12px -4px rgb(24 24 27 / 0.06);
+  --shadow-lg: 0 0 0 1px rgb(24 24 27 / 0.06), 0 12px 32px -12px rgb(24 24 27 / 0.25);
   color-scheme: light;
 }
 
 /*
- * Default dark: neutral grays (no green cast) with high contrast; green stays
- * only as the brand accent. The no-JS fallback below repeats the same values.
+ * Default dark: neutral grays with high contrast, same as light: no accent hue. The no-JS fallback below repeats the same values.
  */
 [data-theme="dark"] {
-  --bg: #0b0b0d;
-  --surface: #141417;
-  --surface-2: #1b1b1f;
-  --surface-3: #26262b;
-  --line: #27272c;
-  --line-strong: #3a3a41;
+  --bg: #0b0b0c;
+  --surface: #141415;
+  --surface-2: #1a1a1c;
+  --surface-3: #232325;
+  --line: #262628;
+  --line-soft: #1e1e20;
+  --line-strong: #3a3a3d;
   --fg: #f4f4f5;
-  --muted: #a8a8b3;
-  --subtle: #74747e;
+  --muted: #a8a8b0;
+  --subtle: #74747c;
 
-  --brand: #45c05a;
-  --brand-strong: #5fd273;
-  --brand-soft: #14281a;
-  --brand-fg: #06120a;
+  --brand: #ededed;
+  --brand-strong: #ffffff;
+  --brand-soft: #232325;
+  --brand-fg: #0b0b0c;
 
   --danger: #ff6b6b;
   --danger-soft: #3a1617;
@@ -74,13 +81,16 @@
   --success: #5fd273;
   --success-soft: #14281a;
 
-  --ring: #5fd273;
-  --bar: #1c1c20;
+  --tick: #ededed;
+  --tick-empty: #2c2c2f;
+
+  --ring: #a8a8b0;
+  --bar: #1c1c1e;
   --bar-fg: #f4f4f5;
   --bar-tint: rgb(255 255 255 / 0.06);
   --bar-active: rgb(255 255 255 / 0.14);
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.06), 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow: 0 0 0 1px rgb(255 255 255 / 0.06), 0 1px 3px rgb(0 0 0 / 0.4);
   --shadow-lg: 0 20px 60px -20px rgb(0 0 0 / 0.8);
   color-scheme: dark;
 }
@@ -88,20 +98,21 @@
 /* Only without theme-init.js; otherwise data-theme is always set before paint. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg: #0b0b0d;
-    --surface: #141417;
-    --surface-2: #1b1b1f;
-    --surface-3: #26262b;
-    --line: #27272c;
-    --line-strong: #3a3a41;
+    --bg: #0b0b0c;
+    --surface: #141415;
+    --surface-2: #1a1a1c;
+    --surface-3: #232325;
+    --line: #262628;
+    --line-soft: #1e1e20;
+    --line-strong: #3a3a3d;
     --fg: #f4f4f5;
-    --muted: #a8a8b3;
-    --subtle: #74747e;
+    --muted: #a8a8b0;
+    --subtle: #74747c;
 
-    --brand: #45c05a;
-    --brand-strong: #5fd273;
-    --brand-soft: #14281a;
-    --brand-fg: #06120a;
+    --brand: #ededed;
+    --brand-strong: #ffffff;
+    --brand-soft: #232325;
+    --brand-fg: #0b0b0c;
 
     --danger: #ff6b6b;
     --danger-soft: #3a1617;
@@ -112,13 +123,16 @@
     --success: #5fd273;
     --success-soft: #14281a;
 
-    --ring: #5fd273;
-    --bar: #1c1c20;
+    --tick: #ededed;
+    --tick-empty: #2c2c2f;
+
+    --ring: #a8a8b0;
+    --bar: #1c1c1e;
     --bar-fg: #f4f4f5;
     --bar-tint: rgb(255 255 255 / 0.06);
     --bar-active: rgb(255 255 255 / 0.14);
-    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-    --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.06), 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow: 0 0 0 1px rgb(255 255 255 / 0.06), 0 1px 3px rgb(0 0 0 / 0.4);
     --shadow-lg: 0 20px 60px -20px rgb(0 0 0 / 0.8);
     color-scheme: dark;
   }
@@ -135,6 +149,9 @@
  * unless a palette overrides them.
  */
 [data-palette] {
+  --line-soft: color-mix(in oklab, var(--line) 55%, var(--surface));
+  --tick: var(--brand);
+  --tick-empty: var(--line);
   --brand-strong: color-mix(in oklab, var(--brand) 78%, var(--fg));
   --brand-soft: color-mix(in oklab, var(--brand) 16%, var(--surface));
   --danger-soft: color-mix(in oklab, var(--danger) 16%, var(--surface));
@@ -687,6 +704,9 @@
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
   --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-tick: var(--tick);
+  --color-tick-empty: var(--tick-empty);
   --color-line-strong: var(--line-strong);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
@@ -764,11 +784,22 @@
 }
 
 @layer components {
+  /*
+   * Filled block inside the content panel: tonal background, no outline.
+   * Lines inside a card become surface-colored gaps (rows read as tiles).
+   */
+  /* Bordered white panel on the gray ground. Row rules inside use line-soft. */
   .card {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 1rem;
-    box-shadow: var(--shadow-sm);
+    border-radius: 0.75rem;
+  }
+  .panel {
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .track {
+    background: color-mix(in oklab, var(--fg) 8%, transparent);
   }
   .animate-in {
     animation: sbb-fade-up 0.35s ease-out both;
@@ -860,10 +891,26 @@
   .class-bar {
     background: hsl(var(--c-h) 62% 46%);
   }
+  /* Initials tile and schedule blocks: plain tinted fills. */
+  .class-tile {
+    background: hsl(var(--c-h) 45% 92%);
+    color: hsl(var(--c-h) 50% 30%);
+  }
+  .class-fill {
+    background: color-mix(in oklab, hsl(var(--c-h) 62% 46%) 13%, var(--surface));
+    color: var(--fg);
+  }
   [data-theme="dark"] .class-chip {
     background: hsl(var(--c-h) 40% 16%);
     color: hsl(var(--c-h) 70% 80%);
     border-color: hsl(var(--c-h) 35% 26%);
+  }
+  [data-theme="dark"] .class-fill {
+    background: color-mix(in oklab, hsl(var(--c-h) 60% 58%) 18%, var(--surface));
+  }
+  [data-theme="dark"] .class-tile {
+    background: hsl(var(--c-h) 30% 18%);
+    color: hsl(var(--c-h) 60% 82%);
   }
   [data-theme="dark"] .class-dot,
   [data-theme="dark"] .class-bar {

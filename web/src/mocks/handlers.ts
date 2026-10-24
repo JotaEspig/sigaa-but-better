@@ -139,7 +139,7 @@ const GRADES: GradesReport = {
       unitLabels: ["Unidade 1", "Unidade 2"],
       rows: [
         { code: "CCB0940", name: "COMPILADORES", units: [n(2.8), null], recovery: null, result: null, absences: 4, situation: "--" },
-        { code: "CCB0941", name: "COMPUTAÇÃO GRÁFICA", units: [null, null], recovery: null, result: null, absences: 0, situation: "--" },
+        { code: "CCB0941", name: "COMPUTAÇÃO GRÁFICA", units: [null, null], recovery: null, result: null, absences: 16, situation: "--" },
         { code: "CCB0947", name: "EMPREENDEDORISMO", units: [null, null], recovery: null, result: null, absences: 0, situation: "--" },
         { code: "CCB0949", name: "TRABALHO DE CONCLUSÃO DE CURSO", units: [null, null], recovery: null, result: null, absences: 0, situation: "--" },
       ],

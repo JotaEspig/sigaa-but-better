@@ -68,6 +68,12 @@ export function formatGrade(value: number | null | undefined): string {
   return gradeFmt.format(value);
 }
 
+/** SIGAA prefixes updates with their kind ("Nova Notícia: …"); keep only the message. */
+export function updateMessage(description: string): string {
+  const m = /^[^:]{3,30}:\s*(.+)$/s.exec(description.trim());
+  return m?.[1] ?? description;
+}
+
 export function formatNumber(value: number, digits = 2): string {
   return new Intl.NumberFormat("pt-BR", { maximumFractionDigits: digits }).format(value);
 }
@@ -107,4 +113,12 @@ export function titleCase(value: string): string {
 
 export function firstName(fullName: string): string {
   return titleCase(fullName.trim().split(/\s+/)[0] ?? "");
+}
+
+/** "ALUNO EXEMPLO DA SILVA" → "AS": first and last word, skipping "da", "de"… */
+export function initials(fullName: string): string {
+  const words = fullName.trim().split(/\s+/).filter((w) => w.length > 2);
+  const first = words[0]?.[0] ?? "";
+  const last = words.length > 1 ? (words[words.length - 1]?.[0] ?? "") : "";
+  return (first + last).toLocaleUpperCase("pt-BR");
 }

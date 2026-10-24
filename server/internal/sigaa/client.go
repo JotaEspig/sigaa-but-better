@@ -49,6 +49,16 @@ type Client struct {
 	http    *http.Client
 	limiter Limiter
 	mu      sync.Mutex
+
+	// turma is the last turma virtual page this session landed on (guarded by
+	// mu), so the next menu entry of the same class is one click instead of
+	// portal + enter + click. Any other navigation clears it.
+	turma *turmaPage
+}
+
+type turmaPage struct {
+	id   string
+	page *Page
 }
 
 func NewClient(baseURL string, limiter Limiter) (*Client, error) {
@@ -134,6 +144,7 @@ func newPage(u *url.URL, html string) (*Page, error) {
 }
 
 func (c *Client) get(ctx context.Context, ref string) (*Page, error) {
+	c.turma = nil
 	resp, err := c.do(ctx, http.MethodGet, ref, nil)
 	if err != nil {
 		return nil, err
@@ -163,23 +174,24 @@ func (c *Client) clickPage(ctx context.Context, page *Page, l Link) (*Page, erro
 }
 
 // Login authenticates against SIGAA. The password is only used for this POST.
-func (c *Client) Login(ctx context.Context, username, password string) (SessionInfo, error) {
+// The portal it lands on is returned too, so the first dashboard load is free.
+func (c *Client) Login(ctx context.Context, username, password string) (SessionInfo, Dashboard, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
 	// The login page itself matches isExpiredURL, so the login flow uses raw requests.
 	resp, err := c.rawGet(ctx, loginPagePath)
 	if err != nil {
-		return SessionInfo{}, err
+		return SessionInfo{}, Dashboard{}, err
 	}
 	page, err := readPage(resp)
 	if err != nil {
-		return SessionInfo{}, err
+		return SessionInfo{}, Dashboard{}, err
 	}
 	form := page.Doc.Find(`form[name="loginForm"]`)
 	action, ok := form.Attr("action")
 	if !ok {
-		return SessionInfo{}, parseErr("login", "loginForm not found")
+		return SessionInfo{}, Dashboard{}, parseErr("login", "loginForm not found")
 	}
 	values := url.Values{}
 	form.Find(`input[type="hidden"]`).Each(func(_ int, in *goquery.Selection) {
@@ -194,28 +206,28 @@ func (c *Client) Login(ctx context.Context, username, password string) (SessionI
 
 	resp, err = c.rawPost(ctx, action, values)
 	if err != nil {
-		return SessionInfo{}, err
+		return SessionInfo{}, Dashboard{}, err
 	}
 	page, err = readPage(resp)
 	if err != nil {
-		return SessionInfo{}, err
+		return SessionInfo{}, Dashboard{}, err
 	}
 	if page.Doc.Find(`form[name="loginForm"]`).Length() > 0 {
-		return SessionInfo{}, ErrInvalidCredentials
+		return SessionInfo{}, Dashboard{}, ErrInvalidCredentials
 	}
 	if !strings.Contains(page.URL.Path, "/portais/discente/") {
 		// Intermediate screens (notices, vínculo choice) sometimes still allow
 		// going straight to the portal.
 		page, err = c.get(ctx, portalPath)
 		if err != nil || !strings.Contains(page.URL.Path, "/portais/discente/") {
-			return SessionInfo{}, ErrUnsupportedAccount
+			return SessionInfo{}, Dashboard{}, ErrUnsupportedAccount
 		}
 	}
 	d, err := ParsePortal(page.Doc)
 	if err != nil {
-		return SessionInfo{}, err
+		return SessionInfo{}, Dashboard{}, err
 	}
-	return SessionInfo{Name: d.Profile.Name, Matricula: d.Profile.Matricula}, nil
+	return SessionInfo{Name: d.Profile.Name, Matricula: d.Profile.Matricula}, d, nil
 }
 
 // rawGet/rawPost skip the expired-URL check; only the login flow uses them.

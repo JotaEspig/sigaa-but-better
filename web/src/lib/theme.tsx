@@ -96,7 +96,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     root.setAttribute("data-theme", resolved);
     if (palette) root.setAttribute("data-palette", palette.id);
     else root.removeAttribute("data-palette");
-    const color = palette ? getComputedStyle(root).getPropertyValue("--bar").trim() : resolved === "dark" ? "#0b0b0d" : "#2f9e41";
+    const color = palette ? getComputedStyle(root).getPropertyValue("--bar").trim() : resolved === "dark" ? "#0b0b0c" : "#f5f5f4";
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", color);
   }, [resolved, palette]);
 

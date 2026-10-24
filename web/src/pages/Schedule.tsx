@@ -15,7 +15,7 @@ function BlockChip({ block, showLocation = true }: { block: ScheduledBlock; show
     <Link
       to={`/turmas/${block.cls.id}`}
       style={classColorVars(block.cls.name)}
-      className="class-chip block rounded-xl px-3 py-2.5 transition-transform hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
+      className="class-fill block rounded-md px-2.5 py-2 transition-[filter] hover:brightness-[0.97]"
     >
       <p className="line-clamp-2 text-[0.8rem] leading-snug font-semibold">{prettyClassName(block.cls.name)}</p>
       <p className="mt-1 flex items-center gap-1 text-[0.7rem] opacity-80 tabular">
@@ -38,31 +38,27 @@ function WeekGrid({ classes }: { classes: ClassSummary[] }) {
   const days = DAYS.filter((d) => d.code !== 7 || classes.some((c) => c.slots.some((s) => s.day === 7)));
 
   return (
-    <div className="card hidden overflow-hidden md:block">
-      <div className="grid" style={{ gridTemplateColumns: `6.5rem repeat(${days.length}, minmax(0, 1fr))` }}>
-        <div className="border-b border-line bg-surface-2/60" />
+    <div className="card hidden p-1.5 md:block">
+      <div className="grid gap-1.5" style={{ gridTemplateColumns: `6.5rem repeat(${days.length}, minmax(0, 1fr))` }}>
+        <div />
         {days.map((d) => (
-          <div
-            key={d.code}
-            className={clsx(
-              "border-b border-l border-line bg-surface-2/60 px-3 py-3 text-center text-sm font-semibold",
-              d.code === today && "text-brand-strong",
-            )}
-          >
-            {d.long}
-            {d.code === today && <span className="ml-1.5 rounded-full bg-brand-soft px-1.5 py-0.5 text-[0.65rem] font-bold">hoje</span>}
+          <div key={d.code} className="px-1.5 py-1.5 text-sm">
+            <span className={clsx("inline-flex h-7 items-center rounded-md px-2", d.code === today ? "bg-fg font-semibold text-surface" : "font-medium text-muted")}>
+              {d.long}
+              {d.code === today && <span className="sr-only"> (hoje)</span>}
+            </span>
           </div>
         ))}
-        {usedShifts.map((s, si) => (
+        {usedShifts.map((s) => (
           <div key={s.key} className="contents">
-            <div className={clsx("px-3 py-4", si > 0 && "border-t border-line")}>
+            <div className="px-3 py-3">
               <p className="text-sm font-semibold">{s.label}</p>
-              <p className="text-[0.7rem] text-muted tabular">a partir de {APPROX_START_TIMES[s.key][0]}</p>
+              <p className="text-[0.7rem] text-subtle tabular">a partir de {APPROX_START_TIMES[s.key][0]}</p>
             </div>
             {days.map((d) => {
               const blocks = blocksForDay(classes, d.code).filter((b) => b.shift === s.key);
               return (
-                <div key={d.code} className={clsx("min-h-24 space-y-2 border-l border-line p-2", si > 0 && "border-t", d.code === today && "bg-brand-soft/25")}>
+                <div key={d.code} className="min-h-24 space-y-1.5 rounded-md bg-surface-2 p-1">
                   {blocks.map((b) => (
                     <BlockChip key={b.cls.id} block={b} />
                   ))}
@@ -82,7 +78,7 @@ function DayList({ classes }: { classes: ClassSummary[] }) {
   const blocks = blocksForDay(classes, day);
   return (
     <div className="md:hidden">
-      <div role="tablist" aria-label="Dia da semana" className="mb-4 grid grid-cols-6 gap-1 rounded-2xl border border-line bg-surface p-1">
+      <div role="tablist" aria-label="Dia da semana" className="mb-4 grid grid-cols-6 gap-1 rounded-[0.625rem] bg-surface-2 p-1">
         {DAYS.map((d) => {
           const has = blocksForDay(classes, d.code).length > 0;
           return (
@@ -92,12 +88,12 @@ function DayList({ classes }: { classes: ClassSummary[] }) {
               aria-selected={day === d.code}
               onClick={() => setDay(d.code)}
               className={clsx(
-                "relative flex flex-col items-center rounded-xl py-2 text-xs font-semibold transition-colors",
-                day === d.code ? "bg-brand text-brand-fg" : "text-muted hover:bg-surface-2",
+                "relative flex flex-col items-center rounded-lg py-2 text-xs font-semibold transition-colors",
+                day === d.code ? "bg-surface text-fg shadow-soft" : "text-muted hover:text-fg",
               )}
             >
               {d.short}
-              <span className={clsx("mt-1 size-1 rounded-full", has ? (day === d.code ? "bg-brand-fg" : "bg-brand") : "bg-transparent")} />
+              <span className={clsx("mt-1 size-1 rounded-full", has ? "bg-brand" : "bg-transparent")} />
               {d.code === todayCode && <span className="sr-only">(hoje)</span>}
             </button>
           );
@@ -146,8 +142,8 @@ export default function SchedulePage() {
 
           <section className="mt-6 grid gap-3 sm:grid-cols-2">
             {classes.map((c) => (
-              <Link key={c.id} to={`/turmas/${c.id}`} className="card flex items-center gap-3 p-4 hover:border-line-strong" style={classColorVars(c.name)}>
-                <span className="class-chip shrink-0 rounded-lg px-2 py-1 font-mono text-xs font-bold">{c.schedule}</span>
+              <Link key={c.id} to={`/turmas/${c.id}`} className="card flex items-center gap-3 p-4 transition-colors hover:bg-surface-2" style={classColorVars(c.name)}>
+                <span className="class-tile shrink-0 rounded-md px-2 py-1 font-mono text-xs font-bold">{c.schedule}</span>
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold">{prettyClassName(c.name)}</p>
                   <p className="truncate text-xs text-muted">

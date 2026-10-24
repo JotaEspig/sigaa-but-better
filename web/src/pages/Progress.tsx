@@ -91,7 +91,7 @@ export default function ProgressPage() {
         </h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {[...highlight, ...rest].map((i) => (
-            <div key={i.code} className={highlight.includes(i) ? "card border-brand/40 bg-brand-soft/40 p-4" : "card p-4"} title={i.description}>
+            <div key={i.code} className={highlight.includes(i) ? "card bg-brand-soft! p-4" : "card p-4"} title={i.description}>
               <p className="flex items-center gap-1 text-xs font-semibold text-muted">
                 {i.code}
                 <Info className="size-3 text-subtle" aria-hidden />
