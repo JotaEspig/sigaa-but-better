@@ -88,6 +88,8 @@ func parseTopic(t *goquery.Selection) Topic {
 	return topic
 }
 
+var fileHashRe = regexp.MustCompile(`^[0-9A-Fa-f]{40}$`)
+
 func parseMaterial(item *goquery.Selection) (Material, bool) {
 	a := item.Find("a").First()
 	title := clean(a.Text())
@@ -100,7 +102,10 @@ func parseMaterial(item *goquery.Selection) (Material, bool) {
 				return Material{Kind: "task", Title: title}, true
 			}
 		}
-		if id := l.Param("id"); id != "" {
+		// Files carry a 40-char hash id. Other JSF items (polls, forums,
+		// questionnaires) carry numeric ids and are not downloadable: skip them
+		// rather than show a link that 404s.
+		if id := l.Param("id"); fileHashRe.MatchString(id) {
 			return Material{Kind: "file", Title: title, ID: id}, true
 		}
 		return Material{}, false
