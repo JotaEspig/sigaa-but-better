@@ -1,16 +1,17 @@
 import clsx from "clsx";
-import { AlertTriangle, ChevronRight, Inbox, LoaderCircle, RefreshCw } from "lucide-react";
+import { AlertTriangle, Inbox, LoaderCircle, RefreshCw } from "lucide-react";
 import { Link } from "react-router";
 import { forwardRef, type ButtonHTMLAttributes, type ComponentType, type ReactNode } from "react";
 import { isApiError } from "../api/client";
 import { relativeTime } from "../lib/format";
 import type { Tone } from "../lib/colors";
+import { TopBarActions, TopBarTitle } from "./topbar";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand text-brand-fg hover:bg-brand-strong shadow-soft",
-  secondary: "bg-surface text-fg border border-line hover:bg-surface-2 shadow-soft",
+  primary: "bg-brand text-brand-fg hover:bg-brand-strong",
+  secondary: "bg-surface-2 text-fg hover:bg-surface-3",
   ghost: "text-muted hover:text-fg hover:bg-surface-2",
   danger: "bg-danger text-white hover:opacity-90",
 };
@@ -23,7 +24,7 @@ export const Button = forwardRef<
     <button
       ref={ref}
       className={clsx(
-        "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60",
+        "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60",
         size === "sm" && "h-8 px-3 text-sm",
         size === "md" && "h-10 px-4 text-sm",
         size === "lg" && "h-12 px-5 text-base",
@@ -55,15 +56,11 @@ export function CardHeader({
   subtitle?: ReactNode;
 }) {
   return (
-    <header className="flex items-start justify-between gap-3 px-5 pt-5 pb-3">
-      <div className="flex min-w-0 items-center gap-2.5">
-        {Icon && (
-          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand-strong">
-            <Icon className="size-4" />
-          </span>
-        )}
+    <header className="flex items-start justify-between gap-3 px-4 pt-4 pb-2">
+      <div className="flex min-w-0 items-center gap-2">
+        {Icon && <Icon className="size-4 shrink-0 text-subtle" />}
         <div className="min-w-0">
-          <h2 className="truncate text-[0.95rem] font-semibold tracking-tight">{title}</h2>
+          <h2 className="truncate text-sm font-semibold">{title}</h2>
           {subtitle && <p className="truncate text-xs text-muted">{subtitle}</p>}
         </div>
       </div>
@@ -143,7 +140,7 @@ export function EmptyState({
 }) {
   return (
     <div className={clsx("flex flex-col items-center gap-2 px-6 py-10 text-center", className)}>
-      <span className="grid size-12 place-items-center rounded-2xl bg-surface-2 text-subtle">
+      <span className="grid size-12 place-items-center rounded-xl bg-surface text-subtle">
         <Icon className="size-6" />
       </span>
       <p className="font-medium">{title}</p>
@@ -155,13 +152,13 @@ export function EmptyState({
 /** "Atualizado há 3 min · ↻" — the refresh bypasses the BFF cache. */
 export function Freshness({ fetchedAt, onRefresh, refreshing }: { fetchedAt?: string; onRefresh: () => void; refreshing?: boolean }) {
   return (
-    <div className="flex items-center gap-1.5 text-xs text-muted">
+    <div className="flex items-center gap-2.5 text-xs text-subtle">
       {fetchedAt && <span className="hidden sm:inline">Atualizado {relativeTime(fetchedAt)}</span>}
       <button
         type="button"
         onClick={onRefresh}
         disabled={refreshing}
-        className="grid size-8 place-items-center rounded-lg hover:bg-surface-2 hover:text-fg disabled:opacity-60"
+        className="grid size-8.5 place-items-center rounded-lg border border-line bg-surface text-muted transition-colors hover:text-fg disabled:opacity-60"
         aria-label="Atualizar dados do SIGAA"
         title={fetchedAt ? `Atualizado ${relativeTime(fetchedAt)}. Clique para buscar de novo no SIGAA.` : "Atualizar"}
       >
@@ -176,40 +173,52 @@ export interface Crumb {
   to?: string;
 }
 
-/** SIGAA-style trail: "Portal do Discente › Ensino › Minhas notas". */
+/** SIGAA-style trail as the page title: "Turmas virtuais / Compiladores", the last item in full ink. */
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
-    <nav aria-label="Você está em" className="mb-2 text-xs text-muted">
-      <ol className="flex flex-wrap items-center gap-1">
-        {items.map((c, i) => (
-          <li key={i} className="flex items-center gap-1">
-            {i > 0 && <ChevronRight className="size-3 text-subtle" aria-hidden />}
-            {c.to && i < items.length - 1 ? (
-              <Link to={c.to} className="hover:text-brand-strong hover:underline">
-                {c.label}
-              </Link>
-            ) : (
-              <span aria-current={i === items.length - 1 ? "page" : undefined} className={i === items.length - 1 ? "font-medium text-fg" : undefined}>
-                {c.label}
-              </span>
-            )}
-          </li>
-        ))}
+    <nav aria-label="Você está em" className="min-w-0 text-xl font-semibold tracking-[-0.025em] sm:text-[1.375rem]">
+      <ol className="flex min-w-0 items-center gap-2">
+        {items.map((c, i) => {
+          const last = i === items.length - 1;
+          return (
+            <li key={i} className={clsx("flex min-w-0 items-center gap-1.5", !last && "hidden sm:flex")}>
+              {i > 0 && (
+                <span aria-hidden className="font-normal text-line-strong">
+                  /
+                </span>
+              )}
+              {c.to && !last ? (
+                <Link to={c.to} className="truncate text-subtle transition-colors hover:text-fg">
+                  {c.label}
+                </Link>
+              ) : (
+                <span aria-current={last ? "page" : undefined} className={clsx("truncate", last ? "text-fg" : "text-subtle")}>
+                  {c.label}
+                </span>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );
 }
 
-export function PageHeader({ title, subtitle, actions, crumbs }: { title: ReactNode; subtitle?: ReactNode; actions?: ReactNode; crumbs?: Crumb[] }) {
+/**
+ * Page title and actions go to the page header owned by Layout (see topbar.tsx);
+ * only the optional subtitle stays in the page body. `crumbs` are the trail before the title.
+ */
+export function PageHeader({ title, subtitle, actions, crumbs }: { title: string; subtitle?: ReactNode; actions?: ReactNode; crumbs?: Crumb[] }) {
+  const trail = (crumbs ?? []).filter((c) => c.label !== title && c.to !== "/");
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-      <div className="min-w-0">
-        {crumbs && <Breadcrumbs items={crumbs} />}
-        <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-        {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
-      </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
-    </div>
+    <>
+      <TopBarTitle>
+        <h1 className="sr-only">{title}</h1>
+        <Breadcrumbs items={[...trail, { label: title }]} />
+      </TopBarTitle>
+      {actions && <TopBarActions>{actions}</TopBarActions>}
+      {subtitle && <p className="-mt-2 mb-5 text-sm text-muted">{subtitle}</p>}
+    </>
   );
 }
 
@@ -221,7 +230,7 @@ export function ProgressRing({ value, size = 120, stroke = 10, children, label }
   return (
     <div className="relative grid place-items-center" style={{ width: size, height: size }} role="img" aria-label={label}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--surface-3)" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="color-mix(in oklab, var(--fg) 8%, transparent)" strokeWidth={stroke} />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -244,7 +253,7 @@ export function ProgressBar({ value, tone = "brand", label, className }: { value
   const v = Math.max(0, Math.min(100, value));
   return (
     <div
-      className={clsx("h-2 w-full overflow-hidden rounded-full bg-surface-3", className)}
+      className={clsx("track h-1.5 w-full overflow-hidden rounded-full", className)}
       role="progressbar"
       aria-valuemin={0}
       aria-valuemax={100}

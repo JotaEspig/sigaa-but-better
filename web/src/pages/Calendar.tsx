@@ -25,7 +25,7 @@ function StatusBadge({ ev, status }: { ev: CalendarEvent; status: Status }) {
     past: ["neutral", "encerrado"],
     now: ["success", ev.start === ev.end ? "hoje" : `até ${formatShortDate(ev.end)}`],
     soon: ["warning", relativeDays(ev.start)],
-    future: ["info", relativeDays(ev.start)],
+    future: ["neutral", relativeDays(ev.start)],
   };
   const [tone, label] = map[status];
   return <Badge tone={tone}>{label}</Badge>;

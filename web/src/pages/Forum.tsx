@@ -89,7 +89,7 @@ function Thread({ id }: { id: string }) {
   const t = q.data.data;
   return (
     <div className="animate-in">
-      <PageHeader title={t.title} crumbs={[...crumbs, { label: "Tópico" }]} actions={<Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />} />
+      <PageHeader title={t.title} crumbs={crumbs} actions={<Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />} />
       <ReadOnlyNote />
       <ol className="space-y-4">
         {t.posts.map((p, i) => (

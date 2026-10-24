@@ -204,6 +204,14 @@ type Evaluation struct {
 	Description string `json:"description"`
 }
 
+// ClassStatus is what the dashboard needs per class (absences, grades so far,
+// upcoming assessments), read in a single turma virtual visit.
+type ClassStatus struct {
+	Attendance  Attendance   `json:"attendance"`
+	Grades      ClassGrades  `json:"grades"`
+	Evaluations []Evaluation `json:"evaluations"`
+}
+
 // PastClass is one row of "Ver turmas anteriores" (every turma virtual the
 // student ever had, current semester included).
 type PastClass struct {

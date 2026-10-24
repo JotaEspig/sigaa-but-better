@@ -44,6 +44,9 @@ Detalhes e seletores em [`docs/SIGAA.md`](docs/SIGAA.md). Resumo:
    atual" da sessão SIGAA, e downloads ou subpáginas só funcionam para a turma atual.
    Por isso **cada sessão tem um mutex**: uma operação (entrar na turma → clicar →
    parsear) roda inteira sem intercalar com outra do mesmo usuário.
+   O cliente lembra a última página de turma visitada: o próximo item de menu da
+   mesma turma é um clique só a partir dela (em vez de portal + entrar + clicar). Se
+   essa página estiver velha (o clique não cai na mesma turma), recomeça pelo portal.
 5. **Sessão expirada** → `302 /sigaa/expirada.jsp`. O cliente não segue esse redirect: detecta pelo `Location` e devolve `ErrSessionExpired`.
 
 ## Guard somente leitura
@@ -99,6 +102,8 @@ de layout do SIGAA é corrigida com uma nova fixture e um teste.
 - Cache por sessão com TTL (painel 2 min, notas 5 min, turma 5 min, frequência 10 min…).
   `?refresh=1` ignora o cache e continua sujeito ao rate limit.
 - Timeout de 20 s por requisição ao SIGAA.
+- O login já cai no portal: essa página vira o cache inicial de `/api/dashboard`,
+  então a primeira tela não faz outra requisição.
 
 ## API REST
 
@@ -121,6 +126,7 @@ Erros vêm como `{ "error": { "code": "…", "message": "…" } }`.
 | GET | `/api/classes/{id}/news` | `NewsItem[]` | 5 min |
 | GET | `/api/classes/{id}/news/{newsId}` | `NewsItem` (com `html`) | 30 min |
 | GET | `/api/classes/{id}/evaluations` | `Evaluation[]` | 10 min |
+| GET | `/api/classes/{id}/status` | `ClassStatus` (frequência + notas + avaliações numa visita só; usado no portal) | 10 min |
 | GET | `/api/classes/{id}/plan` | `TeachingPlan` (plano de ensino) | 30 min |
 | GET | `/api/classes/{id}/participants` | `Participants` (colegas só com nome) | 30 min |
 | GET | `/api/classes/{id}/references` | `ClassReference[]` | 30 min |

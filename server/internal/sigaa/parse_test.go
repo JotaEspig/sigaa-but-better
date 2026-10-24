@@ -281,3 +281,21 @@ func TestSanitizeStripsScripts(t *testing.T) {
 		}
 	}
 }
+
+func TestParseMaterialSkipsPolls(t *testing.T) {
+	link := func(elem, id, title string) *goquery.Selection {
+		html := `<div class="item"><a href="#" onclick="var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formAva'),{'formAva:x:listaMateriais:0:` +
+			elem + `':'formAva:x:listaMateriais:0:` + elem + `','id':'` + id + `'},'');}return false};return b();">` + title + `</a></div>`
+		doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
+		if err != nil {
+			t.Fatal(err)
+		}
+		return doc.Find(".item")
+	}
+	if m, ok := parseMaterial(link("j_id_jsp_1_386", "D7CC7FAF766DB59B2D63AF1FD3DDEFB8CD4B0E26", "Slides")); !ok || m.Kind != "file" {
+		t.Errorf("file = %+v %v", m, ok)
+	}
+	if m, ok := parseMaterial(link("idMostrarEnquete", "35811658", "Data da prova (AV2)")); ok {
+		t.Errorf("poll should be skipped, got %+v", m)
+	}
+}

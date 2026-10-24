@@ -3,7 +3,7 @@ import { ArrowRight, BookOpen, ChevronRight, Clock, History, MapPin } from "luci
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useDashboard, usePastClasses } from "../api/hooks";
-import { prettyClassName } from "../components/ClassBits";
+import { ClassDot, prettyClassName } from "../components/ClassBits";
 import { EmptyState, ErrorState, Freshness, PageHeader, SkeletonCard } from "../components/ui";
 import { classColorVars } from "../lib/colors";
 import { formatDate } from "../lib/format";
@@ -51,10 +51,10 @@ function ClassTabs() {
 export function PastClassesPage() {
   const q = usePastClasses();
   const [filter, setFilter] = useState("");
-  const crumbs = [{ label: "Portal do Discente", to: "/" }, { label: "Turmas virtuais", to: "/turmas" }, { label: "Anteriores" }];
+  const crumbs = [{ label: "Portal do Discente", to: "/" }, { label: "Turmas virtuais", to: "/turmas" }];
   const header = (
     <PageHeader
-      title="Turmas virtuais"
+      title="Turmas anteriores"
       subtitle="Todas as turmas que você já cursou"
       crumbs={crumbs}
       actions={q.data && <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />}
@@ -156,19 +156,21 @@ export default function ClassesPage() {
               key={c.id}
               to={`/turmas/${c.id}`}
               style={classColorVars(c.name)}
-              className="card group relative overflow-hidden p-5 transition-all hover:-translate-y-0.5 hover:shadow-card"
+              className="card group p-5 transition-colors hover:bg-surface-2"
             >
-              <span aria-hidden className="class-bar absolute inset-y-0 left-0 w-1.5" />
               <div className="flex items-start justify-between gap-3">
-                <h2 className="text-lg leading-snug font-semibold tracking-tight group-hover:text-brand-strong">{prettyClassName(c.name)}</h2>
-                <ArrowRight className="mt-1 size-5 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5 group-hover:text-brand-strong" />
+                <div className="flex min-w-0 items-center gap-3">
+                  <ClassDot name={c.name} className="size-2.5!" />
+                  <h2 className="text-base leading-snug font-semibold tracking-tight">{prettyClassName(c.name)}</h2>
+                </div>
+                <ArrowRight className="mt-1 size-5 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5 group-hover:text-fg" />
               </div>
               <dl className="mt-4 space-y-1.5 text-sm text-muted">
                 <div className="flex items-center gap-2">
                   <Clock className="size-4 shrink-0" />
                   <dt className="sr-only">Horário</dt>
                   <dd>
-                    {describeSchedule(c)} <span className="class-chip ml-1 rounded px-1.5 py-0.5 font-mono text-[0.7rem] font-bold">{c.schedule}</span>
+                    {describeSchedule(c)} <span className="class-tile ml-1 rounded px-1.5 py-0.5 font-mono text-[0.7rem] font-bold">{c.schedule}</span>
                   </dd>
                 </div>
                 {c.location && (

@@ -223,6 +223,13 @@ export interface Evaluation {
   description: string;
 }
 
+/** Per-class bundle for the dashboard, read in one turma visit. */
+export interface ClassStatus {
+  attendance: Attendance;
+  grades: ClassGrades;
+  evaluations: Evaluation[];
+}
+
 /** One row of "Ver turmas anteriores" (every turma virtual, current semester included). */
 export interface PastClass {
   id: string;
