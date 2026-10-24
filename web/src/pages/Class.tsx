@@ -677,10 +677,10 @@ function PlanPanel({ id }: { id: string }) {
         return (
           <div className="space-y-5">
             {p.officeHours && (
-              <section className="flex items-center gap-3 rounded-2xl border border-brand/30 bg-brand-soft/50 p-4">
-                <Clock className="size-5 shrink-0 text-brand-strong" />
+              <section className="flex items-center gap-3 card p-4">
+                <Clock className="size-5 shrink-0 text-subtle" />
                 <p className="text-sm">
-                  <span className="block text-xs font-semibold text-brand-strong">Horário de atendimento</span>
+                  <span className="block text-xs text-muted">Horário de atendimento</span>
                   {p.officeHours}
                 </p>
               </section>
@@ -801,7 +801,7 @@ function ReferencesPanel({ id }: { id: string }) {
           <ul className="card divide-y divide-line">
             {refs.map((r, i) => (
               <li key={i} className="flex items-start gap-3 px-5 py-3.5">
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-info-soft text-info">
+                <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-surface-2 text-muted ring-1 ring-line-soft">
                   <BookMarked className="size-5" />
                 </span>
                 <div className="min-w-0 flex-1 text-sm">

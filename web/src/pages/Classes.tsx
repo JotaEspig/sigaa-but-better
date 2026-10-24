@@ -51,10 +51,10 @@ function ClassTabs() {
 export function PastClassesPage() {
   const q = usePastClasses();
   const [filter, setFilter] = useState("");
-  const crumbs = [{ label: "Portal do Discente", to: "/" }, { label: "Turmas virtuais", to: "/turmas" }, { label: "Anteriores" }];
+  const crumbs = [{ label: "Portal do Discente", to: "/" }, { label: "Turmas virtuais", to: "/turmas" }];
   const header = (
     <PageHeader
-      title="Turmas virtuais"
+      title="Turmas anteriores"
       subtitle="Todas as turmas que você já cursou"
       crumbs={crumbs}
       actions={q.data && <Freshness fetchedAt={q.data.fetchedAt} onRefresh={q.refresh} refreshing={q.refreshing} />}
