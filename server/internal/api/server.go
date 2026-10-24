@@ -93,6 +93,9 @@ func (s *Server) Handler() http.Handler {
 		return c.ClassEvaluations(ctx, r.PathValue("id"))
 	}))
 
+	mux.HandleFunc("GET /api/classes/{id}/status", cached(s, 10*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.ClassStatus, error) {
+		return c.ClassStatus(ctx, r.PathValue("id"))
+	}))
 	mux.HandleFunc("GET /api/classes/{id}/plan", cached(s, 30*time.Minute, func(ctx context.Context, r *http.Request, c *sigaa.Client) (sigaa.TeachingPlan, error) {
 		return c.ClassPlan(ctx, r.PathValue("id"))
 	}))

@@ -121,6 +121,7 @@ Erros vêm como `{ "error": { "code": "…", "message": "…" } }`.
 | GET | `/api/classes/{id}/news` | `NewsItem[]` | 5 min |
 | GET | `/api/classes/{id}/news/{newsId}` | `NewsItem` (com `html`) | 30 min |
 | GET | `/api/classes/{id}/evaluations` | `Evaluation[]` | 10 min |
+| GET | `/api/classes/{id}/status` | `ClassStatus` (frequência + notas + avaliações numa visita só; usado no portal) | 10 min |
 | GET | `/api/classes/{id}/plan` | `TeachingPlan` (plano de ensino) | 30 min |
 | GET | `/api/classes/{id}/participants` | `Participants` (colegas só com nome) | 30 min |
 | GET | `/api/classes/{id}/references` | `ClassReference[]` | 30 min |

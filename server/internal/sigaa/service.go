@@ -112,6 +112,49 @@ func (c *Client) ClassEvaluations(ctx context.Context, id string) ([]Evaluation,
 	return ClassPage(ctx, c, id, "Avaliações", ParseEvaluations)
 }
 
+// ClassStatus reads Frequência, Avaliações and Ver Notas in one visit: enter
+// the turma once and walk its side menu, instead of three separate visits that
+// each reload the portal and re-enter the class. Ver Notas goes last because
+// its page has no side menu.
+func (c *Client) ClassStatus(ctx context.Context, classID string) (ClassStatus, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	var out ClassStatus
+	page, err := c.enterClass(ctx, classID)
+	if err != nil {
+		return out, err
+	}
+	if page, err = c.nextClassMenu(ctx, classID, page, "Frequência"); err != nil {
+		return out, err
+	}
+	if out.Attendance, err = ParseAttendance(page.Doc); err != nil {
+		return out, err
+	}
+	if page, err = c.nextClassMenu(ctx, classID, page, "Avaliações"); err != nil {
+		return out, err
+	}
+	if out.Evaluations, err = ParseEvaluations(page.Doc); err != nil {
+		return out, err
+	}
+	if page, err = c.nextClassMenu(ctx, classID, page, "Ver Notas"); err != nil {
+		return out, err
+	}
+	out.Grades, err = ParseClassGrades(page.Doc)
+	return out, err
+}
+
+// nextClassMenu clicks a side-menu entry from the current turma page, and
+// re-enters the class first if this page has no menu.
+func (c *Client) nextClassMenu(ctx context.Context, classID string, page *Page, label string) (*Page, error) {
+	if _, ok := page.FindLinkByText(classMenuForm, label); !ok {
+		var err error
+		if page, err = c.enterClass(ctx, classID); err != nil {
+			return nil, err
+		}
+	}
+	return c.clickClassMenu(ctx, page, label)
+}
+
 func (c *Client) ClassPlan(ctx context.Context, id string) (TeachingPlan, error) {
 	return ClassPage(ctx, c, id, "Plano de Ensino", ParseTeachingPlan)
 }

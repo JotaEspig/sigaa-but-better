@@ -98,6 +98,10 @@ func (f *fakeSIGAA) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			f.page(w, "turma_participantes.html")
 		case form.Get("formMenu") != "" && hasKeySuffix(form, "1236623656_126"):
 			f.page(w, "turma_referencias.html")
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "_131"):
+			f.page(w, "turma_avaliacoes.html")
+		case form.Get("formMenu") != "" && hasKeySuffix(form, "_102"):
+			f.page(w, "turma_notas.html")
 		default:
 			f.t.Errorf("unexpected POST %s %v", r.URL.Path, form)
 			http.Error(w, "unexpected", http.StatusBadRequest)
@@ -199,6 +203,19 @@ func TestLoginAndReadFlow(t *testing.T) {
 	}
 	if code, body = h.do("GET", "/api/classes/"+compiladores+"/attendance", ""); code != 200 || body["data"].(map[string]any)["maxAbsences"].(float64) != 18 {
 		t.Fatalf("attendance = %d %v", code, body)
+	}
+	posts = h.sigaa.posts.Load()
+	code, body = h.do("GET", "/api/classes/"+compiladores+"/status", "")
+	if code != 200 {
+		t.Fatalf("status = %d %v", code, body)
+	}
+	st := body["data"].(map[string]any)
+	if st["attendance"].(map[string]any)["maxAbsences"].(float64) != 18 || len(st["evaluations"].([]any)) == 0 || st["grades"].(map[string]any)["published"] != true {
+		t.Fatalf("status = %v", st)
+	}
+	// One entry into the turma plus three menu clicks, not three full visits.
+	if n := h.sigaa.posts.Load() - posts; n != 4 {
+		t.Errorf("status used %d POSTs, want 4", n)
 	}
 	if code, body = h.do("GET", "/api/classes/NOT-A-CLASS/attendance", ""); code != 404 {
 		t.Fatalf("bad class id = %d %v", code, body)
